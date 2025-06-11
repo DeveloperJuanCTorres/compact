@@ -1,7 +1,7 @@
 <!-- Topbar Start -->
 <div class="container-fluid bg-azul">
     <div class="row align-items-center py-3 px-xl-5 d-none d-lg-flex">        
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="row">
                 <p class="mb-0 mr-3 text-white"><i class="fa fa-phone-alt text-primary mr-2"></i>{{$business->phone}}</p>
                 <p class="mb-2 text-white"><i class="fa fa-envelope text-primary mr-2"></i>{{$business->email}}</p>            
@@ -11,7 +11,7 @@
                 <img height="50" src="{{asset("storage/$business->image")}}" alt="">
             </a>
         </div>
-        <div class="col-lg-6 col-6 text-left">
+        <div class="col-lg-5 col-6 text-left">
             <form action="">
                 <div class="input-group" style="position: relative;">
                     <input type="text" id="buscar" class="form-control" style="border-radius: 5px 0 0 5px;" placeholder="Encuentra tus productos">
