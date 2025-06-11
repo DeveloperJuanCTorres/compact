@@ -39,7 +39,11 @@
              <div class="navbar-nav ml-auto py-0 d-lg-block">
                 <!-- <a href=""> -->
                     <i class="fas fa-user text-white mr-2"></i>
+                    @auth
                     <span class="text-white">{{auth::user()->name}}</span>
+                    @else
+                    <a href="login">Iniciar sesión</a>
+                    @endauth
                     
                 <!-- </a> -->
                 <a href="/cart" class="btn px-0 ml-3">
