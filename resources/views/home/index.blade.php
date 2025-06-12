@@ -5,7 +5,7 @@
 @include('general.topbar')
 
 <!-- Navbar Start -->
-<div class="container-fluid bg-dark">
+<div class="container-fluid bg-mobil">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn d-flex align-items-center justify-content-between bg-footer w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
@@ -22,7 +22,7 @@
             </nav>
         </div>
         <div class="col-lg-9">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+            <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                 </a>
@@ -57,12 +57,12 @@
                 <div class="carousel-inner">
                     @foreach($banners as $key => $banner)
                         @if($key == 1)
-                        <div class="carousel-item position-relative active" style="height: 430px;">
+                        <div class="carousel-item position-relative active" style="height: 480px;">
                             <img class="position-absolute w-100 h-100" src="storage/{{$banner->image}}" style="object-fit: cover;">
                             
                         </div>
                         @else
-                        <div class="carousel-item position-relative" style="height: 430px;">
+                        <div class="carousel-item position-relative" style="height: 480px;">
                             <img class="position-absolute w-100 h-100" src="storage/{{$banner->image}}" style="object-fit: cover;">
                             
                         </div>
@@ -247,7 +247,7 @@
     </div>
 
     <div >
-        <iframe class="d-block m-auto" style="border-radius: 10px;" width="650" height="400" src="https://www.youtube.com/embed/SBYgBVoaDto?si=OAxjoehHdpUkvarY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe class="d-block m-auto video" style="border-radius: 10px;" src="https://www.youtube.com/embed/SBYgBVoaDto?si=OAxjoehHdpUkvarY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="text-center pt-4">
         <a class="btn btn-primary" href="https://www.youtube.com/@compact.estudios" target="_blank">

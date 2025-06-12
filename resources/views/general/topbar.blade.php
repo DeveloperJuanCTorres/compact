@@ -40,7 +40,22 @@
                 <!-- <a href=""> -->
                     <i class="fas fa-user text-white mr-2"></i>
                     @auth
-                    <span class="text-white">{{auth::user()->name}}</span>
+                    <!-- <span class="text-white">{{auth::user()->name}}</span> -->
+                    <div class="dropdown" style="display: contents;">
+                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                            {{auth::user()->name}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Mis pedidos</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                     @else
                     <a href="login">Iniciar sesión</a>
                     @endauth
