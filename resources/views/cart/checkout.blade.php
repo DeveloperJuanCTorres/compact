@@ -5,7 +5,7 @@
 @include('general.topbar')
 
 <!-- Navbar Start -->
-<div class="container-fluid bg-dark">
+<div class="container-fluid bg-mobil">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn d-flex align-items-center justify-content-between bg-footer w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
@@ -22,7 +22,7 @@
             </nav>
         </div>
         <div class="col-lg-9">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+            <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                 </a>

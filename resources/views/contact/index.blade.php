@@ -5,7 +5,7 @@
 @include('general.topbar')
 
 <!-- Navbar Start -->
-<div class="container-fluid bg-dark">
+<div class="container-fluid bg-mobil">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn d-flex align-items-center justify-content-between bg-footer w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
@@ -22,7 +22,7 @@
             </nav>
         </div>
         <div class="col-lg-9">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+            <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
                 <a href="" class="text-decoration-none d-block d-lg-none">
                     <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                 </a>
@@ -62,7 +62,7 @@
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">Contáctanos</span></h2>
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
-            <div class="contact-form bg-light p-30">
+            <div class="contact-form bg-light">
                 <div id="success"></div>
                 <form name="sentMessage" id="contactForm" novalidate="novalidate">
                     <div class="control-group">

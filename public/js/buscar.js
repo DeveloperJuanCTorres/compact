@@ -15,7 +15,9 @@ $('#buscar').on('keyup', function () {
             
             if (data.length > 0) {
                 data.forEach(function (producto) {
-                    resultados.append('<a style="color:#474342 !important" href="/product/' + producto.slug + '"><li class="list-group-item d-flex"><img class="d-block m-auto px-2" width="70" src="img/defectomaster.jpeg">' + producto.name + '</li></a>');
+                    let imagenes = JSON.parse(producto.images);
+                    let primeraImagen = imagenes[0];
+                    resultados.append('<a style="color:#474342 !important" href="/product/' + producto.slug + '"><li class="list-group-item d-flex"><img class="d-block px-2" width="70" src="storage/' + primeraImagen + '"><span style="margin: auto 0;">' + producto.name + '</span></li></a>');
                 });
             } else {
                 resultados.append('<li class="list-group-item">No se encontraron productos.</li>');

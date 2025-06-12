@@ -20,7 +20,7 @@
                             <i class="fa fa-search"></i>
                         </span>
                     </div>
-                    <ul id="resultados" style="position: absolute; z-index:9;" class="list-group mt-5"></ul>
+                    <ul id="resultados" style="position: absolute; z-index:9;width: 350px;" class="list-group mt-5"></ul>
                 </div>
             </form>
         </div>
