@@ -7,7 +7,7 @@
       <div class="loginbackground box-background--white padding-top--64">
         <div class="loginbackground-gridContainer">
           <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
-            <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
+            <div class="box-root" style="flex-grow: 1;">
             </div>
           </div>
           <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
@@ -58,9 +58,6 @@
                 <div class="field padding-bottom--24">
                     <div class="grid--50-50">
                         <label for="password">Password</label>
-                        <div class="reset-pass">
-                        <a href="#">Forgot your password?</a>
-                        </div>
                     </div>
                     <input id="password" type="password" class="@error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
