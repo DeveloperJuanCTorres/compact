@@ -122,9 +122,11 @@
         <div class="col">
             <div class="owl-carousel vendor-carousel">
                 @foreach($brands as $key => $brand)
-                <div class="bg-light p-4">
-                    <img src="storage/{{$brand->image}}" alt="">
-                </div> 
+                    @if($brand->image)
+                    <div class="bg-light p-4">
+                        <img src="storage/{{$brand->image}}" alt="">
+                    </div>
+                    @endif 
                 @endforeach               
             </div>
         </div>
