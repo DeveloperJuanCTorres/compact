@@ -12,9 +12,9 @@
                 <div class="product-card">
                     <img src="storage/{{$category->image}}" class="product-image" alt="{{$category->name}}">
                     <h3 class="product-name">{{$category->name}}</h3>
-                    <span>{{$category->description}}</span>
+                    <span>{{$category->description}}</span><br>
                     
-                    <a class="btn btn-primary mt-4" href="{{ route('store', ['categories' => $category->id]) }}" title="productos">Ver productos</a>
+                    <a class="btn btn-primary mt-2" href="{{ route('store', ['categories' => $category->id]) }}" title="productos">Ver productos</a>
                 </div>
             <!-- </div> -->
             @endforeach

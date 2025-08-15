@@ -102,6 +102,7 @@ class HomeController extends Controller
 
         $relatedProducts = Product::where('taxonomy_id', $product->taxonomy_id)
                           ->where('id', '!=', $product->id)
+                          ->where('stock', '>', 0)
                           ->get();
 
         return view('tienda.product-detail', compact('product','categories','relatedProducts','business'));

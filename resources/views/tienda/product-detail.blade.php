@@ -243,7 +243,7 @@
                             $imagenes = json_decode($product->images)
                         @endphp
                         @if($imagenes)
-                        <img class="img-fluid w-100" src="{{asset('storage/$imagenes[0]')}}" alt="">
+                        <img class="img-fluid w-100" src="{{asset('storage/' . $imagenes[0])}}" alt="">
                         @else
                         <img class="img-fluid w-100" src="{{asset('img/defectomaster.jpeg')}}" alt="">
                         @endif
