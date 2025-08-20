@@ -1,5 +1,5 @@
 <!-- Topbar Start -->
-<div class="container-fluid bg-azul">
+<div class="container-fluid bg-footer">
     <div class="row align-items-center py-3 px-xl-5 d-none d-lg-flex">        
         <div class="col-lg-4">
             <div class="row">
