@@ -121,23 +121,29 @@
                     <label class="">{{$product->stock}} Unidades</label>
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-minus">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-plus">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                        <div class="col-md-6 col-12">
+                            <a href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
+                                <i class="fa fa-shopping-cart mr-1"></i> 
+                                Agregar al carrito
+                            </a>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
-                        <i class="fa fa-shopping-cart mr-1"></i> 
-                        Agregar al carrito
-                    </a>
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Share on:</strong>
