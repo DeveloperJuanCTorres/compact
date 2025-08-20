@@ -2,11 +2,11 @@
 <div class="container-fluid bg-footer">
     <div class="row align-items-center py-3 px-xl-5 d-none d-lg-flex">        
         <div class="col-lg-4">
-            <div class="row">
+            <!-- <div class="row">
                 <p class="mb-0 mr-3 text-white"><i class="fa fa-phone-alt text-primary mr-2"></i>{{$business->phone}}</p>
                 <p class="mb-2 text-white"><i class="fa fa-envelope text-primary mr-2"></i>{{$business->email}}</p>            
             </div>
-            <br>
+            <br> -->
             <a href="/" class="text-decoration-none">
                 <img height="50" src="{{asset("storage/$business->image")}}" alt="">
             </a>
@@ -25,7 +25,7 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <div class="row">
+            <!-- <div class="row">
                 
                 <div class="ml-auto py-0 d-lg-block">
                     <a class="mr-2 text-white">Siguenos en: </a>
@@ -34,7 +34,7 @@
                     <a class="mr-2" href="{{$business->link_instagram}}" target="_blank"><i class="fab fa-instagram text-white"></i></a>
                 </div>
             </div>
-            <br>
+            <br> -->
             <!-- <h5 class="m-0">{{$business->phone}}</h5> -->
              <div class="navbar-nav ml-auto py-0 d-lg-block">
                 <!-- <a href=""> -->
