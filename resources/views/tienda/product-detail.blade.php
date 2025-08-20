@@ -244,46 +244,48 @@
  
 <!-- Products Start -->
 <div class="container-fluid py-5">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">También te puede interesar</span></h2>
     <div class="row px-xl-5">
-        <div class="col">
-            <div class="owl-carousel related-carousel">
-                @foreach($relatedProducts as $product)
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        @php
-                            $imagenes = json_decode($product->images)
-                        @endphp
-                        @if($imagenes)
-                        <img class="img-fluid w-100" src="{{asset('storage/' . $imagenes[0])}}" alt="">
-                        @else
-                        <img class="img-fluid w-100" src="{{asset('img/defectomaster.jpeg')}}" alt="">
-                        @endif
-                        <div class="product-action">
-                            <!-- <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a> -->
-                            <!-- <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a> -->
-                            <input type="hidden" id="qty" value="1">
-                            <a class="btn btn-outline-dark addcart" href="#" data-id="{{$product->id}}">
-                                <i class="fa fa-shopping-cart"></i>
-                                Agregar al carrito
-                            </a>
-                            <a class="btn btn-outline-dark" href="{{route('product.detail', $product)}}">
-                                <i class="fa fa-search"></i>
-                            </a>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">También te puede interesar</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+                    @foreach($relatedProducts as $product)
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            @php
+                                $imagenes = json_decode($product->images)
+                            @endphp
+                            @if($imagenes)
+                            <img class="img-fluid w-100" src="{{asset('storage/' . $imagenes[0])}}" alt="">
+                            @else
+                            <img class="img-fluid w-100" src="{{asset('img/defectomaster.jpeg')}}" alt="">
+                            @endif
+                            <div class="product-action">
+                                <!-- <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a> -->
+                                <!-- <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a> -->
+                                <input type="hidden" id="qty" value="1">
+                                <a class="btn btn-outline-dark addcart" href="#" data-id="{{$product->id}}">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Agregar al carrito
+                                </a>
+                                <a class="btn btn-outline-dark" href="{{route('product.detail', $product)}}">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="">{{$product->name}}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5>S/. {{$product->price}}</h5><h6 class="text-muted ml-2"><del>S/. {{$product->price*1.20}}</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small>Stock ({{$product->stock}} {{$product->unidad_medida}})</small>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">{{$product->name}}</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>S/. {{$product->price}}</h5><h6 class="text-muted ml-2"><del>S/. {{$product->price*1.20}}</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small>Stock ({{$product->stock}} {{$product->unidad_medida}})</small>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </div>
     </div>
