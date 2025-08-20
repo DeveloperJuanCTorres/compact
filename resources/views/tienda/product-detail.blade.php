@@ -70,11 +70,11 @@
                         @foreach($imagenes as $key => $item)
                         @if($key == 1)
                         <div class="carousel-item active">
-                            <img style="width: 300px;height: 300px;" src="{{asset('storage/' . $item)}}" alt="Image">
+                            <img style="max-width: 500px;max-height: 500px;" src="{{asset('storage/' . $item)}}" alt="Image">
                         </div>
                         @else
                         <div class="carousel-item">
-                            <img style="width: 300px;height: 300px;" src="{{asset('storage/' . $item)}}" alt="Image">
+                            <img style="max-width: 500px;max-height: 500px;" src="{{asset('storage/' . $item)}}" alt="Image">
                         </div>
                         @endif
                         @endforeach
