@@ -244,7 +244,7 @@
  
 <!-- Products Start -->
 <div class="container-fluid py-5">
-    <div class="row px-xl-5">
+    <div class="row">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">También te puede interesar</span></h2>
         <div class="row px-xl-5">
             <div class="col">
