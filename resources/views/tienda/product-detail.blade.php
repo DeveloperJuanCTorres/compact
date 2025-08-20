@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-12 my-2">
-                            <a class="w-auto" href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
+                            <a href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
                                 <i class="fa fa-shopping-cart mr-1"></i> 
                                 Agregar al carrito
                             </a>
