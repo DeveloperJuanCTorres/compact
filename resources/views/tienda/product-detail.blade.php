@@ -122,7 +122,7 @@
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="row">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 my-2">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-primary btn-minus">
@@ -137,8 +137,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-12">
-                            <a href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
+                        <div class="col-md-6 col-12 my-2">
+                            <a class="w-auto" href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
                                 <i class="fa fa-shopping-cart mr-1"></i> 
                                 Agregar al carrito
                             </a>
