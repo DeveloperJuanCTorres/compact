@@ -8,7 +8,7 @@
     <div class="container-fluid bg-mobil">
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-footer w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
+                <a class="btn d-flex align-items-center justify-content-between bg-naranja w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
                     <h6 class="text-white m-0"><i class="fa fa-bars mr-2"></i>Categorías</h6>
                     <i class="fa fa-angle-down text-white"></i>
                 </a>
@@ -136,7 +136,7 @@
 <!-- Vendor End -->
 
 <!-- brochure Start -->
-<div class="container-fluid bg-footer text-secondary ">
+<div class="container-fluid bg-mobil text-secondary ">
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-2"></div>
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5 my-auto">
@@ -250,7 +250,7 @@
     </div>
 
     <div >
-        <iframe class="d-block m-auto video" style="border-radius: 10px;" src="https://www.youtube.com/embed/SBYgBVoaDto?si=OAxjoehHdpUkvarY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe class="d-block m-auto video" style="border-radius: 10px;" src="{{$video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="text-center pt-4">
         <a class="btn btn-primary" href="https://www.youtube.com/@compact.estudios" target="_blank">

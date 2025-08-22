@@ -627,7 +627,7 @@ pre code {
     height: 350px;
   }
   .bg-mobil {
-    background-color: #EF7822;
+    background-color: #041928;
   }
 }
 
@@ -6188,6 +6188,10 @@ button.bg-danger:focus {
   background-color: #FFFFFF !important;
 }
 
+.bg-naranja {
+  background-color: #EF7718 !important;
+}
+
 .bg-azul {
   background-color: #044969 !important;
 }
@@ -9540,14 +9544,15 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  padding: 10px 10px;
+  padding: 13px 10px;
   color: #F5F5F5;
   outline: none;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-  color: #111827  ;
+  color: #FFF;
+  background-color: #EF7718 !important;
 }
 
 @media (max-width: 991.98px) {

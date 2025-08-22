@@ -1,6 +1,6 @@
 <!-- Topbar Start -->
  <div class="sticky-top">
-    <div class="container-fluid bg-footer sticky-top">
+    <div class="container-fluid bg-mobil sticky-top">
         <div class="row align-items-center py-3 px-xl-5 d-none d-lg-flex">        
             <div class="col-lg-4">
                 <!-- <div class="row">

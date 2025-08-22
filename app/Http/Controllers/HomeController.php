@@ -35,11 +35,13 @@ class HomeController extends Controller
         })->take(8)->get();
 
         $brands = Brand::all();
+        $video = Field::value('video_educativo');
+
 
         $banners = Banner::all();
         $products = Product::where('stock', '>', 0)->take(8)->get();
 
-        return view('home.index', compact('business','categories','banners','products','brands'));
+        return view('home.index', compact('business','categories','banners','products','brands','video'));
     }
 
     public function checkout()
