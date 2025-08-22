@@ -66,9 +66,10 @@
                     @php
                         $imagenes = json_decode($product->images)
                     @endphp
+                    
                     @if($imagenes)
                         @foreach($imagenes as $key => $item)
-                        @if($key == 1)
+                        @if($key == 0)
                         <div class="carousel-item active">
                             <img style="max-width: 500px;max-height: 500px;" src="{{asset('storage/' . $item)}}" alt="Image">
                         </div>
@@ -116,10 +117,10 @@
                     <strong class="text-dark mr-3">Marca:</strong>
                     <label class="">{{$product->brand->name}}</label>
                 </div>
-                <div class="d-flex mb-4">
+                <!-- <div class="d-flex mb-4">
                     <strong class="text-dark mr-3">Stock:</strong>
                     <label class="">{{$product->stock}} Unidades</label>
-                </div>
+                </div> -->
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="row">
                         <div class="col-md-6 col-12 my-2">
