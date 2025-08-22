@@ -181,7 +181,9 @@
                     </div>
                     <div class="tab-pane fade" id="tab-pane-2">
                         <h4 class="mb-3">Información Adicional</h4>
-                        <p>{!! Str::markdown($product->information) !!}</p>                        
+                        @if($product->information)
+                        <p>{!! Str::markdown($product->information) !!}</p>    
+                        @endif                    
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
