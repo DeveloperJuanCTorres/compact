@@ -284,7 +284,7 @@
                                 <h5>S/. {{$product->price}}</h5><h6 class="text-muted ml-2"><del>S/. {{$product->price*1.20}}</del></h6>
                             </div>
                             <!-- <div class="d-flex align-items-center justify-content-center mb-1">
-                                <small>Stock ({{product->stock}} {{product->unidad_medida}})</small>
+                                <small>Stock (product->stock product->unidad_medida)</small>
                             </div> -->
                         </div>
                     </div>
