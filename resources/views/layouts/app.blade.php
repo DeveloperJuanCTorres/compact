@@ -25,7 +25,7 @@
 
     <!-- Libraries Stylesheet -->
      <?php
-        $version = '1993.2.1';
+        $version = '1993.2.2';
     ?>
 
     <link href="{{asset('lib/animate/animate.min.css')}}?v=<?php echo $version ?>" rel="stylesheet">
