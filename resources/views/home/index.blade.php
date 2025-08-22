@@ -58,13 +58,13 @@
                 <div class="carousel-inner">
                     @foreach($banners as $key => $banner)
                         @if($key == 1)
-                        <div class="carousel-item position-relative active" style="height: 560px;">
-                            <img class="position-absolute w-100 h-100" src="storage/{{$banner->image}}" style="object-fit: cover;">
+                        <div class="carousel-item position-relative active">
+                            <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
                             
                         </div>
                         @else
-                        <div class="carousel-item position-relative" style="height: 560px;">
-                            <img class="position-absolute w-100 h-100" src="storage/{{$banner->image}}" style="object-fit: cover;">
+                        <div class="carousel-item position-relative" style="height: 530px;">
+                            <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
                             
                         </div>
                         @endif
