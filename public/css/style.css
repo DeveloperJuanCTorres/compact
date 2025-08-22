@@ -9775,9 +9775,14 @@ a.text-dark:hover, a.text-dark:focus {
     color: #EF7822;
   }
 
-.navbar-fixed {
-    position: fixed;
-    top: 0;
+.carousel-item img {
     width: 100%;
-    z-index: 1030; /* para que quede sobre el contenido */
+    height: 100vh;
+    object-fit: contain;
+}
+
+@media (min-width: 1200px) {
+    .carousel-item img {
+        object-fit: cover; /* en pantallas grandes llena todo */
+    }
 }

@@ -63,7 +63,7 @@
                             
                         </div>
                         @else
-                        <div class="carousel-item position-relative" style="height: 530px;">
+                        <div class="carousel-item position-relative">
                             <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
                             
                         </div>
