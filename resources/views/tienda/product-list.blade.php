@@ -27,7 +27,7 @@
             <div class="d-flex  mb-1">
                 <small class="text-muted" style="font-size: 12px;">{{$product->taxonomy->name}}</small>
             </div>
-            <a class="h6 text-decoration-none text-truncate" href="{{route('product.detail', $product)}}">{{$product->name}}</a>
+            <a class="h6 text-decoration-none text-truncate" href="{{route('product.detail', $product)}}">{{ Str::limit($product->name, 30, '...') }}</a>
             <div class="d-flex mt-2">
                 <h5>S/. {{$product->price}}</h5><h6 class="text-muted ml-2"><del>S/. {{$product->price*1.20}}</del></h6>
             </div>  
