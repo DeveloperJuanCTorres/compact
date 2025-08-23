@@ -198,14 +198,17 @@
         @foreach($products as $product)
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4" style="border: 1px solid #ddd;border-radius: 10px;">
-                <div class="product-img position-relative overflow-hidden">
+                <div class="product-img position-relative overflow-hidden"
+                    style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden;">
                     @php
                         $imagenes = json_decode($product->images)
                     @endphp
                     @if($imagenes)
-                    <img class="img-fluid w-100" src="storage/{{$imagenes[0]}}" alt="">
+                    <img class="img-fluid w-100" src="storage/{{$imagenes[0]}}" alt=""
+                        style="width:100%; height:100%; object-fit:cover;">
                     @else
-                    <img class="img-fluid w-100" src="img/defectomaster.jpeg" alt="">
+                    <img class="img-fluid w-100" src="img/defectomaster.jpeg" alt=""
+                        style="width:100%; height:100%; object-fit:cover;">
                     @endif
                     <div class="product-action">
                         <input type="hidden" id="qty" value="1">
@@ -219,7 +222,7 @@
                     <div class="d-flex  mb-1">
                         <small class="text-muted" style="font-size: 12px;">{{$product->taxonomy->name}}</small>
                     </div>
-                    <a class="h6 text-decoration-none text-truncate" href="{{route('product.detail', $product)}}">{{$product->name}}</a>
+                    <a class="h6 text-decoration-none text-truncate" href="{{route('product.detail', $product)}}">{{ Str::limit($product->name, 30, '...') }}</a>
                     <div class="d-flex mt-2">
                         <h5>S/. {{$product->price}}</h5><h6 class="text-muted ml-2"><del>S/. {{$product->price*1.20}}</del></h6>
                     </div>  
@@ -246,7 +249,7 @@
 <div class="container-fluid pt-5">
     <div class="text-center pb-4 d-block m-auto" style="max-width: 500px;">
         <h3 class="">Videos Educativos</h3>
-        <span>Descubre consejos, tutoriales y mejores prácticas sobre seguridad industrial a través de nuestro contenido en YouTube</span>
+        <span>Descubre nuestras novedades y ofertas exclusivas a través de nuestro contenido en redes</span>
     </div>
 
     <div >

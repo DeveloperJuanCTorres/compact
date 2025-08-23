@@ -7,7 +7,23 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Compact Estudios') }}</title>
+    <title>{{ config('app.name', 'Compact Seguridad') }}</title>
+
+    <!-- Favicon básico -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <!-- Variantes para mejor compatibilidad -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo16x16.png') }}">
+
+    <!-- iOS / iPadOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo180x180.png') }}">
+
+    <!-- Android / Chrome -->
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+    <!-- Color de la barra en móviles -->
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

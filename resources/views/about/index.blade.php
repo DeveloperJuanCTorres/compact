@@ -8,7 +8,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn d-flex align-items-center justify-content-between bg-naranja w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
-                    <h6 class="text-white m-0">>Categorías</h6>
+                    <h6 class="text-white m-0">Categorías</h6>
                     <i class="fa fa-angle-down text-white"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
@@ -83,7 +83,7 @@
                     <div class="col-8 col-md-9">
                         <div class="d-flex flex-wrap">
                             <div id="phone-tada" class="d-flex align-items-center justify-content-center me-4">
-                                <a href="" class="position-relative wow tada" data-wow-delay=".9s">
+                                <a href="tel:{{$nosotros->telefono}}" class="position-relative wow tada" data-wow-delay=".9s">
                                     <i class="fa fa-phone-alt text-primary fa-3x"></i>
                                     <div class="position-absolute" style="top: 0; left: 25px;">
                                         <span><i class="fa fa-comment-dots text-secondary"></i></span>
@@ -92,8 +92,10 @@
                             </div>
                             <div class="d-flex flex-column justify-content-center">
                                 <span class="text-primary">¿Tienes alguna pregunta?</span>
-                                <span class="fw-bold fs-5" style="letter-spacing: 2px;color: #003A66;">{{$nosotros->telefono}}</span>
-                            </div>
+                                <a href="tel:{{$nosotros->telefono}}">
+                                    <span class="fw-bold fs-5 mx-4" style="letter-spacing: 2px;color: #003A66;">{{$nosotros->telefono}}</span>
+                                </a>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +109,7 @@
     <div class="container py-5">
         <div class="row g-4 justify-content-center text-center">
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-users fa-4x text-primary"></i>
                     </div>
@@ -118,7 +120,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-low-vision fa-4x text-primary"></i>
                     </div>
@@ -129,7 +131,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-user-graduate fa-4x text-primary"></i>
                     </div>

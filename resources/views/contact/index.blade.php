@@ -9,7 +9,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn d-flex align-items-center justify-content-between bg-naranja w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
-                    <h6 class="text-white m-0">>Categorías</h6>
+                    <h6 class="text-white m-0">Categorías</h6>
                     <i class="fa fa-angle-down text-white"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">

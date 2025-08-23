@@ -5,9 +5,12 @@
             <a href="/">
                 <img class="pb-4" width="200" src="{{asset("storage/$business->image")}}" alt="">
             </a>            
-            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>{{$business->address}}</p>
-            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{{$business->email}}</p>
-            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>{{$business->phone}}</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>
+                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($business->address) }}" target="_blank">
+                    {{$business->address}}
+                </p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i><a href="mailto:{{$business->email}}">{{$business->email}}</a></p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i><a href="tel:{{$business->phone}}">{{$business->phone}}</a></p>
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
