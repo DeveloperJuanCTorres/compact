@@ -4,6 +4,9 @@
 
 @include('general.topbar')
 
+<link href="{{asset('css/detail.css')}}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
 <!-- Navbar Start -->
     <div class="container-fluid bg-mobil sticky-top">
         <div class="row px-xl-5">
@@ -61,7 +64,7 @@
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
-        <div class="col-lg-5 mb-30">
+        <div class="col-lg-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner bg-light">
                     @php
@@ -137,10 +140,40 @@
                     <strong class="text-dark mr-3">Marca:</strong>
                     <label class="">{{$product->brand->name}}</label>
                 </div>
-                <!-- <div class="d-flex mb-4">
-                    <strong class="text-dark mr-3">Stock:</strong>
-                    <label class="">{{$product->stock}} Unidades</label>
-                </div> -->
+
+                @if($product->colors->count()>0)
+                <div class="d-flex mb-3">
+                    <strong class="text-dark mr-3">Colores:</strong>
+                     @foreach($product->colors as $index => $color)
+                        <label class="color-option mr-2">
+                            <input type="radio" 
+                                name="color_id" 
+                                value="{{ $color->id }}" 
+                                data-name="{{ $color->name }}"
+                                @if($index === 0) checked @endif>
+                            <span class="color-box" style="background-color: {{ $color->hex ?? '#ccc' }}"></span>
+                        </label>
+                    @endforeach
+                </div>
+                <!-- <div id="selected-color" class="mt-2 text-primary fw-bold"></div> -->
+                @endif
+
+                @if($product->sizes->count()>0)
+                <div class="d-flex mb-3">
+                    <strong class="text-dark mr-3">Tallas: <span id="talla"></span></strong>
+                    @foreach($product->sizes as $index => $size)
+                        <label class="color-option mr-2">
+                            <input type="radio" 
+                                name="size_id" 
+                                value="{{ $size->id }}" 
+                                data-name="{{ $size->talla }}"
+                                @if($index === 0) checked @endif>
+                            <span class="color-box text-center pt-1">{{$size->talla}}</span>
+                        </label>
+                    @endforeach
+                </div>
+                @endif
+
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="row">
                         <div class="col-md-6 col-12 my-2">
@@ -167,26 +200,25 @@
                     </div>
                 </div>
                 <div class="d-flex pt-2">
-                    <strong class="text-dark mr-2">Share on:</strong>
+                    <strong class="text-dark mr-2">Compartir en:</strong>
                     <div class="d-inline-flex">
                         <a class="text-dark px-2" href="">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a class="text-dark px-2" href="">
-                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a class="text-dark px-2" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-pinterest"></i>
+                            <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+
+        
     </div>
-    <div class="row px-xl-5">
+    <div class="row">
         <div class="col">
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
@@ -267,7 +299,7 @@
  
 <!-- Products Start -->
 <div class="container-fluid py-5">
-    <div class="p-30">
+    <div class="">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">También te puede interesar</span></h2>
         <div class="row px-xl-5">
             <div class="col">
@@ -319,6 +351,8 @@
 @include('general.footer')
 
 @push('scripts')
+    <script src="{{asset('js/detail.js')}}"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{{asset('js/addcart.js')}}"></script>
 
@@ -341,6 +375,19 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const radios = document.querySelectorAll("input[name='color_id']");
+            const selectedColor = document.getElementById("selected-color");
+
+            radios.forEach(radio => {
+                radio.addEventListener("change", function() {
+                    selectedColor.textContent = "Color seleccionado: " + this.dataset.name;
+                });
+            });
+        });
+    </script>
+    
 @endpush
 
 @endsection

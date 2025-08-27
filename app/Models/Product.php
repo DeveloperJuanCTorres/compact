@@ -38,4 +38,14 @@ class Product extends Model
     {
         return 'slug';
     }
+
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class, 'color_product', 'product_id', 'color_id');
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_size', 'product_id', 'size_id');
+    }
 }

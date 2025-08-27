@@ -1,0 +1,28 @@
+
+.color-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.color-option input {
+    display: none;
+}
+
+.color-box {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+/* Cuando está seleccionado */
+.color-option input:checked + .color-box {
+    border: 3px solid #fff;
+    box-shadow: 0 0 5px #000;
+}
+
+.color-option:hover .color-box {
+    transform: scale(1.1);
+}
