@@ -3534,8 +3534,8 @@ input[type="button"].btn-block {
 
 .custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
-  border-color: #FFD333;
-  background-color: #FFD333;
+  border-color: rgb(239, 119, 24);
+  background-color: rgb(239, 119, 24);
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
@@ -3595,8 +3595,8 @@ input[type="button"].btn-block {
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-  border-color: #FFD333;
-  background-color: #FFD333;
+  border-color: rgb(239, 119, 24);
+  /* background-color: #FFD333; */
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
