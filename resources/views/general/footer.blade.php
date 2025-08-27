@@ -1,3 +1,4 @@
+
 <!-- Footer Start -->
 <div class="container-fluid bg-mobil text-secondary mt-5 pt-5">
     <div class="row px-xl-5">
@@ -66,4 +67,14 @@
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<div class="floating_btn">
+    <a target="_blank" href="https://api.whatsapp.com/send?phone=51{{$business->phone}}">
+        <div class="contact_icon">
+        <i class="fa fa-whatsapp my-float"></i>
+        </div>
+    </a>
+</div>
+
+<!-- <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a> -->

@@ -264,6 +264,7 @@
 </div>
 <!-- fin de seccion de videos -->
 
+
 @include('general.footer')
 
 @push('scripts')

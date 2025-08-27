@@ -44,12 +44,18 @@
         $version = '1993.2.5';
     ?>
 
+    <link href="{{asset('css/wpp.css')}}?v=<?php echo $version ?>" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+      
     <link href="{{asset('lib/animate/animate.min.css')}}?v=<?php echo $version ?>" rel="stylesheet">
     <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}?v=<?php echo $version ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('css/style.css')}}?v=<?php echo $version ?>" rel="stylesheet">
     <link href="{{asset('css/phone.css')}}?v=<?php echo $version ?>" rel="stylesheet">
+
+    
+    
 
     <!-- Scripts -->
     <!-- vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
@@ -63,8 +69,12 @@
     </div>
 
     <!-- JavaScript Libraries -->
+     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script> -->
+
     <script src="{{asset('lib/easing/easing.min.js')}}"></script>
     <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
@@ -78,6 +88,8 @@
     <script src="{{asset('js/phone.js')}}"></script>
     <script src="{{asset('js/ubigeo.js')}}"></script>
     <script src="{{asset('js/buscar.js')}}"></script>
+
+    
     @stack('scripts')
 </body>
 </html>
