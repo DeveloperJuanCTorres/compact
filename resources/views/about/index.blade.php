@@ -107,18 +107,7 @@
 
 <div class="container-fluid features overflow-hidden py-5">
     <div class="container py-5">
-        <div class="row g-4 justify-content-center text-center">
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
-                    <div class="feature-icon p-3 mb-4">
-                        <i class="fas fa-users fa-4x text-primary"></i>
-                    </div>
-                    <div class="feature-content d-flex flex-column">
-                        <h5 class="mb-3">Misión</h5>
-                        <p class="mb-3">{!! Str::markdown($nosotros->mision) !!}</p>
-                    </div>
-                </div>
-            </div>
+        <div class="row g-4 justify-content-center text-center">            
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
                     <div class="feature-icon p-3 mb-4">
@@ -135,9 +124,20 @@
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-user-graduate fa-4x text-primary"></i>
                     </div>
-                    <div class="feature-content d-flex flex-column">
-                        <h5 class="mb-3">Valores</h5>
+                    <div class="feature-content d-flex flex-column" style="text-align: justify;">
+                        <h5 class="mb-3 text-center">Valores</h5>
                         <p class="mb-3">{!! Str::markdown($nosotros->valores) !!}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
+                    <div class="feature-icon p-3 mb-4">
+                        <i class="fas fa-users fa-4x text-primary"></i>
+                    </div>
+                    <div class="feature-content d-flex flex-column">
+                        <h5 class="mb-3">Misión</h5>
+                        <p class="mb-3">{!! Str::markdown($nosotros->mision) !!}</p>
                     </div>
                 </div>
             </div>
