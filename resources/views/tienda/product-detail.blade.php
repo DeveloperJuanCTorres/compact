@@ -233,7 +233,7 @@
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Compartir en:</strong>
                     <div class="d-inline-flex">
-                        <a class="text-dark px-2" href="">
+                        <a class="text-dark px-2" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a class="text-dark px-2" href="">
@@ -330,9 +330,9 @@
  
 <!-- Products Start -->
 <div class="container-fluid py-5">
-    <div class="">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">También te puede interesar</span></h2>
-        <div class="row px-xl-5">
+    <div class="px-xl-5">
+        <h2 class="section-title position-relative text-uppercase px-3"><span>También te puede interesar</span></h2>
+        <div class="row">
             <div class="col">
                 <div class="owl-carousel related-carousel">
                     @foreach($relatedProducts as $product)
