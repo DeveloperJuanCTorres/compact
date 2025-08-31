@@ -214,13 +214,13 @@
                         <div class="my-2">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus" style="height: -webkit-fill-available;">
+                                    <button class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
                                 <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus" style="height: -webkit-fill-available;">
+                                    <button class="btn btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
