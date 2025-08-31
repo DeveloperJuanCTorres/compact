@@ -1,3 +1,5 @@
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+
 @extends('layouts.app')
 
 @section('content')
@@ -163,7 +165,7 @@
                 </div>
                 <!-- <div id="selected-color" class="mt-2 text-primary fw-bold"></div> -->
                 @endif
-
+                
                 @if($product->sizes->count()>0)
                 <div class="d-block mb-4">
                     <strong class="text-dark mr-3">Tallas:</strong>
@@ -180,30 +182,53 @@
                 </div>
                 @endif
 
+                <!-- Botón o link para abrir modal -->
+                <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#medidasModal">
+                   Ver medidas referenciales
+                </a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="medidasModal" tabindex="-1" aria-labelledby="medidasModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-md">
+                        <div class="modal-content border-0 bg-transparent">
+                            
+                            <div class="modal-body text-center p-0">
+                                <!-- Imagen referencial -->
+                                <img src="{{ asset('img/brochure.jpeg') }}" 
+                                    alt="Medidas referenciales" 
+                                    class="img-fluid rounded shadow-lg">
+
+                                <!-- Botón cerrar -->
+                                <button type="button" class="btn btn-primary position-absolute" style="right: 0; border-radius: 5px;" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="row">
-                        <div class="col-md-6 col-12 my-2">
+                    <!-- <div class="row"> -->
+                        <div class="my-2">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus">
+                                    <button class="btn btn-primary btn-minus" style="height: -webkit-fill-available;">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
                                 <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus">
+                                    <button class="btn btn-primary btn-plus" style="height: -webkit-fill-available;">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-12 my-2">
+                        <div class="my-2 w-100">
                             <a href="#" class="btn btn-primary px-3 addcart" data-id="{{$product->id}}">
                                 <i class="fa fa-shopping-cart mr-1"></i> 
                                 Agregar al carrito
                             </a>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Compartir en:</strong>
@@ -357,6 +382,7 @@
 @include('general.footer')
 
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{asset('js/detail.js')}}"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -393,6 +419,7 @@
             });
         });
     </script>
+    
     
 @endpush
 
