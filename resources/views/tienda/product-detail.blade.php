@@ -140,14 +140,14 @@
                         </span>
                     @endif                    
                 </p>
-                <div class="d-flex mb-3">
+                <div class="d-flex">
                     <strong class="text-dark me-3" style="width: 90px;">Categoría:</strong>
                     <label class="">{{$product->taxonomy->name}}</label>
                 </div>
                 <div class="d-flex align-items-center">
                     <strong class="text-dark mr-3" style="width: 70px;">Marca:</strong>
                     @if($product->brand->image)
-                    <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100">
+                    <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100" style="height: 50px;">
                     @else
                     <label class="">{{$product->brand->name}}</label>
                     @endif
@@ -157,7 +157,7 @@
                 <div class="d-block mb-3 align-items-center">
                     <strong class="text-dark mr-3 d-inline-block" style="width: 70px;">Colores:</strong>
                      @foreach($product->colors as $index => $color)
-                        <label class="color-option mr-2">
+                        <label class="color-option mt-4">
                             <input type="radio" 
                                 name="color_id" 
                                 value="{{ $color->id }}" 
