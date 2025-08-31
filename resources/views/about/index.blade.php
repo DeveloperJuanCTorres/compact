@@ -57,10 +57,10 @@
 <!-- Breadcrumb End -->
 
 <!-- About Start -->
-<div class="container-fluid overflow-hidden py-5">
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-xl-5 wow fadeInLeft" data-wow-delay="0.1s">
+<div class="container-fluid overflow-hidden">
+    <div class="px-xl-5 py-5">
+        <div class="row">
+            <div class="col-xl-5 wow fadeInLeft pb-4" data-wow-delay="0.1s">
                 <div class="bg-light rounded">
                     <img src="storage/{{$nosotros->image}}" class="img-fluid w-100" style="margin-bottom: -7px;" alt="Image">
                     <!-- <img src="img/about-3.jpg" class="img-fluid w-100 border-bottom border-5 border-primary" style="border-top-right-radius: 300px; border-top-left-radius: 300px;" alt="Image"> -->
@@ -105,11 +105,11 @@
 </div>
 <!-- About End -->
 
-<div class="container-fluid features overflow-hidden py-5">
-    <div class="container py-5">
+<div class="container-fluid features overflow-hidden">
+    <div class="px-xl-5 py-5">
         <div class="row g-4 justify-content-center text-center">            
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp py-2" data-wow-delay="0.3s">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;min-height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-low-vision fa-4x text-primary"></i>
                     </div>
@@ -119,8 +119,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp py-2" data-wow-delay="0.5s">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;min-height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-user-graduate fa-4x text-primary"></i>
                     </div>
@@ -130,8 +130,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;height: 450px;">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp py-2" data-wow-delay="0.1s">
+                <div class="feature-item text-center p-4 bg-light" style="border: solid #D0CFD0; border-radius: 10px;min-height: 450px;">
                     <div class="feature-icon p-3 mb-4">
                         <i class="fas fa-users fa-4x text-primary"></i>
                     </div>
