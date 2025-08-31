@@ -106,8 +106,8 @@
             </div>
         </div>
 
-        <div class="col-lg-7 h-auto mb-30">
-            <div class="h-100 bg-light pt-5">
+        <div class="col-lg-7 h-auto mb-5">
+            <div class="h-100 bg-light pt-5">                
                 <h3>{{$product->name}}</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
@@ -141,17 +141,21 @@
                     @endif                    
                 </p>
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Categoría:</strong>
+                    <strong class="text-dark me-3" style="width: 90px;">Categoría:</strong>
                     <label class="">{{$product->taxonomy->name}}</label>
                 </div>
-                <div class="d-flex mb-4">
-                    <strong class="text-dark mr-3">Marca:</strong>
+                <div class="d-flex align-items-center">
+                    <strong class="text-dark mr-3" style="width: 70px;">Marca:</strong>
+                    @if($product->brand->image)
+                    <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100">
+                    @else
                     <label class="">{{$product->brand->name}}</label>
+                    @endif
                 </div>
 
                 @if($product->colors->count()>0)
-                <div class="d-block mb-3">
-                    <strong class="text-dark mr-3">Colores:</strong>
+                <div class="d-block mb-3 align-items-center">
+                    <strong class="text-dark mr-3 d-inline-block" style="width: 70px;">Colores:</strong>
                      @foreach($product->colors as $index => $color)
                         <label class="color-option mr-2">
                             <input type="radio" 
@@ -167,8 +171,8 @@
                 @endif
                 
                 @if($product->sizes->count()>0)
-                <div class="d-block mb-4">
-                    <strong class="text-dark mr-3">Tallas:</strong>
+                <div class="d-block mb-4 align-items-center">
+                    <strong class="text-dark mr-3 d-inline-block" style="width: 70px;">Tallas:</strong>
                     @foreach($product->sizes as $index => $size)
                         <label class="color-option mr-2">
                             <input type="radio" 
@@ -239,7 +243,7 @@
                         <a class="text-dark px-2" href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a class="text-dark px-2" href="https://www.tiktok.com/share?url={{ urlencode(url()->current()) }}" target="_blank">
+                        <a class="text-dark px-2" href="https://www.tiktok.com/url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
