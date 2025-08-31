@@ -147,7 +147,7 @@
                 <div class="d-flex align-items-center">
                     <strong class="text-dark mr-3" style="width: 70px;">Marca:</strong>
                     @if($product->brand->image)
-                    <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100" style="height: 50px;">
+                    <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100">
                     @else
                     <label class="">{{$product->brand->name}}</label>
                     @endif
