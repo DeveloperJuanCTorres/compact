@@ -99,7 +99,7 @@
                                 Filtrar por Marca
                             </button>
                         </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="bg-light mb-30">
                                     @foreach($brands as $brand)
