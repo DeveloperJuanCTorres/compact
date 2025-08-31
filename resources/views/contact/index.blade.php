@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
+                    <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -60,7 +60,7 @@
 
 <!-- Contact Start -->
 <div class="container-fluid">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="pr-3">Contáctanos</span></h2>
+    <h2 class="section-title position-relative text-uppercase px-xl-5 mb-4"><span class="pr-3">Contáctanos</span></h2>
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
             <div class="contact-form bg-light">
@@ -94,12 +94,12 @@
             </div>
         </div>
         <div class="col-lg-5 mb-5">
-            <div class="bg-light p-30 mb-30">
+            <div class="bg-light mb-30">
                 <iframe style="width: 100%; height: 250px;"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.62973772995696!2d-79.84141211142473!3d-6.760611326662773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904cef9963844393%3A0xc89078e378873b22!2sCOMPACT%20SEGURIDAD%20Y%20CONSTRUCCI%C3%93N!5e0!3m2!1ses!2spe!4v1756663388479!5m2!1ses!2spe"
                 frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
             </div>
-            <div class="bg-light p-30 mb-3">
+            <div class="bg-light mb-3">
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>{{$business->address}}</p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{{$business->email}}</p>
                 <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>{{$business->phone}}</p>

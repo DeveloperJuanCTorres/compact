@@ -26,7 +26,7 @@
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
+                    <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -105,7 +105,7 @@
         </div>
 
         <div class="col-lg-7 h-auto mb-30">
-            <div class="h-100 bg-light p-30">
+            <div class="h-100 bg-light pt-5">
                 <h3>{{$product->name}}</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
@@ -148,7 +148,7 @@
                 </div>
 
                 @if($product->colors->count()>0)
-                <div class="d-flex mb-3">
+                <div class="d-block mb-3">
                     <strong class="text-dark mr-3">Colores:</strong>
                      @foreach($product->colors as $index => $color)
                         <label class="color-option mr-2">
@@ -165,8 +165,8 @@
                 @endif
 
                 @if($product->sizes->count()>0)
-                <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Tallas: <span id="talla"></span></strong>
+                <div class="d-block mb-4">
+                    <strong class="text-dark mr-3">Tallas:</strong>
                     @foreach($product->sizes as $index => $size)
                         <label class="color-option mr-2">
                             <input type="radio" 
@@ -224,9 +224,9 @@
 
         
     </div>
-    <div class="row">
+    <div class="row px-xl-5">
         <div class="col">
-            <div class="bg-light p-30">
+            <div class="bg-light">
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
                     <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
