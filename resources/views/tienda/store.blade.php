@@ -65,8 +65,7 @@
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-4">
-            <!-- Category Start -->
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Filtrar por categoría</span></h5>
+            
             <form id="filterForm">
                 
                 <div class="accordion" id="accordionExample">
