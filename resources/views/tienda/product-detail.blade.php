@@ -236,10 +236,10 @@
                         <a class="text-dark px-2" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a class="text-dark px-2" href="">
+                        <a class="text-dark px-2" href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a class="text-dark px-2" href="">
+                        <a class="text-dark px-2" href="https://www.tiktok.com/share?url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
