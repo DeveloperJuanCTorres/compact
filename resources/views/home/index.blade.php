@@ -51,13 +51,17 @@
         <div class="col-lg-12" style="padding-left: 0; padding-right: 0;">
             <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#header-carousel" data-slide-to="1"></li>
-                    <li data-target="#header-carousel" data-slide-to="2"></li>
+                    @foreach($banners as $key => $banner)
+                        @if($key == 0)
+                        <li data-target="#header-carousel" data-slide-to="{{$key}}" class="active"></li>
+                        @else
+                        <li data-target="#header-carousel" data-slide-to="{{$key}}"></li>
+                        @endif
+                    @endforeach
                 </ol>
                 <div class="carousel-inner">
                     @foreach($banners as $key => $banner)
-                        @if($key == 1)
+                        @if($key == 0)
                         <div class="carousel-item position-relative active">
                             <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
                             
