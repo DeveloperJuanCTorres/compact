@@ -239,7 +239,7 @@
                         <a class="text-dark px-2" href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a class="text-dark px-2" href="https://www.tiktok.com/?url={{ urlencode(url()->current()) }}" target="_blank">
+                        <a class="text-dark px-2" href="https://www.tiktok.com/share?url={{ urlencode(url()->current()) }}" target="_blank">
                             <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
