@@ -1,8 +1,11 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 @extends('layouts.app')
 
 @section('content')
 
 @include('general.topbar')
+
 <!-- Navbar Start -->
     <div class="container-fluid bg-mobil">
         <div class="row px-xl-5">
@@ -65,30 +68,52 @@
             <!-- Category Start -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Filtrar por categoría</span></h5>
             <form id="filterForm">
-                <div class="bg-light p-4 mb-30">
-                    @foreach($categories as $category)
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="radio" class="custom-control-input" name="categories[]" value="{{ $category->id }}"
-                        {{ request('categories') == $category->id ? 'checked' : '' }}>
-                        <label class="custom-control-label">{{$category->name}}</label>
-                        <span class="badge border font-weight-normal">{{$category->productsInStock->count()}}</span>
-                    </div>
-                    @endforeach
-                </div>
-                <!-- Category End -->
-            
-                <!-- Brand Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Filtrar por marca</span></h5>
-                <div class="bg-light p-4 mb-30">
-                        @foreach($brands as $brand)
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="radio" class="custom-control-input" name="brands[]" value="{{ $brand->id }}">
-                            <label class="custom-control-label">{{$brand->name}}</label>
-                            <span class="badge border font-weight-normal">{{$brand->productsInStock->count()}}</span>
-                        </div>
-                        @endforeach
-                </div>
-                <!-- Brand End -->
+                
+                <div class="accordion" id="accordionExample">
+                       
+                    <div class="accordion-item">                                
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Filtrar por Categoría
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="bg-light mb-30">
+                                    @foreach($categories as $category)
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="radio" class="custom-control-input" name="categories[]" value="{{ $category->id }}"
+                                        {{ request('categories') == $category->id ? 'checked' : '' }}>
+                                        <label class="custom-control-label">{{$category->name}}</label>
+                                        <span class="badge border font-weight-normal bg-primary">{{$category->productsInStock->count()}}</span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>                            
+                    </div>  
+                    
+                    <div class="accordion-item">                                
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Filtrar por Marca
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="bg-light mb-30">
+                                    @foreach($brands as $brand)
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="radio" class="custom-control-input" name="brands[]" value="{{ $brand->id }}">
+                                        <label class="custom-control-label">{{$brand->name}}</label>
+                                        <span class="badge border font-weight-normal bg-primary">{{$brand->productsInStock->count()}}</span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>                            
+                    </div> 
+                </div>                
             </form>
         </div>
         <!-- Shop Sidebar End -->

@@ -139,7 +139,7 @@
                     @endif                    
                 </p>
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Categría:</strong>
+                    <strong class="text-dark mr-3">Categoría:</strong>
                     <label class="">{{$product->taxonomy->name}}</label>
                 </div>
                 <div class="d-flex mb-4">
