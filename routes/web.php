@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,13 @@ Route::get('cart/clear', [App\Http\Controllers\CartController::class, 'clear'])-
 Route::post('cart/removeitem', [App\Http\Controllers\CartController::class, 'removeItem'])->name('removeitem');
 Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
 
+Route::get('/export/products', function () {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    });
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    
 });
