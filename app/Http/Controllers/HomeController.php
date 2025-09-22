@@ -8,6 +8,7 @@ use App\Models\Color;
 use App\Models\Company;
 use App\Models\Field;
 use App\Models\Product;
+use App\Models\ProductColorImage;
 use App\Models\Taxonomy;
 use Illuminate\Http\Request;
 
@@ -148,7 +149,7 @@ class HomeController extends Controller
 
         // Si no hay imágenes para el color, traer las imágenes generales del producto
         if ($images->isEmpty()) {
-            $images = \App\Models\ProductImage::where('product_id', $productId)->get();
+            $images = ProductColorImage::where('product_id', $productId)->get();
         }
 
         return response()->json($images);
