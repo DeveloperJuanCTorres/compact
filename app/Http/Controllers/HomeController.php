@@ -141,16 +141,41 @@ class HomeController extends Controller
         return view('general.libro-reclamaciones', compact('categories','business'));
     }
 
-    public function getColorImages($productId, $colorId)
-    {
-        $images = \App\Models\ProductColorImage::where('product_id', $productId)
-                    ->where('color_id', $colorId)
-                    ->get();
+    // public function getColorImages($productId, $colorId)
+    // {
+    //     $images = \App\Models\ProductColorImage::where('product_id', $productId)
+    //                 ->where('color_id', $colorId)
+    //                 ->get();
 
-        // Si no hay imágenes para el color, traer las imágenes generales del producto
-        if ($images->isEmpty()) {
-            $images = ProductColorImage::where('product_id', $productId)->get();
+        
+    //     if ($images->isEmpty()) {
+    //         $images = ProductColorImage::where('product_id', $productId)->get();
+    //     }
+
+    //     return response()->json($images);
+    // }
+
+    public function getColorImages($productId, $colorId = null)
+    {
+        // Buscar imágenes por color si existe colorId y hay registros en product_color_images
+        if ($colorId) {
+            $images = \App\Models\ProductColorImage::where('product_id', $productId)
+                        ->where('color_id', $colorId)
+                        ->get();
+
+            if ($images->isNotEmpty()) {
+                return response()->json($images);
+            }
         }
+
+        // Si no hay color o no hay imágenes en product_color_images, traer imágenes del producto
+        $product = \App\Models\Product::find($productId);
+
+        if (!$product) {
+            return response()->json([]);
+        }
+
+        $images = $product->images ? json_decode($product->images) : [];
 
         return response()->json($images);
     }
