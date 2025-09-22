@@ -212,22 +212,21 @@
                     @endif
                 </div>
 
-                @if($product->colors->count()>0)
-                <div class="d-block mb-3 align-items-center">
-                    <strong class="text-dark mr-3 d-inline-block" style="width: 70px;">Colores:</strong>
-                     @foreach($product->colors as $index => $color)
-                        <label class="color-option mt-4">
-                            <input type="radio" 
-                                name="color_id" 
-                                value="{{ $color->id }}" 
-                                data-name="{{ $color->name }}"
-                                @if($index === 0) checked @endif>
-                            <span class="color-box" style="background-color: {{ $color->hex ?? '#ccc' }}"></span>
-                        </label>
-                    @endforeach
-                </div>
-                <!-- <div id="selected-color" class="mt-2 text-primary fw-bold"></div> -->
-                @endif
+                @if($product->colors->count() > 0)
+                    <div class="d-block mb-3 align-items-center">
+                        <strong class="text-dark mr-3 d-inline-block" style="width: 70px;">Colores:</strong>
+                        @foreach($product->colors as $index => $color)
+                            <label class="color-option mt-4">
+                                <input type="radio" 
+                                    name="color_id" 
+                                    value="{{ $color->id }}" 
+                                    data-product="{{ $product->id }}"
+                                    @if($index === 0) checked @endif>
+                                <span class="color-box" style="background-color: {{ $color->hex ?? '#ccc' }}"></span>
+                            </label>
+                        @endforeach
+                    </div>
+                    @endif
                 
                 @if($product->sizes->count()>0)
                 <div class="d-block mb-4 align-items-center">
@@ -486,40 +485,56 @@
     </script> -->
 
     <script>
-    document.querySelectorAll("input[name='color_id']").forEach(radio => {
-        radio.addEventListener("change", function() {
-            let colorId = this.value;
-            let productId = "{{ $product->id }}";
+    document.addEventListener('DOMContentLoaded', () => {
+        const colorInputs = document.querySelectorAll('input[name="color_id"]');
+        const carouselInner = document.querySelector('.carousel-inner');
 
-            fetch(`/products/${productId}/color/${colorId}/images`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Error al obtener imágenes");
-                    return res.json();
-                })
-                .then(images => {
-                    let container = document.getElementById("carousel-images");
-                    container.innerHTML = "";
+        function updateCarousel(images) {
+            carouselInner.innerHTML = '';
 
-                    if(images.length > 0){
-                        images.forEach((img, i) => {
-                            container.innerHTML += `
-                                <div class="carousel-item ${i==0?'active':''}">
-                                    <div class="d-flex">
-                                        <img class="m-auto" style="max-width:500px;max-height:500px;" 
-                                            src="/storage/${img.image}" alt="Image">
-                                    </div>
-                                </div>
-                            `;
-                        });
+            images.forEach((imgObj, index) => {
+                const src = imgObj.image ? imgObj.image : imgObj; // si es objeto o string
+                const itemDiv = document.createElement('div');
+                itemDiv.className = index === 0 ? 'carousel-item active' : 'carousel-item';
+
+                const img = document.createElement('img');
+                img.src = '/storage/' + src;
+                img.style.maxWidth = '500px';
+                img.style.maxHeight = '500px';
+                img.className = 'm-auto';
+
+                itemDiv.appendChild(img);
+                carouselInner.appendChild(itemDiv);
+            });
+        }
+
+        // Cargar imágenes iniciales (del producto)
+        const productImages = @json($product->images ? json_decode($product->images) : []);
+        updateCarousel(productImages);
+
+        // Evento para cambio de color
+        colorInputs.forEach(input => {
+            input.addEventListener('change', async function() {
+                const productId = this.dataset.product;
+                const colorId = this.value;
+
+                try {
+                    const res = await fetch(`/products/${productId}/color/${colorId}/images`);
+                    if (!res.ok) throw new Error('Error al obtener imágenes');
+                    const images = await res.json();
+
+                    // Si no hay imágenes de color, usar las del producto
+                    if (!images.length) {
+                        updateCarousel(productImages);
                     } else {
-                        container.innerHTML = `
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" src="/img/defectomaster.jpeg" alt="Image">
-                            </div>
-                        `;
+                        updateCarousel(images);
                     }
-                })
-                .catch(err => console.error(err));
+
+                } catch (err) {
+                    console.error(err);
+                    updateCarousel(productImages);
+                }
+            });
         });
     });
     </script>

@@ -157,9 +157,9 @@ class HomeController extends Controller
 
     public function getColorImages($productId, $colorId = null)
     {
-        // Buscar imágenes por color si existe colorId y hay registros en product_color_images
+        // Buscar imágenes por color si existe colorId
         if ($colorId) {
-            $images = \App\Models\ProductColorImage::where('product_id', $productId)
+            $images = ProductColorImage::where('product_id', $productId)
                         ->where('color_id', $colorId)
                         ->get();
 
@@ -169,7 +169,7 @@ class HomeController extends Controller
         }
 
         // Si no hay color o no hay imágenes en product_color_images, traer imágenes del producto
-        $product = \App\Models\Product::find($productId);
+        $product = Product::find($productId);
 
         if (!$product) {
             return response()->json([]);
