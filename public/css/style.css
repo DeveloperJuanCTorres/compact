@@ -9791,3 +9791,36 @@ a.text-dark:hover, a.text-dark:focus {
         object-fit: cover; /* en pantallas grandes llena todo */
     }
 }
+
+
+
+ .custom-file-upload {
+    border: 2px dashed #6c757d;
+    display: block;
+    padding: 40px 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.3s;
+    color: #6c757d;
+    font-size: 16px;
+  }
+
+  .custom-file-upload:hover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+    color: #0d6efd;
+  }
+
+  #file {
+    display: none;
+  }
+
+  .file-preview {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0d6efd;
+    font-weight: 500;
+    text-align: center;
+  }

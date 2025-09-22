@@ -37,6 +37,8 @@ Route::get('/export/products', function () {
         return Excel::download(new ProductsExport, 'products.xlsx');
     });
 
+Route::get('/products/{product}/color/{color}/images', [App\Http\Controllers\HomeController::class, 'getColorImages']);
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

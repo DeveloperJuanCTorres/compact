@@ -66,7 +66,7 @@
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
-        <div class="col-lg-5">
+        <!-- <div class="col-lg-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner bg-light">
                     @php
@@ -97,6 +97,65 @@
                     </div>
                     @endif
                 </div>
+                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div> -->
+
+        <div class="col-lg-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner bg-light" id="carousel-images">
+                    @php
+                        $colorImages = $product->colorImages;
+                    @endphp
+
+                    {{-- Caso 2: si el producto tiene registros en product_color_images --}}
+                    @if($colorImages->count() > 0)
+                        @php
+                            $firstColor = $product->colors->first();
+                            $imagenesColor = $firstColor 
+                                ? $colorImages->where('color_id', $firstColor->id) 
+                                : collect([]);
+                        @endphp
+
+                        @forelse($imagenesColor as $key => $item)
+                            <div class="carousel-item @if($key==0) active @endif">
+                                <div class="d-flex">
+                                    <img class="m-auto" style="max-width: 500px;max-height: 500px;"
+                                        src="{{ asset('storage/'.$item->image) }}" alt="Image">
+                                </div>
+                            </div>
+                        @empty
+                            <div class="carousel-item active">
+                                <img class="w-100 h-100" src="{{asset('img/defectomaster.jpeg')}}" alt="Image">
+                            </div>
+                        @endforelse
+
+                    {{-- Caso 1: producto con imágenes iniciales en JSON --}}
+                    @elseif($product->images)
+                        @php
+                            $imagenes = json_decode($product->images);
+                        @endphp
+                        @foreach($imagenes as $key => $item)
+                            <div class="carousel-item @if($key==0) active @endif">
+                                <div class="d-flex">
+                                    <img class="m-auto" style="max-width: 500px;max-height: 500px;"
+                                        src="{{ asset('storage/'.$item) }}" alt="Image">
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        {{-- fallback --}}
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="{{asset('img/defectomaster.jpeg')}}" alt="Image">
+                        </div>
+                    @endif
+                </div>
+
                 <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                     <i class="fa fa-2x fa-angle-left text-dark"></i>
                 </a>
@@ -250,6 +309,8 @@
                 </div>
             </div>
         </div>
+
+        
 
         
     </div>
@@ -411,7 +472,7 @@
             });
         });
     </script>
-    <script>
+    <!-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const radios = document.querySelectorAll("input[name='color_id']");
             const selectedColor = document.getElementById("selected-color");
@@ -422,6 +483,45 @@
                 });
             });
         });
+    </script> -->
+
+    <script>
+    document.querySelectorAll("input[name='color_id']").forEach(radio => {
+        radio.addEventListener("change", function() {
+            let colorId = this.value;
+            let productId = "{{ $product->id }}";
+
+            fetch(`/products/${productId}/color/${colorId}/images`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Error al obtener imágenes");
+                    return res.json();
+                })
+                .then(images => {
+                    let container = document.getElementById("carousel-images");
+                    container.innerHTML = "";
+
+                    if(images.length > 0){
+                        images.forEach((img, i) => {
+                            container.innerHTML += `
+                                <div class="carousel-item ${i==0?'active':''}">
+                                    <div class="d-flex">
+                                        <img class="m-auto" style="max-width:500px;max-height:500px;" 
+                                            src="/storage/${img.image}" alt="Image">
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        container.innerHTML = `
+                            <div class="carousel-item active">
+                                <img class="w-100 h-100" src="/img/defectomaster.jpeg" alt="Image">
+                            </div>
+                        `;
+                    }
+                })
+                .catch(err => console.error(err));
+        });
+    });
     </script>
     
     

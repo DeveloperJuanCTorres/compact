@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Company;
 use App\Models\Field;
 use App\Models\Product;
@@ -137,5 +138,19 @@ class HomeController extends Controller
             $query->where('stock', '>', 0);
         })->take(8)->get();
         return view('general.libro-reclamaciones', compact('categories','business'));
+    }
+
+    public function getColorImages($productId, $colorId)
+    {
+        $images = \App\Models\ProductColorImage::where('product_id', $productId)
+                    ->where('color_id', $colorId)
+                    ->get();
+
+        // Si no hay imágenes para el color, traer las imágenes generales del producto
+        if ($images->isEmpty()) {
+            $images = \App\Models\ProductImage::where('product_id', $productId)->get();
+        }
+
+        return response()->json($images);
     }
 }

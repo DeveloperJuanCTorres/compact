@@ -66,30 +66,45 @@
             <div class="contact-form bg-light">
                 <div id="success"></div>
                 <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Nombre"
-                            required="required" data-validation-required-message="Por favor ingrese su nombre" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="email" class="form-control" id="email" placeholder="Email"
-                            required="required" data-validation-required-message="Por favor ingrese su correo" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="subject" placeholder="Asunto"
-                            required="required" data-validation-required-message="Ingrese el asunto" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <textarea class="form-control" rows="8" id="message" placeholder="Mensaje..."
-                            required="required"
-                            data-validation-required-message="Ingrese un mensaje"></textarea>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar mensaje</button>
-                    </div>
+                    <div class="row p-0">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="control-group">
+                                <input type="text" class="form-control" id="name" placeholder="Nombre"
+                                    required="required" data-validation-required-message="Por favor ingrese su nombre" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="email" class="form-control" id="email" placeholder="Email"
+                                    required="required" data-validation-required-message="Por favor ingrese su correo" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="text" class="form-control" id="subject" placeholder="Asunto"
+                                    required="required" data-validation-required-message="Ingrese el asunto" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <label for="file" class="custom-file-upload">
+                                <i class="bi bi-cloud-arrow-up" style="font-size: 2rem;"></i>
+                                <br>
+                                Haz clic o arrastra un archivo aquí
+                            </label>
+                            <input id="file" type="file" />
+                            <div id="file-preview" class="file-preview"></div>
+                        </div>
+
+                        <div class=" col-lg-12 col-md-12 col-12control-group">
+                            <textarea class="form-control" rows="8" id="message" placeholder="Mensaje..."
+                                required="required"
+                                data-validation-required-message="Ingrese un mensaje"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="m-auto">
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar mensaje</button>
+                        </div>
+                    </div>                    
                 </form>
             </div>
         </div>
@@ -111,5 +126,18 @@
 
 @include('general.footer')
 
+<!-- Bootstrap Icons (si quieres usar el icono de upload) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script>
+  const fileInput = document.getElementById('file');
+  const filePreview = document.getElementById('file-preview');
 
+  fileInput.addEventListener('change', function () {
+    if (this.files && this.files.length > 0) {
+      filePreview.textContent = "📂 " + this.files[0].name;
+    } else {
+      filePreview.textContent = "";
+    }
+  });
+</script>
 @endsection
