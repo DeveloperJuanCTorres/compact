@@ -66,7 +66,7 @@
                             <div class="overlay"></div>
 
                             <!-- Íconos superpuestos con texto -->
-                            <div class="carousel-icons">
+                            <div class="carousel-icons iconos-mobil">
                                 <div class="icon-box">
                                     <i class="fas fa-tags"></i>
                                     <span class="font-weight-bold">LAS MEJORES OFERTAS</span>
