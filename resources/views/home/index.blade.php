@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="icon-box">
                                     <i class="fas fa-shield-alt"></i>
-                                    <span class="font-weight-bold">TODO ENS EGURIDAD</span>
+                                    <span class="font-weight-bold">TODO EN SEGURIDAD</span>
                                 </div>
                                 <div class="icon-box">
                                     <i class="fas fa-truck"></i>
