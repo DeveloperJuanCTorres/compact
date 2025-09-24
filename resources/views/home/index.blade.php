@@ -52,26 +52,39 @@
             <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
                 <ol class="carousel-indicators">
                     @foreach($banners as $key => $banner)
-                        @if($key == 0)
-                        <li data-target="#header-carousel" data-slide-to="{{$key}}" class="active"></li>
-                        @else
-                        <li data-target="#header-carousel" data-slide-to="{{$key}}"></li>
-                        @endif
+                        <li data-target="#header-carousel" data-slide-to="{{$key}}" class="{{ $key == 0 ? 'active' : '' }}"></li>
                     @endforeach
                 </ol>
                 <div class="carousel-inner">
                     @foreach($banners as $key => $banner)
-                        @if($key == 0)
-                        <div class="carousel-item position-relative active">
-                            <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
-                            
+                        <div class="carousel-item position-relative {{ $key == 0 ? 'active' : '' }}">
+                            <!-- Imagen -->
+                            <img class="d-block w-100" src="storage/{{$banner->image}}"  
+                                 style="max-width: 100%; max-height: 100vh; object-fit: cover;">
+
+                            <!-- Capa semitransparente -->
+                            <div class="overlay"></div>
+
+                            <!-- Íconos superpuestos con texto -->
+                            <div class="carousel-icons">
+                                <div class="icon-box">
+                                    <i class="fas fa-tags"></i>
+                                    <span class="font-weight-bold">LAS MEJORES OFERTAS</span>
+                                </div>
+                                <div class="icon-box">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span class="font-weight-bold">TODO ENS EGURIDAD</span>
+                                </div>
+                                <div class="icon-box">
+                                    <i class="fas fa-truck"></i>
+                                    <span class="font-weight-bold">ENVÍOS A TODO EL PERÚ</span>
+                                </div>
+                                <div class="icon-box">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span class="font-weight-bold">PAGO SEGURO</span>
+                                </div>
+                            </div>
                         </div>
-                        @else
-                        <div class="carousel-item position-relative">
-                            <img class="d-block w-100" src="storage/{{$banner->image}}"  style="max-width: 100%; max-height: 100vh; object-fit: contain;">
-                            
-                        </div>
-                        @endif
                     @endforeach
                 </div>
             </div>
@@ -82,7 +95,7 @@
 
 
 <!-- Featured Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 iconos-destock">
     <div class="row px-xl-5 pb-3">
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
             <div class="align-items-center mb-4 text-center" >
