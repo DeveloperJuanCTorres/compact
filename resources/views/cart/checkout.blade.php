@@ -60,173 +60,114 @@
 
 <!-- Checkout Start -->
 <div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Billing Address</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="row">
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="radio" id="tipo_cliente" name="tipo_cliente" value="natural" checked onclick="mostrarCampos()">Natural
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="radio" id="tipo_cliente" name="tipo_cliente" value="empresa" onclick="mostrarCampos()">Empresa
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" id="campo_cliente">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>Nombre</label>
-                                <input class="form-control" type="text" id="nombre" name="nombre" placeholder="John">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Apellidos</label>
-                                <input class="form-control" type="text" id="apellidos" name="apellidos" placeholder="Doe">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="display: none;" id="campo_empresa">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>RUC</label>
-                                <input class="form-control" type="text" id="ruc" name="ruc">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Razon social</label>
-                                <input class="form-control" type="text" id="company" name="company">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Email</label>
-                        <input class="form-control" type="text" id="email" name="email" placeholder="example@email.com">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        @include('general.phone')
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label>Dirección</label>
-                        <input class="form-control" type="text" id="direccion" name="direccion" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Departamento</label>
-                        <select id="departamento" class="form-control departamento" name="mauticform[departamento]">    
-                            <option data-id="" value="">-Seleccionar-</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Provincia</label>
-                        <select id="provincia" class="form-control provincia" name="mauticform[provincia1]">
-                            <option data-id="" value="Chachapoyas">-Seleccionar-</option>                
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Distrito</label>
-                        <select id="distrito" class="form-control distrito" name="mauticform[distrito1]">
-                            <option data-id="" value="">-Seleccionar-</option>
-                        </select>
-                    </div>
-                    <!-- <div class="col-md-12 form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="newaccount">
-                            <label class="custom-control-label" for="newaccount">Create an account</label>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-md-12">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="shipto">
-                            <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-            <div class="collapse mb-5" id="shipping-address">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
-                <div class="bg-light p-30">
+    <form action="{{route('izipay')}}" method="POST">
+        @csrf
+        <div class="row px-xl-5">
+            
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Billing Address</span></h5>            
+                <div class="bg-light p-30 mb-5">
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" id="tipo_cliente" name="tipo_cliente" value="natural" checked onclick="mostrarCampos()">Natural
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="radio" id="tipo_cliente" name="tipo_cliente" value="empresa" onclick="mostrarCampos()">Empresa
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="campo_cliente">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Nombre</label>
+                                    <input class="form-control" type="text" id="nombre" name="nombre" placeholder="John">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Apellidos</label>
+                                    <input class="form-control" type="text" id="apellidos" name="apellidos" placeholder="Doe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display: none;" id="campo_empresa">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>RUC</label>
+                                    <input class="form-control" type="text" id="ruc" name="ruc">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Razon social</label>
+                                    <input class="form-control" type="text" id="company" name="company">
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
+                            <label>Email</label>
+                            <input class="form-control" type="text" id="email" name="email" placeholder="example@email.com">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
+                            @include('general.phone')
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Dirección</label>
+                            <input class="form-control" type="text" id="direccion" name="direccion" placeholder="123 Street">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
+                            <label>Departamento</label>
+                            <select id="departamento" class="form-control departamento" name="mauticform[departamento]">    
+                                <option data-id="" value="">-Seleccionar-</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                            <label>Provincia</label>
+                            <select id="provincia" class="form-control provincia" name="mauticform[provincia1]">
+                                <option data-id="" value="Chachapoyas">-Seleccionar-</option>                
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
+                            <label>Distrito</label>
+                            <select id="distrito" class="form-control distrito" name="mauticform[distrito1]">
+                                <option data-id="" value="">-Seleccionar-</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Total del pedido</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="border-bottom">
-                    <h6 class="mb-3">Productos</h6>
-                    @foreach(Cart::content() as $item)
-                    <div class="d-flex justify-content-between">
-                        <p>[ x{{$item->qty}} ] - {{$item->name}}</p>
-                        <p style="width: 220px;text-align: end;">S/. {{number_format($item->price * $item->qty, 2)}}</p>
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Total del pedido</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom">
+                        <h6 class="mb-3">Productos</h6>
+                        @foreach(Cart::content() as $item)
+                        <div class="d-flex justify-content-between">
+                            <p>[ x{{$item->qty}} ] - {{$item->name}}</p>
+                            <p style="width: 220px;text-align: end;">S/. {{number_format($item->price * $item->qty, 2)}}</p>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
+                    <div class="border-bottom pt-3 pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>S/. {{number_format(Cart::subtotal() - Cart::subtotal()*0.18,2)}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">IGV</h6>
+                            <h6 class="font-weight-medium">S/. {{number_format(Cart::subtotal()*0.18,2)}}</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>S/. {{number_format(Cart::subtotal(),2)}}</h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="border-bottom pt-3 pb-2">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6>Subtotal</h6>
-                        <h6>S/. {{number_format(Cart::subtotal() - Cart::subtotal()*0.18,2)}}</h6>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">IGV</h6>
-                        <h6 class="font-weight-medium">S/. {{number_format(Cart::subtotal()*0.18,2)}}</h6>
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5>Total</h5>
-                        <h5>S/. {{number_format(Cart::subtotal(),2)}}</h5>
-                    </div>
+                <div class="mb-5">
+                    <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Realizar pedido</button>
                 </div>
             </div>
-            <div class="mb-5">
-                <button class="btn btn-block btn-primary font-weight-bold py-3 pedido">Realizar pedido</button>
-            </div>
+            
         </div>
-    </div>
+    </form>
 </div>
 <!-- Checkout End -->
 
@@ -390,7 +331,7 @@
             });
 
             $.ajax({
-                url: "/enviar_pedido",
+                url: "/izipay",
                 method: "post",
                 dataType: 'json',
                 data: {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Exports\ProductsExport;
+use App\Http\Controllers\IzipayController;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -32,6 +33,9 @@ Route::get('cart', [App\Http\Controllers\CartController::class, 'cart'])->name('
 Route::get('cart/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('clear');
 Route::post('cart/removeitem', [App\Http\Controllers\CartController::class, 'removeItem'])->name('removeitem');
 Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
+
+Route::post('/izipay', [IzipayController::class, 'izipay'])->name('izipay');
+Route::post("result", [IzipayController::class, 'result'])->name("result");
 
 Route::get('/export/products', function () {
         return Excel::download(new ProductsExport, 'products.xlsx');
