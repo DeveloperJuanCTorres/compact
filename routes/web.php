@@ -36,6 +36,7 @@ Route::get('/checkout', [App\Http\Controllers\HomeController::class, 'checkout']
 
 Route::post('/izipay', [IzipayController::class, 'izipay'])->name('izipay');
 Route::post("result", [IzipayController::class, 'result'])->name("result");
+Route::post('/ipn/izipay', [IzipayController::class, 'ipn'])->name('ipn.izipay');
 
 Route::get('/export/products', function () {
         return Excel::download(new ProductsExport, 'products.xlsx');
