@@ -26,7 +26,7 @@ class IzipayController extends Controller
         );
 
         $body = [
-            "amount" => 250 * 100,
+            "amount" => (int) (floatval(str_replace(',', '', Cart::subtotal())) * 100),
             "currency" => "PEN",
             "orderId" => "1234",
             "customer" => [
