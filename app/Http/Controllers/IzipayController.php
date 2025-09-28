@@ -87,7 +87,12 @@ class IzipayController extends Controller
         $answer = json_decode($request['kr-answer'], true);
         $orderStatus = $answer['orderStatus'];
 
-        return view('izipay.result', compact('orderStatus', 'answer'));
+        $business = Company::find(1);
+        $categories = Taxonomy::whereHas('products', function ($query) {
+            $query->where('stock', '>', 0);
+        })->take(8)->get();
+
+        return view('izipay.result', compact('orderStatus', 'answer', 'business', 'categories'));
     }
 
     public function ipn(Request $request)

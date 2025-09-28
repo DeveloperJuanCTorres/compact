@@ -56,7 +56,7 @@ class HomeController extends Controller
         return view('cart.checkout',compact('categories','business'));
     }
 
-     public function store(Request $request)
+    public function store(Request $request)
     {
         $business = Company::find(1);
         $products = Product::query()->where('stock', '>', 0);
@@ -88,6 +88,27 @@ class HomeController extends Controller
 
        
         return view('tienda.store',compact('categories','brands','products','business'));
+    }
+
+    public function ofertas(Request $request)
+    {
+        $business = Company::find(1);
+        $products = Product::query()->where('stock', '>', 0);       
+        
+
+        $products = $products->paginate(8);
+        
+
+        $categories = Taxonomy::whereHas('products', function ($query) {
+            $query->where('stock', '>', 0);
+        })->get();
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->where('stock', '>', 0);
+        })->get();
+
+       
+        return view('tienda.ofertas',compact('categories','brands','products','business'));
     }
 
     public function buscar(Request $request)

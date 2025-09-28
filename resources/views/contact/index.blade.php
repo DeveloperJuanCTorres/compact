@@ -38,6 +38,13 @@
                         </div>
                     </div>
                 </nav>
+
+                <div style="position: absolute; right: 0;">
+                    <div id="promo-btn">
+                        <a class="btn-promo btn-secondary" href="/ofertas">Ofertas</a>
+                        <img src="img/promo.png" class="promo-tag swing">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

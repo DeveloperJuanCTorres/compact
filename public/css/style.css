@@ -635,6 +635,9 @@ pre code {
   .iconos-destock{
     display: none !important;
   }
+  .destock{
+    display: block !important;
+  }
 }
 
 @media (max-width: 575px) {
@@ -650,6 +653,9 @@ pre code {
   }
 
   .iconos-mobil{
+    display: none !important;
+  }
+  .destock{
     display: none !important;
   }
 }
@@ -9896,4 +9902,46 @@ a.text-dark:hover, a.text-dark:focus {
 .icon-box:hover i {
     background: rgba(255, 255, 255, 0.9);
     color: rgb(239, 119, 24);
+}
+
+
+/* promos */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+
+#promo-btn{
+  text-align:center;
+  /* position: fixed; */
+  margin:15px 0 35px;
+  }
+.btn-promo {
+    border: 0;
+    border-radius: 6px;
+    box-shadow: none;
+    text-shadow: none;
+    text-decoration:none;
+    padding: 12px 50px;
+    font-size: 18px;
+    font-weight:600;
+    line-height: 1.3333333;
+    color: #fff;
+    background: rgb(239, 119, 24);
+    z-index: 3;position: relative;
+}
+
+.promo-tag {
+    display: block;
+    margin: 0 auto;
+    transform-origin: center -20px;
+   filter: drop-shadow(4px 10px 3px rgba(0,0,0,0.3));
+}
+
+.swing{animation: swing ease-in-out 1s infinite alternate;}
+@keyframes swing{
+0% {
+    transform: rotate(3deg);
+}
+100% {
+    transform: rotate(-3deg);
+}
 }

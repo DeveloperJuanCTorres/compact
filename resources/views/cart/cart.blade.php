@@ -39,6 +39,12 @@
                     </div>
                 </nav>
             </div>
+            <div class="col-lg-3" style="position: absolute; right: 0;">
+                <div id="promo-btn">
+                    <a class="btn-promo btn-secondary" href="https://sharwar.com">Ofertas</a>
+                    <img src="img/promo.png" class="promo-tag swing">
+                </div>
+            </div>
         </div>
     </div>
 </div>

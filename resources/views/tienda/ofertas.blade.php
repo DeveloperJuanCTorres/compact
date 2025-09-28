@@ -53,86 +53,39 @@
 </div>
 <!-- Navbar End -->
 
-<!-- Breadcrumb Start -->
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="/">Inicio</a>
-                <span class="breadcrumb-item active">Tienda</span>                
-            </nav>
-        </div>
-    </div>
+<!-- Carousel Start -->
+<div class="banner">
+    <img src="img/banner-1.png" alt="Banner" class="banner-img">
 </div>
-<!-- Breadcrumb End -->
 
+<style>
+.banner {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden; /* Oculta lo que sobresalga */
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;        /* Mantiene proporción */
+    object-fit: cover;   /* Ajusta sin deformar */
+}
+</style>
+<!-- Carousel End -->
 
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-3 col-md-4">
-            
-            <form id="filterForm">
-                
-                <div class="accordion" id="accordionExample">
-                       
-                    <div class="accordion-item">                                
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Filtrar por Categoría
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="bg-light mb-30">
-                                    @foreach($categories as $category)
-                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="radio" class="custom-control-input" name="categories[]" value="{{ $category->id }}"
-                                        {{ request('categories') == $category->id ? 'checked' : '' }}>
-                                        <label class="custom-control-label">{{$category->name}}</label>
-                                        <span class="badge border font-weight-normal bg-primary">{{$category->productsInStock->count()}}</span>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>                            
-                    </div>  
-                    
-                    <div class="accordion-item">                                
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Filtrar por Marca
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="bg-light mb-30">
-                                    @foreach($brands as $brand)
-                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="radio" class="custom-control-input" name="brands[]" value="{{ $brand->id }}">
-                                        <label class="custom-control-label">{{$brand->name}}</label>
-                                        <span class="badge border font-weight-normal bg-primary">{{$brand->productsInStock->count()}}</span>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>                            
-                    </div> 
-                </div>                
-            </form>
-        </div>
-        <!-- Shop Sidebar End -->
-
-
+        
         <!-- Shop Product Start -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-12 col-md-8">
             <!-- Spinner oculto al principio -->
             <div id="loadingSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-10">
                 <div class="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
             </div>
             <div class="row pb-3" id="productContainer">
-                @include('tienda.product-list')
+                @include('tienda.oferta-list')
             </div>
         </div>
         <!-- Shop Product End -->
