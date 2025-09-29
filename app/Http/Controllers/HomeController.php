@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Contactanos;
+use App\Mail\Reclamos;
 use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Color;
@@ -11,6 +13,7 @@ use App\Models\Product;
 use App\Models\ProductColorImage;
 use App\Models\Taxonomy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -199,5 +202,27 @@ class HomeController extends Controller
         $images = $product->images ? json_decode($product->images) : [];
 
         return response()->json($images);
+    }
+
+    public function correoContact(Request $request)
+    {
+        $correo = new Contactanos($request);
+        try {
+            Mail::to('informes@compactseguridad.com')->send($correo);
+            return response()->json(['status' => true, 'msg' => "El correo fue enviado satisfactoriamente"]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'msg' => "Hubo un error al enviar, inténtalo de nuevo más tarde." . $e->getMessage()]);
+        }
+    }
+
+    public function correoReclamo(Request $request)
+    {
+        $correo = new Reclamos($request);
+        try {
+            Mail::to('informes@compactseguridad.com')->send($correo);
+            return response()->json(['status' => true, 'msg' => "El correo fue enviado satisfactoriamente"]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'msg' => "Hubo un error al enviar, inténtalo de nuevo más tarde." . $e->getMessage()]);
+        }
     }
 }
