@@ -21,7 +21,7 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <nav class="navbar navbar-expand-lg bg-mobil navbar-dark py-3 py-lg-0 px-0">
                     <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
@@ -39,9 +39,9 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-lg-3" style="position: absolute; right: 0;">
+            <div class="col-lg-3 destock" style="position: absolute; right: 0;">
                 <div id="promo-btn">
-                    <a class="btn-promo btn-secondary" href="https://sharwar.com">Ofertas</a>
+                    <a class="btn-promo btn-secondary" href="{{ route ('ofertas')}}">Ofertas</a>
                     <img src="img/promo.png" class="promo-tag swing">
                 </div>
             </div>

@@ -59,7 +59,7 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $business = Company::find(1);
-        $products = Product::query()->where('stock', '>', 0);
+        $products = Product::query()->where('stock', '>', 0)->where('liquidacion','!=', 1);
 
        
         if ($request->filled('categories')) {
@@ -93,7 +93,7 @@ class HomeController extends Controller
     public function ofertas(Request $request)
     {
         $business = Company::find(1);
-        $products = Product::query()->where('stock', '>', 0);       
+        $products = Product::query()->where('stock', '>', 0)->where('liquidacion','=',1);       
         
 
         $products = $products->paginate(8);

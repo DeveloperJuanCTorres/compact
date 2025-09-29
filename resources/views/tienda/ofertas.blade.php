@@ -34,7 +34,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link">Inicio</a>
-                            <a href="/store" class="nav-item nav-link active">Tienda</a>
+                            <a href="/store" class="nav-item nav-link">Tienda</a>
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
                         </div>
@@ -59,17 +59,17 @@
 </div>
 
 <style>
-.banner {
-    width: 100%;
-    max-height: 400px;
-    overflow: hidden; /* Oculta lo que sobresalga */
-}
+    .banner {
+        width: 100%;
+        max-height: 500px;
+        overflow: hidden; /* Oculta lo que sobresalga */
+    }
 
-.banner-img {
-    width: 100%;
-    height: auto;        /* Mantiene proporción */
-    object-fit: cover;   /* Ajusta sin deformar */
-}
+    .banner-img {
+        width: 100%;
+        height: auto;        /* Mantiene proporción */
+        object-fit: cover;   /* Ajusta sin deformar */
+    }
 </style>
 <!-- Carousel End -->
 
