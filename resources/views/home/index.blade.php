@@ -285,7 +285,7 @@
             Siguenos en nuestras redes
         </a> 
     </div>
-    <div class="row pt-5">
+    <!-- <div class="row pt-5">
         <div class="col-lg-4 col-md-6 col-12">
             <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@grupotyg_ing/video/7297846035320245510" data-video-id="7297846035320245510" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@grupotyg_ing" href="https://www.tiktok.com/@grupotyg_ing?refer=embed">@grupotyg_ing</a> Estimada red, si estás en busca de alguno de estos servicios: ▪️Diseño Web ▪️Desarrollo Web ▪️Business Intelligence ▪️Branding  GRUPO T&#38;G es tu mejor opción 📲 Cotiza tu proyecto ahora!! 🥳🙌 Contáctanos al: +51 978 209 130 Visita nuestra página web:  🔗www.grupotyg.pe  <a title="desarrolloweb" target="_blank" href="https://www.tiktok.com/tag/desarrolloweb?refer=embed">#desarrolloweb</a> <a title="web" target="_blank" href="https://www.tiktok.com/tag/web?refer=embed">#web</a> <a title="ti" target="_blank" href="https://www.tiktok.com/tag/ti?refer=embed">#ti</a> <a title="ecommerce" target="_blank" href="https://www.tiktok.com/tag/ecommerce?refer=embed">#ecommerce</a> <a title="paginaweb" target="_blank" href="https://www.tiktok.com/tag/paginaweb?refer=embed">#paginaweb</a> <a title="webdeveloper" target="_blank" href="https://www.tiktok.com/tag/webdeveloper?refer=embed">#webdeveloper</a> <a title="website" target="_blank" href="https://www.tiktok.com/tag/website?refer=embed">#website</a> <a title="dashboard" target="_blank" href="https://www.tiktok.com/tag/dashboard?refer=embed">#dashboard</a> <a title="analisisdedatos" target="_blank" href="https://www.tiktok.com/tag/analisisdedatos?refer=embed">#analisisdedatos</a> <a title="inteligenciadenegocios" target="_blank" href="https://www.tiktok.com/tag/inteligenciadenegocios?refer=embed">#inteligenciadenegocios</a> <a title="powerbi" target="_blank" href="https://www.tiktok.com/tag/powerbi?refer=embed">#PowerBI</a> <a title="businessintelligence" target="_blank" href="https://www.tiktok.com/tag/businessintelligence?refer=embed">#businessintelligence</a> <a title="business" target="_blank" href="https://www.tiktok.com/tag/business?refer=embed">#business</a> <a title="dataanalytics" target="_blank" href="https://www.tiktok.com/tag/dataanalytics?refer=embed">#dataanalytics</a> <a target="_blank" title="♬ Sunrise - Official Sound Studio" href="https://www.tiktok.com/music/Sunrise-6618871733141113604?refer=embed">♬ Sunrise - Official Sound Studio</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
         </div>
@@ -296,7 +296,7 @@
         <div class="col-lg-4 col-md-6 col-12 text-center">
             <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F243977998405756%2F&show_text=false&width=267&t=0" width="325" height="900" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
         </div>
-    </div>
+    </div> -->
 </div>
 <!-- fin de seccion de videos -->
 

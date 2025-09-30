@@ -206,7 +206,20 @@ class HomeController extends Controller
 
     public function correoContact(Request $request)
     {
-        $correo = new Contactanos($request);
+        $request->validate([
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+            'file'    => 'nullable|file|max:2048', // hasta 2MB
+        ]);
+
+        $filePath = null;
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('attachments', 'public');
+        }
+
+        $correo = new Contactanos($request->all(), $filePath);
         try {
             Mail::to('informes@compactseguridad.com')->send($correo);
             return response()->json(['status' => true, 'msg' => "El correo fue enviado satisfactoriamente"]);

@@ -91,7 +91,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Nombre</label>
-                                <input type="text" class="form-control" id="nombres" placeholder="Nombre">
+                                <input type="text" class="form-control inputTexto" id="nombres" placeholder="Nombre">
                                 
                             </div>                        
                         </div>
@@ -99,21 +99,21 @@
                         <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Apellido paterno</label>
-                                <input type="text" class="form-control" id="apellido_pat" placeholder="Apellido paterno">
+                                <input type="text" class="form-control inputTexto" id="apellido_pat" placeholder="Apellido paterno">
                                 
                             </div>                        
                         </div>
                         <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Apellido materno</label>
-                                <input type="text" class="form-control" id="apellido_mat" placeholder="Apellido materno">
+                                <input type="text" class="form-control inputTexto" id="apellido_mat" placeholder="Apellido materno">
                                 
                             </div>                        
                         </div>
                         <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <input type="email" class="form-control inputTexto" id="email" placeholder="Email">
                                 
                             </div>                       
                         </div>
@@ -154,7 +154,7 @@
                         <div class="col-lg-9 col-md-12 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Dirección fiscal</label>
-                                <input type="text" class="form-control" id="direccion" placeholder="Direccion">
+                                <input type="text" class="form-control inputTexto" id="direccion" placeholder="Direccion">
                                 
                             </div>                       
                         </div>
@@ -164,7 +164,7 @@
                         <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Orden de compra</label>
-                                <input type="text" class="form-control" id="orden_compra" placeholder="Orden de compra">
+                                <input type="text" class="form-control inputTexto" id="orden_compra" placeholder="Orden de compra">
                                 
                             </div>                      
                         </div>
@@ -179,14 +179,14 @@
                         <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Detalla tu queja/reclamo</label>
-                                <textarea class="form-control" id="reclamo" rows="5" placeholder="Escribe"></textarea>
+                                <textarea class="form-control inputTexto" id="reclamo" rows="5" placeholder="Escribe"></textarea>
                                 
                             </div>                        
                         </div>
                         <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
                             <div class="form-floating">
                                 <label for="name">Pedido</label>
-                                <textarea class="form-control" id="pedido" rows="5" placeholder="Escribe"></textarea>
+                                <textarea class="form-control inputTexto" id="pedido" rows="5" placeholder="Escribe"></textarea>
                                 
                             </div>                         
                         </div>

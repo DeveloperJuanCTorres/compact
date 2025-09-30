@@ -71,21 +71,22 @@
         <div class="col-lg-7 mb-5">
             <div class="contact-form bg-light">
                 <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                <form method="POST" action="{{ route('contact.send') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="row p-0">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="control-group">
-                                <input type="text" class="form-control" id="name" placeholder="Nombre"
+                                <input type="text" class="form-control inputTexto" id="name" placeholder="Nombre"
                                     required="required" data-validation-required-message="Por favor ingrese su nombre" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control" id="email" placeholder="Email"
+                                <input type="email" class="form-control inputTexto" id="email" placeholder="Email"
                                     required="required" data-validation-required-message="Por favor ingrese su correo" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Asunto"
+                                <input type="text" class="form-control inputTexto" id="subject" placeholder="Asunto"
                                     required="required" data-validation-required-message="Ingrese el asunto" />
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -102,13 +103,13 @@
                         </div>
 
                         <div class=" col-lg-12 col-md-12 col-12control-group">
-                            <textarea class="form-control" rows="8" id="message" placeholder="Mensaje..."
+                            <textarea class="form-control inputTexto" rows="8" id="message" placeholder="Mensaje..."
                                 required="required"
                                 data-validation-required-message="Ingrese un mensaje"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="m-auto">
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar mensaje</button>
+                            <button class="btn btn-primary py-2 px-4" type="submit">Enviar mensaje</button>
                         </div>
                     </div>                    
                 </form>
@@ -134,6 +135,18 @@
 
 <!-- Bootstrap Icons (si quieres usar el icono de upload) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+document.querySelectorAll('.inputTexto').forEach(function (input) {
+    input.addEventListener('input', function (e) {
+        const prohibido = /[<>{};*$%=()&]/g; // Caracteres que quieres bloquear
+        if (prohibido.test(e.target.value)) {
+            e.target.value = e.target.value.replace(prohibido, '');
+        }
+    });
+});
+</script>  
+
 <script>
   const fileInput = document.getElementById('file');
   const filePreview = document.getElementById('file-preview');

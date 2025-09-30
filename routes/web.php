@@ -45,7 +45,8 @@ Route::get('/export/products', function () {
 
 Route::get('/products/{product}/color/{color}/images', [App\Http\Controllers\HomeController::class, 'getColorImages']);
 
-Route::post('/correo',[App\Http\Controllers\HomeController::class,'correoContact']);
+
+Route::post('/contact/send', [App\Http\Controllers\HomeController::class, 'correoContact'])->name('contact.send');
 Route::post('/reclamo',[App\Http\Controllers\HomeController::class,'correoReclamo']);
 
 

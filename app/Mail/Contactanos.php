@@ -12,15 +12,23 @@ use Illuminate\Queue\SerializesModels;
 class Contactanos extends Mailable
 {
     use Queueable, SerializesModels;
-    public $contacto;
+    public $data;
+    public $filePath;
     
-    public function __construct($mensaje)
+    public function __construct($data, $filePath = null)
     {
-        $this->contacto = $mensaje;
+        $this->data = $data;
+        $this->filePath = $filePath;
     }
 
     public function build()
     {
-        return $this->view('email.contactanos');
+        $email = $this->view('email.contactanos');
+
+        if ($this->filePath) {
+            $email->attach(storage_path('app/public/' . $this->filePath));
+        }
+
+        return $email;
     }
 }
