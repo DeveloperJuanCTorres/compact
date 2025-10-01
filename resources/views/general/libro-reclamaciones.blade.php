@@ -29,8 +29,44 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
+                        <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
+                            <!-- Lado izquierdo: Usuario -->
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user text-white mr-2"></i>
+
+                                @auth
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle text-white" href="#" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                                        {{ auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                        <li><a class="dropdown-item" href="#">Mis pedidos</a></li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                                @else
+                                <a href="{{ url('login') }}" class="text-white">Iniciar sesión</a>
+                                @endauth
+                            </div>
+
+                            <!-- Lado derecho: Carrito -->
+                            <a href="/cart" class="btn px-0 d-flex align-items-center">
+                                <i class="fas fa-shopping-cart text-white"></i>
+                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                    {{ \Cart::count() }}
+                                </span>
+                            </a>
+                        </div>
+
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link active">Inicio</a>
+                            <a href="/" class="nav-item nav-link">Inicio</a>
                             <a href="/store" class="nav-item nav-link">Tienda</a>
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
@@ -59,18 +95,18 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="page-content px-4">
+            <div class="page-content">
                 <div class="header-text">
                     <h3 class="pt-4">1. DATOS DE LA PERSONA QUE PRESENTA LA QUEJA O RECLAMO</h3>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Fecha Nacimiento</label>
                                 <input required type="date" class="form-control" id="fecha_nac" placeholder="Fecha Nacimiento">
                                 
                             </div>                      
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Tipo documento</label>
                                 <select required class="form-control" name="tipo_doc" id="tipo_doc">
@@ -81,14 +117,14 @@
                                 
                             </div>                       
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Número de documento</label>
                                 <input type="number" class="form-control" id="numero_doc" placeholder="Número de documento">
                                 
                             </div>                       
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Nombre</label>
                                 <input type="text" class="form-control inputTexto" id="nombres" placeholder="Nombre">
@@ -96,34 +132,34 @@
                             </div>                        
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Apellido paterno</label>
                                 <input type="text" class="form-control inputTexto" id="apellido_pat" placeholder="Apellido paterno">
                                 
                             </div>                        
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Apellido materno</label>
                                 <input type="text" class="form-control inputTexto" id="apellido_mat" placeholder="Apellido materno">
                                 
                             </div>                        
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Email</label>
                                 <input type="email" class="form-control inputTexto" id="email" placeholder="Email">
                                 
                             </div>                       
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 @include('general.phone')
                             </div>                       
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Departamento</label>
                                 <select id="departamento" class="form-control departamento" name="mauticform[departamento]">    
@@ -132,7 +168,7 @@
                                 
                             </div>                       
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Provincia</label>
                                 <select id="provincia" class="form-control provincia" name="mauticform[provincia1]">
@@ -141,7 +177,7 @@
                                 
                             </div>                         
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-3 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Distrito</label>
                                 <select id="distrito" class="form-control distrito" name="mauticform[distrito1]">
@@ -151,7 +187,7 @@
                             </div>                        
                         </div>
 
-                        <div class="col-lg-9 col-md-12 col-12 mt-4 px-6">
+                        <div class="col-lg-9 col-md-12 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Dirección fiscal</label>
                                 <input type="text" class="form-control inputTexto" id="direccion" placeholder="Direccion">
@@ -161,14 +197,14 @@
                     </div>
                     <h3 class="pt-4">2. INFORMACIÓN GENERAL</h3>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-6 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Orden de compra</label>
                                 <input type="text" class="form-control inputTexto" id="orden_compra" placeholder="Orden de compra">
                                 
                             </div>                      
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-6 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Monto del producto/servicio</label>
                                 <input type="number" class="form-control" id="monto" placeholder="Monto del producto/servicio">
@@ -176,14 +212,14 @@
                             </div>                       
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-6 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Detalla tu queja/reclamo</label>
                                 <textarea class="form-control inputTexto" id="reclamo" rows="5" placeholder="Escribe"></textarea>
                                 
                             </div>                        
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12 mt-4 px-6">
+                        <div class="col-lg-6 col-md-6 col-12 mt-4">
                             <div class="form-floating">
                                 <label for="name">Pedido</label>
                                 <textarea class="form-control inputTexto" id="pedido" rows="5" placeholder="Escribe"></textarea>

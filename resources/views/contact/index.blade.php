@@ -139,7 +139,7 @@
                         </div>
 
                         <div class=" col-lg-12 col-md-12 col-12control-group">
-                            <textarea class="form-control inputTexto" rows="8" name="mensaje" id="mensaje" placeholder="Mensaje..."
+                            <textarea class="form-control inputTexto" rows="4" name="mensaje" id="mensaje" placeholder="Mensaje..."
                                 required="required"
                                 data-validation-required-message="Ingrese un mensaje"></textarea>
                             <p class="help-block text-danger"></p>
