@@ -9885,9 +9885,9 @@ a.text-dark:hover, a.text-dark:focus {
 .icon-box i {
     height:60px;
     width: 60px;
-    font-size: 32px;
+    font-size: 28px;
     background: rgb(239, 119, 24);
-    padding: 12px;
+    padding: 15px;
     border-radius: 30px;
     margin-bottom: 5px;
     transition: all 0.3s ease;
@@ -9944,4 +9944,60 @@ a.text-dark:hover, a.text-dark:focus {
 100% {
     transform: rotate(-3deg);
 }
+}
+
+
+.btn-float {
+    position: fixed;
+    top: 78%;              /* centrado vertical */
+    right: 20px;            /* distancia desde la izquierda */
+    transform: translateY(-50%); /* ajuste para centrar exacto */
+    width: 60px;
+    height: 60px;
+    background-color: #ff5722; /* color (puedes cambiar) */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-float:hover {
+    background-color: #e64a19;
+    transform: translateY(-50%) scale(1.1); /* mantener centrado y crecer */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
+.btn-float {
+    animation: pulse 2s infinite;
+}
+
+@media (max-width: 768px) {
+    .sesion-destock {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center; /* o space-between según prefieras */
+    }
+
+    .iconos-destock > * {
+        margin: 0 8px;
+    }
+}
+
+@media (min-width: 769px) {
+  .sesion-destock{
+    display: none !important;
+  }
 }

@@ -30,6 +30,42 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
+                        <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
+                            <!-- Lado izquierdo: Usuario -->
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user text-white mr-2"></i>
+
+                                @auth
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle text-white" href="#" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                                        {{ auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                        <li><a class="dropdown-item" href="#">Mis pedidos</a></li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                                @else
+                                <a href="{{ url('login') }}" class="text-white">Iniciar sesión</a>
+                                @endauth
+                            </div>
+
+                            <!-- Lado derecho: Carrito -->
+                            <a href="/cart" class="btn px-0 d-flex align-items-center">
+                                <i class="fas fa-shopping-cart text-white"></i>
+                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                    {{ \Cart::count() }}
+                                </span>
+                            </a>
+                        </div>
+                        
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link active">Inicio</a>
                             <a href="/store" class="nav-item nav-link">Tienda</a>
@@ -72,7 +108,7 @@
             
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="pr-3">Billing Address</span></h5>            
-                <div class="bg-light p-30 mb-5">
+                <div class="bg-light mb-5">
                     <div class="row">
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="radio" id="tipo_cliente" name="tipo_cliente" value="natural" checked onclick="mostrarCampos()">Natural

@@ -49,6 +49,32 @@ class CartController extends Controller
         return view('cart.cart',compact('categories','business'));
     }
 
+    public function update(Request $request)
+    {
+        $rowId = $request->rowId;
+        $qty   = $request->qty;
+
+        \Cart::update($rowId, $qty);
+
+        $item = \Cart::get($rowId);
+
+        // cálculos
+        $subtotalGeneral = (float) str_replace(',', '', \Cart::subtotal()); 
+        $igv = $subtotalGeneral * 0.18;
+        $subtotalSinIgv = $subtotalGeneral - $igv;
+        $total = $subtotalGeneral;
+
+        return response()->json([
+            'success'   => true,
+            'rowId'     => $rowId,
+            'qty'       => $item->qty,
+            'subtotalItem'  => number_format($item->price * $item->qty, 2),
+            'subtotalGeneral' => number_format($subtotalSinIgv, 2),
+            'igv'          => number_format($igv, 2),
+            'total'        => number_format($total, 2),
+        ]);
+    }
+
     public function removeItem(Request $request)
     {
         Cart::remove($request->rowId);

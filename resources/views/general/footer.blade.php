@@ -80,4 +80,8 @@
     </a>
 </div>
 
-<!-- <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a> -->
+<div class="iconos-destock">
+    <a href="{{ route('ofertas') }}" class="btn-float" title="Ver ofertas">
+        <i class="fas fa-percent"></i>
+    </a>
+</div>

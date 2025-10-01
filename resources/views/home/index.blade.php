@@ -30,6 +30,42 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
+                        <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
+                            <!-- Lado izquierdo: Usuario -->
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user text-white mr-2"></i>
+
+                                @auth
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle text-white" href="#" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                                        {{ auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                        <li><a class="dropdown-item" href="#">Mis pedidos</a></li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                                @else
+                                <a href="{{ url('login') }}" class="text-white">Iniciar sesión</a>
+                                @endauth
+                            </div>
+
+                            <!-- Lado derecho: Carrito -->
+                            <a href="/cart" class="btn px-0 d-flex align-items-center">
+                                <i class="fas fa-shopping-cart text-white"></i>
+                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                    {{ \Cart::count() }}
+                                </span>
+                            </a>
+                        </div>
+
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link active">Inicio</a>
                             <a href="/store" class="nav-item nav-link">Tienda</a>
@@ -102,34 +138,30 @@
 
 
 <!-- Featured Start -->
-<div class="container-fluid pt-5 iconos-destock">
+<div class="container-fluid iconos-destock">
     <div class="row px-xl-5 pb-3">
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="align-items-center mb-4 text-center" >
-                <h3 class="fa fa-tags text-primary m-0 mr-3 mb-2"></h3>
-                <h6 class="font-weight-semi-bold m-0">LAS MEJORES OFERTAS</h6>
-                <span>En todas nuestras líneas</span>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="align-items-center bg-light mb-4 text-center">
-                <h3 class="fa fa-lock text-primary m-0 mr-2 mb-2"></h3>
+            <div class="icon-box">
+                <i class="fas fa-tags"></i>
                 <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
-                <span>El mejor equipamiento</span>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="align-items-center bg-light mb-4 text-center">
-                <h3 class="fas fa-truck text-primary m-0 mr-3 mb-2"></h3>
-                <h6 class="font-weight-semi-bold m-0">LLEGAMOS A TODO EL PERÚ</h6>
-                <span>Donde tú estás</span>
+            <div class="icon-box">
+                <i class="fas fa-shield-alt"></i>
+                <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="align-items-center bg-light mb-4 text-center">
-                <h3 class="fa fa-lock text-primary m-0 mr-3"></h3>
+            <div class="icon-box">
+                <i class="fas fa-truck"></i>
+                <h6 class="font-weight-semi-bold m-0">ENVÍOS A TODO EL PERÚ</h6>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="icon-box">
+                <i class="fas fa-credit-card"></i>
                 <h6 class="font-weight-semi-bold m-0">PAGO SEGURO</h6>
-                <span>Siempre preocupados</span>
             </div>
         </div>
     </div>
