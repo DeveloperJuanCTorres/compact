@@ -153,15 +153,22 @@
                 <div class="carousel-inner bg-light" id="carousel-images">
                     @php
                         $colorImages = $product->colorImages;
+                        $imagenesColor = collect();
                     @endphp
 
                     {{-- Caso 2: si el producto tiene registros en product_color_images --}}
                     @if($colorImages->count() > 0)
                         @php
-                            $firstColor = $product->colors->first();
-                            $imagenesColor = $firstColor 
-                                ? $colorImages->where('color_id', $firstColor->id) 
-                                : collect([]);
+                            if ($selectedColorId) {
+                                // Mostrar imágenes del color seleccionado
+                                $imagenesColor = $colorImages->where('color_id', $selectedColorId);
+                            } else {
+                                // Si no hay selección, tomar el primer color asociado al producto
+                                $firstColor = $product->colors->first();
+                                $imagenesColor = $firstColor
+                                    ? $colorImages->where('color_id', $firstColor->id)
+                                    : collect([]);
+                            }
                         @endphp
 
                         @forelse($imagenesColor as $key => $item)

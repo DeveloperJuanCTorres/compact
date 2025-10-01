@@ -51,6 +51,6 @@ class Product extends Model
 
     public function colorImages()
     {
-        return $this->hasMany(ProductColorImage::class);
+        return $this->hasMany(ProductColorImage::class, 'product_id', 'id');
     }
 }

@@ -133,7 +133,10 @@ class HomeController extends Controller
                           ->where('stock', '>', 0)
                           ->get();
 
-        return view('tienda.product-detail', compact('product','categories','relatedProducts','business'));
+        // Capturamos el color seleccionado (si existe en la request)
+        $selectedColorId = request()->get('color_id');
+
+        return view('tienda.product-detail', compact('product','categories','relatedProducts','business', 'selectedColorId'));
     }
 
     public function about()
@@ -165,23 +168,28 @@ class HomeController extends Controller
         return view('general.libro-reclamaciones', compact('categories','business'));
     }
 
-    // public function getColorImages($productId, $colorId)
+    // public function colorImages(Product $product, $colorId)
     // {
-    //     $images = \App\Models\ProductColorImage::where('product_id', $productId)
-    //                 ->where('color_id', $colorId)
-    //                 ->get();
+    //     $imagenesColor = $product->colorImages()
+    //         ->where('color_id', $colorId)
+    //         ->where('product_id', $product->id) // 👈 aseguras que es del producto
+    //         ->get();
 
-        
-    //     if ($images->isEmpty()) {
-    //         $images = ProductColorImage::where('product_id', $productId)->get();
+    //     if ($imagenesColor->isEmpty()) {
+    //         // si no hay imágenes de color, devolvemos las del producto (tabla products.images)
+    //         $imagenes = $product->images ? json_decode($product->images) : [];
+    //         return response()->json($imagenes);
     //     }
 
-    //     return response()->json($images);
+    //     return response()->json(
+    //         $imagenesColor->map(fn($img) => ['image' => $img->image])
+    //     );
     // }
 
+    
     public function getColorImages($productId, $colorId = null)
     {
-        // Buscar imágenes por color si existe colorId
+       
         if ($colorId) {
             $images = ProductColorImage::where('product_id', $productId)
                         ->where('color_id', $colorId)
@@ -192,7 +200,7 @@ class HomeController extends Controller
             }
         }
 
-        // Si no hay color o no hay imágenes en product_color_images, traer imágenes del producto
+       
         $product = Product::find($productId);
 
         if (!$product) {
