@@ -106,23 +106,23 @@
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
             <div class="contact-form bg-light">
-                <div id="success"></div>
-                <form method="POST" action="{{ route('contact.send') }}" enctype="multipart/form-data">
+                <!-- <div id="success"></div> -->
+                <form id="contactForm" method="POST" action="{{ route('contact.send') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row p-0">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="control-group">
-                                <input type="text" class="form-control inputTexto" id="name" placeholder="Nombre"
+                                <input type="text" class="form-control inputTexto" name="name" id="name" placeholder="Nombre"
                                     required="required" data-validation-required-message="Por favor ingrese su nombre" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control inputTexto" id="email" placeholder="Email"
+                                <input type="email" class="form-control inputTexto" name="email" id="email" placeholder="Email"
                                     required="required" data-validation-required-message="Por favor ingrese su correo" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control inputTexto" id="subject" placeholder="Asunto"
+                                <input type="text" class="form-control inputTexto" name="subject" id="subject" placeholder="Asunto"
                                     required="required" data-validation-required-message="Ingrese el asunto" />
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -134,12 +134,12 @@
                                 <br>
                                 Haz clic o arrastra un archivo aquí
                             </label>
-                            <input id="file" type="file" />
+                            <input name="file" id="file" type="file" />
                             <div id="file-preview" class="file-preview"></div>
                         </div>
 
                         <div class=" col-lg-12 col-md-12 col-12control-group">
-                            <textarea class="form-control inputTexto" rows="8" id="message" placeholder="Mensaje..."
+                            <textarea class="form-control inputTexto" rows="8" name="mensaje" id="mensaje" placeholder="Mensaje..."
                                 required="required"
                                 data-validation-required-message="Ingrese un mensaje"></textarea>
                             <p class="help-block text-danger"></p>
@@ -170,17 +170,18 @@
 @include('general.footer')
 
 <!-- Bootstrap Icons (si quieres usar el icono de upload) -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-document.querySelectorAll('.inputTexto').forEach(function (input) {
-    input.addEventListener('input', function (e) {
-        const prohibido = /[<>{};*$%=()&]/g; // Caracteres que quieres bloquear
-        if (prohibido.test(e.target.value)) {
-            e.target.value = e.target.value.replace(prohibido, '');
-        }
+    document.querySelectorAll('.inputTexto').forEach(function (input) {
+        input.addEventListener('input', function (e) {
+            const prohibido = /[<>{};*$%=()&]/g; // Caracteres que quieres bloquear
+            if (prohibido.test(e.target.value)) {
+                e.target.value = e.target.value.replace(prohibido, '');
+            }
+        });
     });
-});
 </script>  
 
 <script>
@@ -194,5 +195,99 @@ document.querySelectorAll('.inputTexto').forEach(function (input) {
       filePreview.textContent = "";
     }
   });
+</script>
+
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let form = this;
+        let formData = new FormData(form);
+
+        // Mostrar loading
+        Swal.fire({
+            title: 'Enviando...',
+            text: 'Por favor espere',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.close(); // cerrar loading
+
+            if (data.status) {
+                const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+                });
+                Toast.fire({
+                icon: "success",
+                title: data.msg
+                });  
+
+                form.reset(); // limpiar formulario
+                document.getElementById("file-preview").textContent = "";
+            } else {
+                const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+                });
+                Toast.fire({
+                icon: "error",
+                title: data.msg
+                });  
+
+                form.reset(); // limpiar formulario
+                document.getElementById("file-preview").textContent = "";
+            }
+        })
+        .catch(error => {
+            Swal.close();
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+                });
+                Toast.fire({
+                icon: "error",
+                title: 'Hubo un problema al enviar. Inténtalo más tarde.'
+                });  
+            
+                form.reset(); // limpiar formulario
+                document.getElementById("file-preview").textContent = "";
+            console.error(error);
+        });
+    });
 </script>
 @endsection

@@ -140,25 +140,25 @@
 <!-- Featured Start -->
 <div class="container-fluid iconos-destock">
     <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+        <div class="col-6 pt-4">
             <div class="icon-box">
                 <i class="fas fa-tags"></i>
-                <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
+                <h6 class="font-weight-semi-bold m-0">LAS MEJORES OFERTAS</h6>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+        <div class="col-6 pt-4">
             <div class="icon-box">
                 <i class="fas fa-shield-alt"></i>
                 <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+        <div class="col-6 pt-4">
             <div class="icon-box">
                 <i class="fas fa-truck"></i>
                 <h6 class="font-weight-semi-bold m-0">ENVÍOS A TODO EL PERÚ</h6>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+        <div class="col-6 pt-4">
             <div class="icon-box">
                 <i class="fas fa-credit-card"></i>
                 <h6 class="font-weight-semi-bold m-0">PAGO SEGURO</h6>

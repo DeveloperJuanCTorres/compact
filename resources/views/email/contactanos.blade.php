@@ -32,12 +32,12 @@
                 <td align='center' >{{$data['email']}}</td>
             </tr>
             <tr>
-                <td align='center' colspan="1" style='font-weight:bold'>Teléfono</td>
+                <td align='center' colspan="1" style='font-weight:bold'>Asunto</td>
                 <td align='center'>{{$data['subject']}}</td>
             </tr>
             <tr>
                 <td align='center' colspan="1" style='font-weight:bold'>Mensaje</td>
-                <td align='center'>{{$data['message']}}</td>
+                <td align='center'>{{$data['mensaje']}}</td>
             </tr>
         </table>
 

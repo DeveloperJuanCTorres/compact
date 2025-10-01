@@ -210,7 +210,7 @@ class HomeController extends Controller
             'name'    => 'required|string|max:255',
             'email'   => 'required|email',
             'subject' => 'required|string|max:255',
-            'message' => 'required|string',
+            'mensaje' => 'required|string',
             'file'    => 'nullable|file|max:2048', // hasta 2MB
         ]);
 
@@ -221,7 +221,7 @@ class HomeController extends Controller
 
         $correo = new Contactanos($request->all(), $filePath);
         try {
-            Mail::to('informes@compactseguridad.com')->send($correo);
+            Mail::to('contactanos@compactseguridad.com')->send($correo);
             return response()->json(['status' => true, 'msg' => "El correo fue enviado satisfactoriamente"]);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => "Hubo un error al enviar, inténtalo de nuevo más tarde." . $e->getMessage()]);
@@ -232,7 +232,7 @@ class HomeController extends Controller
     {
         $correo = new Reclamos($request);
         try {
-            Mail::to('informes@compactseguridad.com')->send($correo);
+            Mail::to('reclamos@compactseguridad.com')->send($correo);
             return response()->json(['status' => true, 'msg' => "El correo fue enviado satisfactoriamente"]);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'msg' => "Hubo un error al enviar, inténtalo de nuevo más tarde." . $e->getMessage()]);

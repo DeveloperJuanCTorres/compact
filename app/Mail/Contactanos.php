@@ -23,9 +23,11 @@ class Contactanos extends Mailable
 
     public function build()
     {
-        $email = $this->view('email.contactanos');
+        $email = $this->view('email.contactanos')
+                ->subject($this->data['subject'] ?? 'Nuevo mensaje de Contáctanos') // Asunto dinámico
+                ->from(config('mail.from.address'), config('mail.from.name'));     // remitente seguro
 
-        if ($this->filePath) {
+        if ($this->filePath && file_exists(storage_path('app/public/' . $this->filePath))) {
             $email->attach(storage_path('app/public/' . $this->filePath));
         }
 
