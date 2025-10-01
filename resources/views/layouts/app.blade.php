@@ -76,19 +76,19 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script> -->
 
-    <script src="{{asset('lib/easing/easing.min.js')}}"></script>
-    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('lib/easing/easing.min.js')}}?v=<?php echo $version ?>"></script>
+    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}?v=<?php echo $version ?>"></script>
 
     <!-- Contact Javascript File -->
-    <script src="{{asset('mail/jqBootstrapValidation.min.js')}}"></script>
-    <script src="{{asset('mail/contact.js')}}"></script>
+    <script src="{{asset('mail/jqBootstrapValidation.min.js')}}?v=<?php echo $version ?>"></script>
+    <script src="{{asset('mail/contact.js')}}?v=<?php echo $version ?>"></script>
 
     <!-- Template Javascript -->
-    <script src="{{asset('js/main.js')}}"></script>
+    <script src="{{asset('js/main.js')}}?v=<?php echo $version ?>"></script>
     <!-- <script src="{{asset('js/addcart.js')}}"></script> -->
-    <script src="{{asset('js/phone.js')}}"></script>
-    <script src="{{asset('js/ubigeo.js')}}"></script>
-    <script src="{{asset('js/buscar.js')}}"></script>
+    <script src="{{asset('js/phone.js')}}?v=<?php echo $version ?>"></script>
+    <script src="{{asset('js/ubigeo.js')}}?v=<?php echo $version ?>"></script>
+    <script src="{{asset('js/buscar.js')}}?v=<?php echo $version ?>"></script>
 
     
     @stack('scripts')
