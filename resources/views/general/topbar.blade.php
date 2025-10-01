@@ -65,7 +65,7 @@
                     <!-- </a> -->
                     <a href="/cart" class="btn px-0 ml-3">
                         <i class="fas fa-shopping-cart text-white"></i>
-                        <span id="cartCount" class="badge text-white border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                        <span id="cartCount1" class="badge text-white border border-secondary rounded-circle" style="padding-bottom: 2px;">
                             {{\Cart::count()}}
                         </span>
                     </a>

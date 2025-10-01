@@ -28,6 +28,7 @@
                 success: function (response) {   
                     if (response.status) {
 						document.getElementById('cartCount').innerText = response.count;
+                        document.getElementById('cartCount1').innerText = response.count;
 						
                         const Toast = Swal.mixin({
 						toast: true,
