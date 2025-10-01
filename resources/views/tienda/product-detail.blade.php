@@ -107,46 +107,7 @@
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
-    <div class="row px-xl-5">
-        <!-- <div class="col-lg-5">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner bg-light">
-                    @php
-                        $imagenes = json_decode($product->images)
-                    @endphp
-                    
-                    @if($imagenes)
-                        @foreach($imagenes as $key => $item)
-                        @if($key == 0)
-                        <div class="carousel-item active">
-                            <div class="d-flex">
-                                <img class="m-auto" style="max-width: 500px;max-height: 500px;" src="{{asset('storage/' . $item)}}" alt="Image">
-                        
-                            </div>
-                        </div>
-                        @else
-                        <div class="carousel-item">
-                            <div class="d-flex">
-                                <img class="m-auto" style="max-width: 500px;max-height: 500px;" src="{{asset('storage/' . $item)}}" alt="Image">
-                        
-                            </div>
-                        </div>
-                        @endif
-                        @endforeach
-                    @else
-                    <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{asset('img/defectomaster.jpeg')}}" alt="Image">
-                    </div>
-                    @endif
-                </div>
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                    <i class="fa fa-2x fa-angle-left text-dark"></i>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                    <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
-            </div>
-        </div> -->
+    <div class="row px-xl-5">        
 
         <div class="col-lg-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
@@ -557,10 +518,7 @@
             });
         }
 
-        // Cargar imágenes iniciales (del producto)
-        const productImages = @json($product->images ? json_decode($product->images) : []);
-        updateCarousel(productImages);
-
+       
         // Evento para cambio de color
         colorInputs.forEach(input => {
             input.addEventListener('change', async function() {
@@ -574,6 +532,7 @@
 
                     // Si no hay imágenes de color, usar las del producto
                     if (!images.length) {
+                        const productImages = @json($product->images ? json_decode($product->images) : []);
                         updateCarousel(productImages);
                     } else {
                         updateCarousel(images);
@@ -581,7 +540,7 @@
 
                 } catch (err) {
                     console.error(err);
-                    updateCarousel(productImages);
+                    // updateCarousel(productImages);
                 }
             });
         });
