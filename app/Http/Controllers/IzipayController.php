@@ -45,11 +45,11 @@ class IzipayController extends Controller
             // Construir nombre completo
             $fullName = $item->name;
 
-            if (!empty($item->options->color_name)) {
+            if ($item->options->color_name) {
                 $fullName .= ' - Color: ' . $item->options->color_name;
             }
 
-            if (!empty($item->options->size_name)) {
+            if ($item->options->size_name) {
                 $fullName .= ' - Talla: ' . $item->options->size_name;
             }
             $order->items()->create([
