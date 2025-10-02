@@ -32,8 +32,7 @@ class IzipayController extends Controller
         $orderId = uniqid("ORD-");
 
         // 👉 Y guardamos el pedido en estado PENDING en tu BD
-        $order = \App\Models\Order::create([
-            'order_id' => $orderId,
+        $order = Order::create([
             'status'   => 'PENDING',
             'total'    => (floatval(str_replace(',', '', \Cart::subtotal()))),
             'customer_name'  => $request->input("nombre") . ' ' . $request->input("apellidos"),
@@ -41,6 +40,8 @@ class IzipayController extends Controller
             'customer_phone' => $request->input("telefono"),
             'customer_address' => $request->input("direccion"),
         ]);
+
+        $orderId = $order->id;
 
         foreach (\Cart::content() as $item) {
             $order->items()->create([
@@ -123,40 +124,56 @@ class IzipayController extends Controller
 
     public function ipn(Request $request)
     {
-        if (empty($request)) {
-            throw new Exception("No post data received!");
+        // Logueamos todo lo que llegue (cabeceras + body)
+        \Log::info("📩 IPN recibido", [
+            'headers' => $request->headers->all(),
+            'body' => $request->all()
+        ]);
+
+        if (empty($request->all())) {
+            \Log::error("❌ IPN vacío recibido");
+            return response("No post data received!", 400);
         }
-        
-        // Validación de firma
-        if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
-            throw new Exception("Invalid signature");
+
+        // Validación de firma (con la SHA256_KEY)
+        if (!$this->checkHash($request, env("IZIPAY_SHA256_KEY"))) {
+            \Log::error("❌ Firma inválida en IPN", $request->all());
+            return response("Invalid signature", 400);
         }
 
         $answer = json_decode($request["kr-answer"], true);
-        $transaction = $answer['transactions'][0];
-        
-        $orderStatus = $answer['orderStatus'];
-        $orderId = $answer['orderDetails']['orderId'];
+        $transaction = $answer['transactions'][0] ?? null;
+        $orderStatus = $answer['orderStatus'] ?? null;
+        $orderId = $answer['orderDetails']['orderId'] ?? null;
 
-        // Buscar el pedido que creamos antes
-        $order = Order::where('order_id', $orderId)->first();
+        \Log::info("✅ IPN válido", [
+            "orderId" => $orderId,
+            "orderStatus" => $orderStatus,
+            "transaction" => $transaction,
+        ]);
 
-        if (!$order) {
-            throw new Exception("Pedido no encontrado con ID ".$orderId);
-        }
+        // Buscar pedido creado en izipay()
+        $order = \App\Models\Order::where('id', $orderId)->first();
 
-        if ($orderStatus === "PAID") {
-            $order->status = "PAID";
-            $order->save();
+        if ($order) {
+            if ($orderStatus === 'PAID') {
+                $order->update([
+                    'status' => 'PAID',
+                    'transaction_id' => $transaction['uuid'] ?? null,
+                ]);
 
-            // Enviar correo al cliente
-            Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+                // Enviar correo
+                \Mail::to($order->customer_email)->send(new \App\Mail\OrderPaidMail($order));
+            } else {
+                $order->update([
+                    'status' => $orderStatus
+                ]);
+            }
         } else {
-            $order->status = $orderStatus;
-            $order->save();
+            \Log::warning("⚠️ Pedido no encontrado para orderId {$orderId}");
         }
-        
-        return response('OK', 200);
+
+        return response("OK", 200);
     }
 
     // public function ipn(Request $request)
