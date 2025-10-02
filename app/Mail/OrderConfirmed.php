@@ -25,17 +25,6 @@ class OrderConfirmed extends Mailable
         $this->order = $order;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'Order Confirmed',
-        );
-    }
 
     public function build()
     {
@@ -44,25 +33,4 @@ class OrderConfirmed extends Mailable
                     ->with(['order' => $this->order]);
     }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            markdown: 'emails.orders.confirmed',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
 }
