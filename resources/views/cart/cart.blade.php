@@ -67,7 +67,7 @@
                         </div>
                         
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link active">Inicio</a>
+                            <a href="/" class="nav-item nav-link">Inicio</a>
                             <a href="/store" class="nav-item nav-link">Tienda</a>
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
