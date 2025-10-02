@@ -29,7 +29,7 @@ class OrderConfirmed extends Mailable
     public function build()
     {
         return $this->subject('Confirmación de tu pedido '.$this->order->id)
-                    ->markdown('emails.orders.confirmed')
+                    ->markdown('email.orders.confirmed')
                     ->with(['order' => $this->order]);
     }
 
