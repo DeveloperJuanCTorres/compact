@@ -42,8 +42,18 @@ class IzipayController extends Controller
         $orderId = $order->id;
 
         foreach (\Cart::content() as $item) {
+            // Construir nombre completo
+            $fullName = $item->name;
+
+            if (!empty($item->options->color)) {
+                $fullName .= ' - Color: ' . $item->options->color_name;
+            }
+
+            if (!empty($item->options->size)) {
+                $fullName .= ' - Talla: ' . $item->options->size_name;
+            }
             $order->items()->create([
-                'product_name'  => $item->name,
+                'product_name'  => $fullName,
                 'product_price' => $item->price,
                 'quantity'      => $item->qty,
                 'subtotal'      => $item->price * $item->qty,
