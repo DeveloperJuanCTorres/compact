@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\Taxonomy;
+use App\Models\Color;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Cart;
 
@@ -15,28 +17,62 @@ class CartController extends Controller
         try {
             $producto = Product::find($request->id);
             if (empty($producto)) {
-                return redirect('/');
+                return response()->json(['status' => false, 'msg' => 'Producto no encontrado']);
             }
-            $imagen = json_decode($producto->images);
-            if ($imagen) {
-                $img = 'storage/' . $imagen[0];
+
+            // ✅ variantes
+            $colorId = $request->color_id ?? 0;
+            $sizeId  = $request->size_id ?? 0;
+
+            // Para mostrar en carrito (opcional)
+            $colorName = $colorId ? optional(\App\Models\Color::find($colorId))->name : null;
+            $sizeName  = $sizeId ? optional(\App\Models\Size::find($sizeId))->talla : null;
+
+            // ✅ Imagen por color (si existe)
+            $img = 'img/defectomaster.jpeg'; // por defecto
+            if ($colorId) {
+                $colorImage = \App\Models\ProductColorImage::where('product_id', $producto->id)
+                                ->where('color_id', $colorId)
+                                ->first();
+                if ($colorImage) {
+                    $img = 'storage/' . $colorImage->image; // asumiendo que en BD guardas el path relativo
+                }
             }
-            else{
-                $img = 'img/defectomaster.jpeg';
+
+            // Si no tiene color o no encontró imagen, usar primera imagen general
+            if ($img === 'img/defectomaster.jpeg') {
+                $imagenes = json_decode($producto->images);
+                if ($imagenes && isset($imagenes[0])) {
+                    $img = 'storage/' . $imagenes[0];
+                }
             }
+
+            // ID único en carrito
+            $uniqueId = $producto->id . '-' . $colorId . '-' . $sizeId;
+
             Cart::add(
-                $producto->id,
+                $uniqueId,
                 $producto->name,
-                $request->qty,
+                $request->qty ?? 1,
                 $producto->price,
-                ["image"=>$img]
+                [
+                    "image"      => $img,
+                    "color_id"   => $colorId ?: null,
+                    "size_id"    => $sizeId ?: null,
+                    "color_name" => $colorName,
+                    "size_name"  => $sizeName
+                ]
             );
 
-            return response()->json(['status' => true, 'msg' => 'Porducto se agrego a su carrito', 'count' => Cart::count()]);
+            return response()->json([
+                'status' => true,
+                'msg'    => 'Producto agregado al carrito',
+                'count'  => Cart::count()
+            ]);
 
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'msg' => $th->getMessage()]);
-        }        
+        }       
     }
 
     public function cart()

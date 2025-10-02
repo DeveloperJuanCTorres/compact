@@ -119,32 +119,57 @@
                 <tbody class="">
                     @foreach(Cart::content() as $item)
                     <tr>
-                        <td class="d-flex" style="text-align: left;">
-                                <img src="{{$item->options->image}}" alt="" style="width: 50px;"> 
-                                <p class="d-block my-auto px-2">{{$item->name}}</p>                              
+                        <td class="d-flex align-items-center" style="text-align: left;">
+                            <img src="{{ asset($item->options->image) }}" alt="" style="width: 50px;"> 
+                            <div class="d-block my-auto px-2">
+                                <p class="mb-0">{{ $item->name }}</p>
+
+                                {{-- ✅ Mostrar color y talla si existen --}}
+                                @if($item->options->color_name || $item->options->size_name)
+                                    <small class="text-muted">
+                                        @if($item->options->color_name)
+                                            Color: {{ $item->options->color_name }}
+                                        @endif
+                                        @if($item->options->size_name)
+                                            @if($item->options->color_name) | @endif
+                                            Talla: {{ $item->options->size_name }}
+                                        @endif
+                                    </small>
+                                @else
+                                    <small class="text-muted">Sin variantes</small>
+                                @endif
+                            </div>
                         </td>
-                        <td class="align-middle">S/. {{$item->price}}</td>
+
+                        <td class="align-middle">S/. {{ number_format($item->price, 2) }}</td>
+
                         <td class="align-middle">
                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary btn-minus" data-rowid="{{$item->rowId}}">
-                                    <i class="fa fa-minus"></i>
+                                    <button type="button" class="btn btn-sm btn-primary btn-minus" data-rowid="{{ $item->rowId }}">
+                                        <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center qty-input" 
-                                        value="{{$item->qty}}" data-rowid="{{$item->rowId}}">
+                                <input type="text" 
+                                    class="form-control form-control-sm bg-secondary border-0 text-center qty-input" 
+                                    value="{{ $item->qty }}" 
+                                    data-rowid="{{ $item->rowId }}">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary btn-plus" data-rowid="{{$item->rowId}}">
+                                    <button type="button" class="btn btn-sm btn-primary btn-plus" data-rowid="{{ $item->rowId }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle subtotal-item" data-rowid="{{$item->rowId}}">S/. {{$item->price*$item->qty}}</td>
+
+                        <td class="align-middle subtotal-item" data-rowid="{{ $item->rowId }}">
+                            S/. {{ number_format($item->price * $item->qty, 2) }}
+                        </td>
+
                         <td class="align-middle">
-                            <form action="{{route('removeitem')}}" method="post">
-                            @csrf
-                                <input type="hidden" name="rowId" value="{{$item->rowId}}">
+                            <form action="{{ route('removeitem') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="rowId" value="{{ $item->rowId }}">
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="fa fa-times"></i>
                                 </button>

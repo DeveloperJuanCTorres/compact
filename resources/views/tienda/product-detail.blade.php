@@ -280,7 +280,7 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <!-- <div class="row"> -->
                         <div class="my-2">
-                            <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group quantity1 mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
@@ -288,7 +288,7 @@
                                 </div>
                                 <input type="text" class="form-control bg-secondary border-0 text-center" value="1" id="qty">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus">
+                                    <button class="btn btn-primary btn-plus1">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
