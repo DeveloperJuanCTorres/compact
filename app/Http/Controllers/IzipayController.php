@@ -134,7 +134,7 @@ class IzipayController extends Controller
         }
 
         // Validación de firma (con la SHA256_KEY)
-        if (!$this->checkHash($request, env("IZIPAY_SHA256_KEY"))) {
+        if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
             \Log::error("❌ Firma inválida en IPN", $request->all());
             return response("Invalid signature", 400);
         }
@@ -197,16 +197,10 @@ class IzipayController extends Controller
 
     private function checkHash($request, $key)
     {
-        // $krAnswer = str_replace('\/', '/',  $request["kr-answer"]);
-
-        $krAnswer = $request["kr-answer"]; // NO alteres el JSON
-
-        $computedHash = hash_hmac("sha256", $krAnswer, $key);
+        $krAnswer = str_replace('\/', '/',  $request["kr-answer"]);
         
-        // $calculateHash = hash_hmac("sha256", $krAnswer, $key);
+        $calculateHash = hash_hmac("sha256", $krAnswer, $key);
 
-        return hash_equals($computedHash, $request["kr-hash"]);
-
-        // return ($calculateHash == $request["kr-hash"]);
+        return ($calculateHash == $request["kr-hash"]);
     }
 }
