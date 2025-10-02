@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmed;
 use App\Models\Company;
+use App\Models\Order;
 use App\Models\Taxonomy;
 use Exception;
 use Cart;
 use Gloudemans\Shoppingcart\Cart as ShoppingcartCart;
 use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class IzipayController extends Controller
 {
@@ -25,10 +28,33 @@ class IzipayController extends Controller
             "Content-Type: application/json"
         );
 
+        // 👉 AQUÍ generamos un orderId único
+        $orderId = uniqid("ORD-");
+
+        // 👉 Y guardamos el pedido en estado PENDING en tu BD
+        $order = \App\Models\Order::create([
+            'order_id' => $orderId,
+            'status'   => 'PENDING',
+            'total'    => (floatval(str_replace(',', '', \Cart::subtotal()))),
+            'customer_name'  => $request->input("nombre") . ' ' . $request->input("apellidos"),
+            'customer_email' => $request->input("email"),
+            'customer_phone' => $request->input("telefono"),
+            'customer_address' => $request->input("direccion"),
+        ]);
+
+        foreach (\Cart::content() as $item) {
+            $order->items()->create([
+                'product_name'  => $item->name,
+                'product_price' => $item->price,
+                'quantity'      => $item->qty,
+                'subtotal'      => $item->price * $item->qty,
+            ]);
+        }
+
         $body = [
             "amount" => (int) (floatval(str_replace(',', '', Cart::subtotal())) * 100),
             "currency" => "PEN",
-            "orderId" => "1234",
+            "orderId" => $orderId,
             "customer" => [
                 "email" => $request->input("email"),
                 "billingDetails" => [
@@ -96,12 +122,12 @@ class IzipayController extends Controller
     }
 
     public function ipn(Request $request)
-    { 
+    {
         if (empty($request)) {
             throw new Exception("No post data received!");
         }
-          
-        // Validación de firma en IPN
+        
+        // Validación de firma
         if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
             throw new Exception("Invalid signature");
         }
@@ -109,13 +135,51 @@ class IzipayController extends Controller
         $answer = json_decode($request["kr-answer"], true);
         $transaction = $answer['transactions'][0];
         
-        // Verifica orderStatus PAID
         $orderStatus = $answer['orderStatus'];
         $orderId = $answer['orderDetails']['orderId'];
-        $transactionUuid = $transaction['uuid'];
 
-        return 'OK! OrderStatus is ' . $orderStatus;
+        // Buscar el pedido que creamos antes
+        $order = Order::where('order_id', $orderId)->first();
+
+        if (!$order) {
+            throw new Exception("Pedido no encontrado con ID ".$orderId);
+        }
+
+        if ($orderStatus === "PAID") {
+            $order->status = "PAID";
+            $order->save();
+
+            // Enviar correo al cliente
+            Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+        } else {
+            $order->status = $orderStatus;
+            $order->save();
+        }
+        
+        return response('OK', 200);
     }
+
+    // public function ipn(Request $request)
+    // { 
+    //     if (empty($request)) {
+    //         throw new Exception("No post data received!");
+    //     }
+          
+        
+    //     if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
+    //         throw new Exception("Invalid signature");
+    //     }
+
+    //     $answer = json_decode($request["kr-answer"], true);
+    //     $transaction = $answer['transactions'][0];
+        
+       
+    //     $orderStatus = $answer['orderStatus'];
+    //     $orderId = $answer['orderDetails']['orderId'];
+    //     $transactionUuid = $transaction['uuid'];
+
+    //     return 'OK! OrderStatus is ' . $orderStatus;
+    // }
 
     private function checkHash($request, $key)
     {
