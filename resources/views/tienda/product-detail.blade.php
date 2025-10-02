@@ -460,7 +460,7 @@
     <script src="{{asset('js/detail.js')}}"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="{{asset('js/addcart.js')}}"></script>
+	<!-- <script src="{{asset('js/addcart.js')}}"></script> -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

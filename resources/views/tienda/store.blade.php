@@ -181,7 +181,7 @@
 
 @push('scripts')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="js/addcart.js"></script>
+<!-- <script src="js/addcart.js"></script> -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('filterForm');

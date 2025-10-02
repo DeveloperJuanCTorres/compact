@@ -337,7 +337,7 @@
 
 @push('scripts')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="js/addcart.js"></script>
+<!-- <script src="js/addcart.js"></script> -->
 <script>
     const baseUrl = "{{ url('/product.detail') }}"; // Esto será "/producto"
 </script>

@@ -42,7 +42,7 @@
 
     <!-- Libraries Stylesheet -->
      <?php
-        $version = '1993.3.5';
+        $version = '1993.3.6';
     ?>
 
     <link href="{{asset('css/wpp.css')}}?v=<?php echo $version ?>" rel="stylesheet">
@@ -85,7 +85,7 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('js/main.js')}}?v=<?php echo $version ?>"></script>
-    <!-- <script src="{{asset('js/addcart.js')}}"></script> -->
+    <script src="{{asset('js/addcart.js')}}?v=<?php echo $version ?>"></script>
     <script src="{{asset('js/phone.js')}}?v=<?php echo $version ?>"></script>
     <script src="{{asset('js/ubigeo.js')}}?v=<?php echo $version ?>"></script>
     <script src="{{asset('js/buscar.js')}}?v=<?php echo $version ?>"></script>
