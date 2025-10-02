@@ -1,7 +1,7 @@
 @component('mail::message')
 # ¡Gracias por tu compra!
 
-Hola {{ $order->customer_name }}, tu pedido **{{ $order->order_id }}** ha sido confirmado.
+Hola {{ $order->customer_name }}, tu pedido **{{ $order->id }}** ha sido confirmado.
 
 **Total:** S/ {{ number_format($order->total, 2) }}
 
