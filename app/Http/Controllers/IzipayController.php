@@ -160,7 +160,7 @@ class IzipayController extends Controller
                 ]);
 
                 // Enviar correo
-                // \Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+                Mail::to($order->customer_email)->send(new OrderConfirmed($order));
             } else {
                 $order->update([
                     'status' => $orderStatus
