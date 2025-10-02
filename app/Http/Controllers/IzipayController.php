@@ -28,9 +28,7 @@ class IzipayController extends Controller
             "Content-Type: application/json"
         );
 
-        // 👉 AQUÍ generamos un orderId único
-        $orderId = uniqid("ORD-");
-
+        
         // 👉 Y guardamos el pedido en estado PENDING en tu BD
         $order = Order::create([
             'status'   => 'PENDING',
@@ -153,17 +151,16 @@ class IzipayController extends Controller
         ]);
 
         // Buscar pedido creado en izipay()
-        $order = \App\Models\Order::where('id', $orderId)->first();
+         $order = Order::find($orderId);
 
         if ($order) {
             if ($orderStatus === 'PAID') {
                 $order->update([
-                    'status' => 'PAID',
-                    'transaction_id' => $transaction['uuid'] ?? null,
+                    'status' => 'PAID'
                 ]);
 
                 // Enviar correo
-                \Mail::to($order->customer_email)->send(new \App\Mail\OrderPaidMail($order));
+                // \Mail::to($order->customer_email)->send(new OrderConfirmed($order));
             } else {
                 $order->update([
                     'status' => $orderStatus
@@ -200,10 +197,16 @@ class IzipayController extends Controller
 
     private function checkHash($request, $key)
     {
-        $krAnswer = str_replace('\/', '/',  $request["kr-answer"]);
-        
-        $calculateHash = hash_hmac("sha256", $krAnswer, $key);
+        // $krAnswer = str_replace('\/', '/',  $request["kr-answer"]);
 
-        return ($calculateHash == $request["kr-hash"]);
+        $krAnswer = $request["kr-answer"]; // NO alteres el JSON
+
+        $computedHash = hash_hmac("sha256", $krAnswer, $key);
+        
+        // $calculateHash = hash_hmac("sha256", $krAnswer, $key);
+
+        return hash_equals($computedHash, $request["kr-hash"]);
+
+        // return ($calculateHash == $request["kr-hash"]);
     }
 }
