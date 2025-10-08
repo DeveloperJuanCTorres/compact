@@ -81,7 +81,7 @@
             <div class="col-lg-3 destock" style="position: absolute; right: 0;">
                 <div id="promo-btn">
                     <a class="btn-promo btn-secondary" href="{{ route ('ofertas')}}">Ofertas</a>
-                    <img src="img/promo.png" class="promo-tag swing">
+                    <img src="img/banner-oferta.png" class="promo-tag swing">
                 </div>
             </div>
         </div>
