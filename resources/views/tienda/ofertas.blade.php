@@ -97,7 +97,7 @@
 <style>
     .banner {
         width: 100%;
-        max-height: 500px;
+        max-height: 100vh;
         overflow: hidden; /* Oculta lo que sobresalga */
     }
 
