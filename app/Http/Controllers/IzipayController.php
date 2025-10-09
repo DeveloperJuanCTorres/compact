@@ -188,48 +188,21 @@ class IzipayController extends Controller
             if (!$contact) {
                 // Crear contacto en ESCALA
                 $contactPayload = [
-                    "accountId" => null,
                     "assignedTo" => "unassigned",
-                    "company" => [
-                        "annualRevenue" => null,
-                        "email" => null,
-                        "industryType" => null,
-                        "name" => null,
-                        "numberOfEmployees" => null,
-                        "phoneNumber" => null,
-                        "website" => null
-                    ],
-                    "contacted" => null,
+                    "contacted" => false,
                     "custom" => [
-                        "cf_age_number" => null,
                         "cf_name_text" => $order->customer_name . ' ' . $order->customer_lastname
                     ],
                     "marketable" => true,
-                    "notes" => null,
+                    "notes" => "Contacto generado automáticamente desde pedido #{$order->id}",
                     "personal" => [
                         "address" => $order->customer_address,
-                        "altEmails" => [],
-                        "altPhones" => [],
-                        "birthDay" => null,
-                        "birthMonth" => null,
-                        "birthYear" => null,
-                        "city" => null,
-                        "country" => null,
                         "email" => $order->customer_email,
-                        "facebook" => null,
                         "firstName" => $order->customer_name,
-                        "instagram" => null,
-                        "jobTitle" => null,
                         "lastName" => $order->customer_lastname,
-                        "linkedIn" => null,
-                        "phoneNumber" => $order->customer_phone,
-                        "region" => null,
-                        "secondaryPhoneNumber" => null,
-                        "state" => null,
-                        "twitter" => null
+                        "phoneNumber" => $order->customer_phone
                     ],
                     "priority" => 3,
-                    "source" => null,
                     "status" => "lead",
                     "triggerWorkflow" => false
                 ];
