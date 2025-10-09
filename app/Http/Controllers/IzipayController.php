@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderConfirmed;
 use App\Models\Company;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Taxonomy;
 use Exception;
@@ -11,6 +12,7 @@ use Cart;
 use Gloudemans\Shoppingcart\Cart as ShoppingcartCart;
 use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class IzipayController extends Controller
@@ -33,7 +35,8 @@ class IzipayController extends Controller
         $order = Order::create([
             'status'   => 'PENDING',
             'total'    => (floatval(str_replace(',', '', \Cart::subtotal()))),
-            'customer_name'  => $request->input("nombre") . ' ' . $request->input("apellidos"),
+            'customer_name'  => $request->input("nombre"),
+            'customer_lastname'  => $request->input("apellidos"),
             'customer_email' => $request->input("email"),
             'customer_phone' => $request->input("telefono"),
             'customer_address' => $request->input("direccion"),
@@ -132,7 +135,6 @@ class IzipayController extends Controller
 
     public function ipn(Request $request)
     {
-        // Logueamos todo lo que llegue (cabeceras + body)
         \Log::info("📩 IPN recibido", [
             'headers' => $request->headers->all(),
             'body' => $request->all()
@@ -143,7 +145,6 @@ class IzipayController extends Controller
             return response("No post data received!", 400);
         }
 
-        // Validación de firma (con la SHA256_KEY)
         if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
             \Log::error("❌ Firma inválida en IPN", $request->all());
             return response("Invalid signature", 400);
@@ -160,51 +161,212 @@ class IzipayController extends Controller
             "transaction" => $transaction,
         ]);
 
-        // Buscar pedido creado en izipay()
-         $order = Order::find($orderId);
+        $order = Order::find($orderId);
 
-        if ($order) {
-            if ($orderStatus === 'PAID') {
-                $order->update([
-                    'status' => 'PAID'
-                ]);
-
-                // Enviar correo
-                Mail::to($order->customer_email)->send(new OrderConfirmed($order));
-            } else {
-                $order->update([
-                    'status' => $orderStatus
-                ]);
-            }
-        } else {
+        if (!$order) {
             \Log::warning("⚠️ Pedido no encontrado para orderId {$orderId}");
+            return response("Order not found", 404);
+        }
+
+        // Actualizar estado del pedido
+        $order->update(['status' => $orderStatus]);
+
+        if ($orderStatus === 'PAID') {
+            // Enviar correo de confirmación
+            Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+
+            // ============================================
+            // 🔗 INTEGRACIÓN CON ESCALA CRM
+            // ============================================
+
+            $apiKey = 'qI7BSuxhkPON5iyrPZmwudQl15RnPWUmibErFi9mR3iqTe7W2g0hExkOqrM1zH8jcUtCTI4fKl7mtqHNVgh9PQ';
+            $baseUrl = 'https://public-api.escala.com/v1/crm';
+
+            // Buscar si el contacto ya existe en nuestra BD local
+            $contact = Contact::where('email', $order->customer_email)->first();
+
+            if (!$contact) {
+                // Crear contacto en ESCALA
+                $contactPayload = [
+                    "accountId" => null,
+                    "assignedTo" => "unassigned",
+                    "company" => [
+                        "annualRevenue" => null,
+                        "email" => null,
+                        "industryType" => null,
+                        "name" => null,
+                        "numberOfEmployees" => null,
+                        "phoneNumber" => null,
+                        "website" => null
+                    ],
+                    "contacted" => null,
+                    "custom" => [
+                        "cf_age_number" => null,
+                        "cf_name_text" => $order->customer_name . ' ' . $order->customer_lastname
+                    ],
+                    "marketable" => true,
+                    "notes" => null,
+                    "personal" => [
+                        "address" => $order->customer_address,
+                        "altEmails" => [],
+                        "altPhones" => [],
+                        "birthDay" => null,
+                        "birthMonth" => null,
+                        "birthYear" => null,
+                        "city" => null,
+                        "country" => null,
+                        "email" => $order->customer_email,
+                        "facebook" => null,
+                        "firstName" => $order->customer_name,
+                        "instagram" => null,
+                        "jobTitle" => null,
+                        "lastName" => $order->customer_lastname,
+                        "linkedIn" => null,
+                        "phoneNumber" => $order->customer_phone,
+                        "region" => null,
+                        "secondaryPhoneNumber" => null,
+                        "state" => null,
+                        "twitter" => null
+                    ],
+                    "priority" => 3,
+                    "source" => null,
+                    "status" => "lead",
+                    "triggerWorkflow" => false
+                ];
+
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $apiKey
+                ])->post("$baseUrl/contacts", $contactPayload);
+
+                if ($response->successful()) {
+                    $data = $response->json();
+                    $contactId = $data['id'] ?? null;
+
+                    if ($contactId) {
+                        // Guardar en nuestra BD local
+                        $contact = Contact::create([
+                            'id_escala' => $contactId,
+                            'first_name' => $order->customer_name,
+                            'last_name' => $order->customer_lastname,
+                            'address' => $order->customer_address,
+                            'phone' => $order->customer_phone,
+                            'email' => $order->customer_email,
+                        ]);
+                        \Log::info("✅ Contacto creado en ESCALA y guardado localmente", ['id_escala' => $contactId]);
+                    } else {
+                        \Log::error("❌ No se recibió ID al crear contacto en ESCALA", $response->json());
+                    }
+                } else {
+                    \Log::error("❌ Error al crear contacto en ESCALA", [
+                        'status' => $response->status(),
+                        'body' => $response->body()
+                    ]);
+                }
+            }
+
+            // ============================================
+            // Crear oportunidad (deal)
+            // ============================================
+
+            if ($contact) {
+                $dealPayload = [
+                    "assignedTo" => "unassigned",
+                    "contactId" => $contact->id_escala,
+                    "custom" => [
+                        "cf_age_number" => 0,
+                        "cf_name_text" => $order->customer_name . ' ' . $order->customer_lastname
+                    ],
+                    "description" => "Confirmación de pedido",
+                    "name" => "Pedido #{$order->id}",
+                    "pipelineId" => "36c5bcd8-a3fa-11f0-9710-d1150faa1649",
+                    "priority" => 0,
+                    "products" => [
+                        "items" => [
+                            [
+                                "productId" => "d1edcc23-a3fc-11f0-9cf5-d3d8f7625e74",
+                                "quantity" => 1
+                            ]
+                        ],
+                        "updateValue" => false
+                    ],
+                    "stageId" => "1384b703-60e1-4e66-9ffd-ee8a1d48fc9d",
+                    "triggerWorkflow" => false,
+                    "value" => (float)$order->total
+                ];
+
+                $dealResponse = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $apiKey
+                ])->post("$baseUrl/deals", $dealPayload);
+
+                if ($dealResponse->successful()) {
+                    \Log::info("✅ Oportunidad creada en ESCALA", $dealResponse->json());
+                } else {
+                    \Log::error("❌ Error al crear oportunidad en ESCALA", [
+                        'status' => $dealResponse->status(),
+                        'body' => $dealResponse->body()
+                    ]);
+                }
+            }
         }
 
         return response("OK", 200);
     }
 
     // public function ipn(Request $request)
-    // { 
-    //     if (empty($request)) {
-    //         throw new Exception("No post data received!");
+    // {
+        
+    //     \Log::info("📩 IPN recibido", [
+    //         'headers' => $request->headers->all(),
+    //         'body' => $request->all()
+    //     ]);
+
+    //     if (empty($request->all())) {
+    //         \Log::error("❌ IPN vacío recibido");
+    //         return response("No post data received!", 400);
     //     }
-          
+
         
     //     if (!$this->checkHash($request, env("IZIPAY_PASSWORD"))) {
-    //         throw new Exception("Invalid signature");
+    //         \Log::error("❌ Firma inválida en IPN", $request->all());
+    //         return response("Invalid signature", 400);
     //     }
 
     //     $answer = json_decode($request["kr-answer"], true);
-    //     $transaction = $answer['transactions'][0];
-        
+    //     $transaction = $answer['transactions'][0] ?? null;
+    //     $orderStatus = $answer['orderStatus'] ?? null;
+    //     $orderId = $answer['orderDetails']['orderId'] ?? null;
+
+    //     \Log::info("✅ IPN válido", [
+    //         "orderId" => $orderId,
+    //         "orderStatus" => $orderStatus,
+    //         "transaction" => $transaction,
+    //     ]);
+
        
-    //     $orderStatus = $answer['orderStatus'];
-    //     $orderId = $answer['orderDetails']['orderId'];
-    //     $transactionUuid = $transaction['uuid'];
+    //      $order = Order::find($orderId);
 
-    //     return 'OK! OrderStatus is ' . $orderStatus;
+    //     if ($order) {
+    //         if ($orderStatus === 'PAID') {
+    //             $order->update([
+    //                 'status' => 'PAID'
+    //             ]);
+
+              
+    //             Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+    //         } else {
+    //             $order->update([
+    //                 'status' => $orderStatus
+    //             ]);
+    //         }
+    //     } else {
+    //         \Log::warning("⚠️ Pedido no encontrado para orderId {$orderId}");
+    //     }
+
+    //     return response("OK", 200);
     // }
-
+ 
     private function checkHash($request, $key)
     {
         $krAnswer = str_replace('\/', '/',  $request["kr-answer"]);
