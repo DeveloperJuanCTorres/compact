@@ -253,7 +253,7 @@ class IzipayController extends Controller
                     "description" => "Confirmación de pedido",
                     "name" => "Pedido #{$order->id}",
                     "pipelineId" => "36c5bcd8-a3fa-11f0-9710-d1150faa1649",
-                    "priority" => 0,
+                    "priority" => 3,
                     "products" => [
                         "items" => [
                             [
