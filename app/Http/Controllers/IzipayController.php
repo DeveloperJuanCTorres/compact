@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewOrder;
 use App\Mail\OrderConfirmed;
 use App\Models\Company;
 use App\Models\Contact;
@@ -174,6 +175,7 @@ class IzipayController extends Controller
         if ($orderStatus === 'PAID') {
             // Enviar correo de confirmación
             Mail::to($order->customer_email)->send(new OrderConfirmed($order));
+            Mail::to('pedidos@compactseguridad.com')->send(new NewOrder($order));
 
             // ============================================
             // 🔗 INTEGRACIÓN CON ESCALA CRM
