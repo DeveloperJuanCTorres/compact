@@ -9,7 +9,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn d-flex align-items-center justify-content-between bg-naranja w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 50px; padding: 0 30px;">
-                    <h6 class="text-white m-0"><i class="fa fa-bars mr-2"></i>Categorías</h6>
+                    <h6 class="text-white m-0">Categorías</h6>
                     <i class="fa fa-angle-down text-white"></i>
                 </a>
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
@@ -26,9 +26,18 @@
                     <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                     </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <div class="row">
+                        <!-- Lado derecho: Carrito -->
+                        <a href="/cart" class="btn px-2 d-flex align-items-center sesion-destock">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                            <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                {{ \Cart::count() }}
+                            </span>
+                        </a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 
                         <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
@@ -57,15 +66,9 @@
                                 @endauth
                             </div>
 
-                            <!-- Lado derecho: Carrito -->
-                            <a href="/cart" class="btn px-0 d-flex align-items-center">
-                                <i class="fas fa-shopping-cart text-white"></i>
-                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
-                                    {{ \Cart::count() }}
-                                </span>
-                            </a>
+                            
                         </div>
-                        
+
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link">Inicio</a>
                             <a href="/store" class="nav-item nav-link">Tienda</a>
@@ -74,6 +77,7 @@
                         </div>
                     </div>
                 </nav>
+                
             </div>
             <div class="col-lg-3 destock" style="position: absolute; right: 0;">
                 <div id="promo-btn">
