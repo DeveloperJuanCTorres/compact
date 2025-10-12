@@ -1,5 +1,4 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 @extends('layouts.app')
 
 @section('content')
@@ -28,9 +27,18 @@
                     <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                     </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <div class="row">
+                        <!-- Lado derecho: Carrito -->
+                        <a href="/cart" class="btn px-2 d-flex align-items-center sesion-destock">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                            <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                {{ \Cart::count() }}
+                            </span>
+                        </a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 
                         <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
@@ -59,13 +67,7 @@
                                 @endauth
                             </div>
 
-                            <!-- Lado derecho: Carrito -->
-                            <a href="/cart" class="btn px-0 d-flex align-items-center">
-                                <i class="fas fa-shopping-cart text-white"></i>
-                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
-                                    {{ \Cart::count() }}
-                                </span>
-                            </a>
+                            
                         </div>
 
                         <div class="navbar-nav mr-auto py-0">
@@ -76,8 +78,8 @@
                         </div>
                     </div>
                 </nav>
+                
             </div>
-
             <div class="col-lg-3 destock" style="position: absolute; right: 0;">
                 <div id="promo-btn">
                     <a class="btn-promo btn-secondary" href="{{ route ('ofertas')}}">Ofertas</a>
