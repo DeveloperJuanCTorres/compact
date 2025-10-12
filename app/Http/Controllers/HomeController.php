@@ -66,12 +66,28 @@ class HomeController extends Controller
 
        
         if ($request->filled('categories')) {
-            $categories = is_array($request->categories) ? $request->categories : [$request->categories];
+            $categories = is_array($request->categories) 
+                ? $request->categories 
+                : [$request->categories];
+
             $products->whereIn('taxonomy_id', $categories);
         }
 
-        if ($request->has('brands')) {
-            $products->whereIn('brand_id', $request->brands);
+        // if ($request->has('brands')) {
+        //     $products->whereIn('brand_id', $request->brands);
+        // }
+
+        if ($request->filled('brands')) {
+            $brands = is_array($request->brands)
+                ? $request->brands
+                : [$request->brands];
+
+            $products->whereIn('brand_id', $brands);
+        }
+
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $products->where('name', 'like', "%{$search}%");
         }
 
         $products = $products->paginate(6);

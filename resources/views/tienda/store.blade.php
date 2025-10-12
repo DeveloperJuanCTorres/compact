@@ -1,4 +1,4 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 @extends('layouts.app')
 
@@ -28,9 +28,18 @@
                     <a href="/" class="text-decoration-none d-block d-lg-none">
                         <img height="50" src="{{asset("storage/$business->image")}}" alt="">
                     </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <div class="row">
+                        <!-- Lado derecho: Carrito -->
+                        <a href="/cart" class="btn px-2 d-flex align-items-center sesion-destock">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                            <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
+                                {{ \Cart::count() }}
+                            </span>
+                        </a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 
                         <div class="navbar-nav m-auto py-2 sesion-destock d-flex align-items-center justify-content-between w-100">    
@@ -59,25 +68,19 @@
                                 @endauth
                             </div>
 
-                            <!-- Lado derecho: Carrito -->
-                            <a href="/cart" class="btn px-0 d-flex align-items-center">
-                                <i class="fas fa-shopping-cart text-white"></i>
-                                <span id="cartCount" class="badge text-white border border-secondary rounded-circle ml-1" style="padding-bottom: 2px;">
-                                    {{ \Cart::count() }}
-                                </span>
-                            </a>
+                            
                         </div>
 
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link">Inicio</a>
-                            <a href="/store" class="nav-item nav-link active">Tienda</a>
+                            <a href="/" class="nav-item nav-link active">Inicio</a>
+                            <a href="/store" class="nav-item nav-link">Tienda</a>
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
                         </div>
                     </div>
                 </nav>
+                
             </div>
-
             <div class="col-lg-3 destock" style="position: absolute; right: 0;">
                 <div id="promo-btn">
                     <a class="btn-promo btn-secondary" href="{{ route ('ofertas')}}">Ofertas</a>
@@ -110,6 +113,17 @@
         <div class="col-lg-3 col-md-4">
             
             <form id="filterForm">
+
+                <div class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="search" id="searchInput" class="form-control" placeholder="Buscar producto..." value="{{ request('search') }}">
+                        <button type="button" id="clearSearch" class="btn btn-danger">×</button>
+                    </div>
+                </div>
+
+                <div class="mb-4 text-end">
+                    <button type="button" id="resetFilters" class="btn btn-sm btn-danger">Limpiar filtros</button>
+                </div>
                 
                 <div class="accordion" id="accordionExample">
                        
@@ -127,7 +141,7 @@
                                         <input type="radio" class="custom-control-input" name="categories[]" value="{{ $category->id }}"
                                         {{ request('categories') == $category->id ? 'checked' : '' }}>
                                         <label class="custom-control-label">{{$category->name}}</label>
-                                        <span class="badge border font-weight-normal bg-primary">{{$category->productsInStock->count()}}</span>
+                                        <span class="badge border font-weight-normal bg-primary text-white">{{$category->productsInStock->count()}}</span>
                                     </div>
                                     @endforeach
                                 </div>
@@ -148,7 +162,7 @@
                                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                         <input type="radio" class="custom-control-input" name="brands[]" value="{{ $brand->id }}">
                                         <label class="custom-control-label">{{$brand->name}}</label>
-                                        <span class="badge border font-weight-normal bg-primary">{{$brand->productsInStock->count()}}</span>
+                                        <span class="badge border font-weight-normal bg-primary text-white">{{$brand->productsInStock->count()}}</span>
                                     </div>
                                     @endforeach
                                 </div>
@@ -182,7 +196,74 @@
 @push('scripts')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="js/addcart.js"></script> -->
+
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('filterForm');
+        const productContainer = document.getElementById('productContainer');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const resetFilters = document.getElementById('resetFilters');
+
+        let debounceTimeout;
+
+        // 🟦 Buscar mientras escribe (con debounce)
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                fetchProducts();
+            }, 300);
+        });
+
+        // 🟨 Limpiar búsqueda (botón "X")
+        clearSearch.addEventListener('click', function () {
+            searchInput.value = '';
+            fetchProducts(); // recarga todos los productos
+        });
+
+        // 🟥 Limpiar todos los filtros
+        resetFilters.addEventListener('click', function () {
+            form.reset(); // limpia todos los inputs del formulario
+            fetchProducts(); // recarga todos los productos
+        });
+
+        // 🟩 Detectar cambio de categoría o marca
+        form.addEventListener('change', function () {
+            fetchProducts();
+        });
+
+        // 🌀 Cargar productos mediante AJAX
+        function fetchProducts(page = 1) {
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+
+            loadingSpinner.classList.remove('hidden'); // Mostrar spinner
+
+            fetch(`{{ route('store') }}?${params.toString()}&page=${page}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.text())
+            .then(html => {
+                productContainer.innerHTML = html;
+            })
+            .finally(() => {
+                loadingSpinner.classList.add('hidden'); // Ocultar spinner
+            });
+        }
+
+        // 🔄 Paginación AJAX
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.pagination a')) {
+                e.preventDefault();
+                const url = new URL(e.target.href);
+                const page = url.searchParams.get('page');
+                fetchProducts(page);
+            }
+        });
+    });
+</script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('filterForm');
     const productContainer = document.getElementById('productContainer');
@@ -212,7 +293,6 @@
         });
     }
 
-    // Paginación AJAX
     document.addEventListener('click', function(e) {
         if (e.target.closest('.pagination a')) {
             e.preventDefault();
@@ -222,7 +302,7 @@
         }
     });
 });
-</script>
+</script> -->
 @endpush
 
 @endsection

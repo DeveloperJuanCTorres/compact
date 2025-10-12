@@ -42,7 +42,7 @@
 
     <!-- Libraries Stylesheet -->
      <?php
-        $version = '1993.3.6';
+        $version = '1993.3.7';
     ?>
 
     <link href="{{asset('css/wpp.css')}}?v=<?php echo $version ?>" rel="stylesheet">
@@ -52,6 +52,7 @@
     <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}?v=<?php echo $version ?>" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
+     
     <link href="{{asset('css/style.css')}}?v=<?php echo $version ?>" rel="stylesheet">
     <link href="{{asset('css/phone.css')}}?v=<?php echo $version ?>" rel="stylesheet">
 
