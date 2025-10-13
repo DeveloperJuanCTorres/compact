@@ -39,7 +39,7 @@ class IzipayController extends Controller
             'customer_name'  => $request->input("nombre"),
             'customer_lastname'  => $request->input("apellidos"),
             'customer_email' => $request->input("email"),
-            'customer_phone' => $request->input("telefono"),
+            'customer_phone' => $request->input("codigo") . $request->input("telefono"),
             'customer_address' => $request->input("direccion"),
         ]);
 
