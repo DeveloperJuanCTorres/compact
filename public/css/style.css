@@ -9867,7 +9867,7 @@ a.text-dark:hover, a.text-dark:focus {
 .carousel-icons {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    right: 120px;
     display: flex;
     gap: 30px;
     z-index: 2; /* encima del overlay */

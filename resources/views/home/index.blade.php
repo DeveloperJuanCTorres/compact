@@ -113,22 +113,22 @@
 
                             <!-- Íconos superpuestos con texto -->
                             <div class="carousel-icons iconos-mobil">
-                                <div class="icon-box">
+                                <!-- <div class="icon-box">
                                     <i class="fas fa-tags"></i>
                                     <span class="font-weight-bold">LAS MEJORES OFERTAS</span>
                                 </div>
                                 <div class="icon-box">
                                     <i class="fas fa-shield-alt"></i>
                                     <span class="font-weight-bold">TODO EN SEGURIDAD</span>
-                                </div>
-                                <div class="icon-box">
-                                    <i class="fas fa-truck"></i>
-                                    <span class="font-weight-bold">ENVÍOS A TODO EL PERÚ</span>
-                                </div>
+                                </div> -->
                                 <div class="icon-box">
                                     <i class="fas fa-credit-card"></i>
                                     <span class="font-weight-bold">PAGO SEGURO</span>
                                 </div>
+                                <div class="icon-box">
+                                    <i class="fas fa-truck"></i>
+                                    <span class="font-weight-bold">ENVÍOS A TODO EL PERÚ</span>
+                                </div>                                
                             </div>
                         </div>
                     @endforeach
@@ -139,37 +139,6 @@
 </div>
 <!-- Carousel End -->
 
-
-<!-- Featured Start -->
-<div class="container-fluid iconos-destock">
-    <div class="row px-xl-5 pb-3">
-        <div class="col-6 pt-4">
-            <div class="icon-box">
-                <i class="fas fa-tags"></i>
-                <h6 class="font-weight-semi-bold m-0">LAS MEJORES OFERTAS</h6>
-            </div>
-        </div>
-        <div class="col-6 pt-4">
-            <div class="icon-box">
-                <i class="fas fa-shield-alt"></i>
-                <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
-            </div>
-        </div>
-        <div class="col-6 pt-4">
-            <div class="icon-box">
-                <i class="fas fa-truck"></i>
-                <h6 class="font-weight-semi-bold m-0">ENVÍOS A TODO EL PERÚ</h6>
-            </div>
-        </div>
-        <div class="col-6 pt-4">
-            <div class="icon-box">
-                <i class="fas fa-credit-card"></i>
-                <h6 class="font-weight-semi-bold m-0">PAGO SEGURO</h6>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Featured End -->
 
 <!-- Categories Start -->
     @include('general.categorias')  
@@ -193,6 +162,37 @@
     </div>
 </div>
 <!-- Vendor End -->
+
+<!-- Featured Start -->
+<div class="container-fluid iconos-destock">
+    <div class="row px-xl-5 pb-3 m-auto">
+        <!-- <div class="col-6 pt-4">
+            <div class="icon-box">
+                <i class="fas fa-tags"></i>
+                <h6 class="font-weight-semi-bold m-0">LAS MEJORES OFERTAS</h6>
+            </div>
+        </div>
+        <div class="col-6 pt-4">
+            <div class="icon-box">
+                <i class="fas fa-shield-alt"></i>
+                <h6 class="font-weight-semi-bold m-0">TODO EN SEGURIDAD</h6>
+            </div>
+        </div> -->
+        <div class="col-6 pt-2">
+            <div class="icon-box">
+                <i class="fas fa-credit-card"></i>
+                <h6 class="font-weight-semi-bold m-0">Pago Seguro</h6>
+            </div>
+        </div>
+        <div class="col-6 pt-2">
+            <div class="icon-box">
+                <i class="fas fa-truck"></i>
+                <h6 class="font-weight-semi-bold m-0">Envíos a todo el Perú</h6>
+            </div>
+        </div>        
+    </div>
+</div>
+<!-- Featured End -->
 
 <!-- brochure Start -->
 <div class="container-fluid bg-mobil text-secondary ">
