@@ -42,7 +42,7 @@
 
     <!-- Libraries Stylesheet -->
      <?php
-        $version = '1993.3.8';
+        $version = '1993.3.9';
     ?>
 
     <link href="{{asset('css/wpp.css')}}?v=<?php echo $version ?>" rel="stylesheet">
