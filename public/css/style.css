@@ -10170,7 +10170,7 @@ a.text-dark:hover, a.text-dark:focus {
     }
 
     .carousel-control {
-        background-color: rgba(211, 211, 211, 0.5); /* Gris léger et transparent pour l'état inactif */
+        background-color: #EF7718; /* Gris léger et transparent pour l'état inactif */
         color: white;
         border: none;
         width: 50px;
