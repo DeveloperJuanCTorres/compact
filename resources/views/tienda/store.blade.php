@@ -241,7 +241,7 @@
         // 🟨 Limpiar búsqueda (botón "X")
         clearSearch.addEventListener('click', function () {
             searchInput.value = '';
-            $('#buscar').val('');
+            $('#buscar').val('');            
             updateURLWithoutParams();
             fetchProducts(); // recarga todos los productos
         });
@@ -251,6 +251,7 @@
             form.reset(); // limpia todos los inputs del formulario
             searchInput.value = '';  
             $('#buscar').val('');
+            form.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
             updateURLWithoutParams();
             fetchProducts(); // recarga todos los productos
         });
