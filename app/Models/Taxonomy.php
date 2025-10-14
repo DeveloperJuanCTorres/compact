@@ -25,4 +25,9 @@ class Taxonomy extends Model
     {
         return $this->hasMany(Product::class, 'taxonomy_id')->where('stock', '>', 0);
     }
+
+    public function subtaxonomies()
+    {
+        return $this->hasMany(Subtaxonomy::class);
+    }
 }

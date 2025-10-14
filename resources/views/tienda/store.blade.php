@@ -148,6 +148,28 @@
                             </div>
                         </div>                            
                     </div>  
+
+                    <div class="accordion-item">                                
+                        <h2 class="accordion-header" id="headingTree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+                                Filtrar por Sub-Categoría
+                            </button>
+                        </h2>
+                        <div id="collapseTree" class="accordion-collapse collapse" aria-labelledby="headingTree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="bg-light mb-30">
+                                    @foreach($subcategories as $subcategory)
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="radio" class="custom-control-input" name="subcategories[]" value="{{ $subcategory->id }}"
+                                        {{ request('subcategories') == $subcategory->id ? 'checked' : '' }}>
+                                        <label class="custom-control-label">{{$subcategory->name}}</label>
+                                        <span class="badge border font-weight-normal bg-primary text-white">{{$subcategory->productsInStock->count()}}</span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>                            
+                    </div> 
                     
                     <div class="accordion-item">                                
                         <h2 class="accordion-header" id="headingTwo">
@@ -219,12 +241,17 @@
         // 🟨 Limpiar búsqueda (botón "X")
         clearSearch.addEventListener('click', function () {
             searchInput.value = '';
+            $('#buscar').val('');
+            updateURLWithoutParams();
             fetchProducts(); // recarga todos los productos
         });
 
         // 🟥 Limpiar todos los filtros
         resetFilters.addEventListener('click', function () {
             form.reset(); // limpia todos los inputs del formulario
+            searchInput.value = '';  
+            $('#buscar').val('');
+            updateURLWithoutParams();
             fetchProducts(); // recarga todos los productos
         });
 
@@ -246,6 +273,7 @@
             .then(response => response.text())
             .then(html => {
                 productContainer.innerHTML = html;
+                updateURLParams(params);
             })
             .finally(() => {
                 loadingSpinner.classList.add('hidden'); // Ocultar spinner
@@ -261,6 +289,18 @@
                 fetchProducts(page);
             }
         });
+
+        // 🧩 Actualiza la URL en tiempo real sin recargar la página
+        function updateURLParams(params) {
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        // 🧼 Limpia la URL completamente (sin parámetros)
+        function updateURLWithoutParams() {
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, '', cleanUrl);
+        }
     });
 </script>
 <!-- <script>

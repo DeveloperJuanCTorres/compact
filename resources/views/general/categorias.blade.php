@@ -7,12 +7,12 @@
     </div>
     <div class="carouselcat pt-4">
         <div class="d-flex m-auto">
-            @foreach($categories as $key => $category)
+            @foreach($subcategories as $key => $subcategory)
             <!-- <div class="col-lg-3 col-md-4 col-sm-12"> -->
                 <div class="product-card">
-                    <img src="storage/{{$category->image}}" class="product-image" alt="{{$category->name}}">
-                    <h3 class="product-name">{{$category->name}}</h3>
-                    <span>{{$category->description}}</span><br>
+                    <img src="storage/{{$subcategory->image}}" class="product-image" alt="{{$subcategory->name}}">
+                    <h3 class="product-name">{{$subcategory->name}}</h3>
+                    <span>{{$subcategory->description}}</span><br>
                     
                     <a class="btn btn-primary mt-2" href="{{ route('store', ['categories' => $category->id]) }}" title="productos">Ver productos</a>
                 </div>

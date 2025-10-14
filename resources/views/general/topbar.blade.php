@@ -14,13 +14,13 @@
                 </a>
             </div>
             <div class="col-lg-5 col-6 text-left">
-                <form action="">
+                <form action="{{ url('/store') }}" method="GET">
                     <div class="input-group" style="position: relative;">
-                        <input type="text" id="buscar" class="form-control" style="border-radius: 5px 0 0 5px;" placeholder="Encuentra tus productos">
+                        <input type="text" id="buscar" name="search" class="form-control" style="border-radius: 5px 0 0 5px;" placeholder="Encuentra tus productos" value="{{ request('search') }}">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary" style="border-radius: 0 5px 5px 0;">
+                            <button type="submit" class="input-group-text bg-transparent text-primary" style="border-radius: 0 5px 5px 0;">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                         <ul id="resultados" style="position: absolute; z-index:9;width: 350px;" class="list-group mt-5"></ul>
                     </div>

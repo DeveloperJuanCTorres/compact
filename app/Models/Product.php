@@ -21,12 +21,18 @@ class Product extends Model
         'images',
         'unidad_medida',
         'stock',
-        'slug'  
+        'slug' ,
+        'subtaxonomy_id' 
     ];
 
     public function taxonomy()
     {
         return $this->belongsTo(Taxonomy::class);
+    }
+
+    public function subtaxonomy()
+    {
+        return $this->belongsTo(Subtaxonomy::class);
     }
 
     public function brand()

@@ -11,6 +11,7 @@ use App\Models\Company;
 use App\Models\Field;
 use App\Models\Product;
 use App\Models\ProductColorImage;
+use App\Models\Subtaxonomy;
 use App\Models\Taxonomy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +36,7 @@ class HomeController extends Controller
     public function index()
     {
         $business = Company::find(1);
+        $subcategories = Subtaxonomy::all();
         $categories = Taxonomy::whereHas('products', function ($query) {
             $query->where('stock', '>', 0);
         })->take(8)->get();
@@ -46,7 +48,7 @@ class HomeController extends Controller
         $banners = Banner::all();
         $products = Product::where('stock', '>', 0)->take(8)->get();
 
-        return view('home.index', compact('business','categories','banners','products','brands','video'));
+        return view('home.index', compact('business','categories','banners','products','brands','video','subcategories'));
     }
 
     public function checkout()
@@ -61,8 +63,11 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
+        $search = $request->input('search');
         $business = Company::find(1);
-        $products = Product::query()->where('stock', '>', 0)->where('liquidacion','!=', 1);
+        $products = Product::query()->where('stock', '>', 0)
+                    ->where('liquidacion','!=', 1)
+                    ->where('name', 'like', "%{$search}%");
 
        
         if ($request->filled('categories')) {
@@ -73,9 +78,14 @@ class HomeController extends Controller
             $products->whereIn('taxonomy_id', $categories);
         }
 
-        // if ($request->has('brands')) {
-        //     $products->whereIn('brand_id', $request->brands);
-        // }
+        if ($request->filled('subcategories')) {
+            $subcategories = is_array($request->subcategories) 
+                ? $request->subcategories 
+                : [$request->subcategories];
+
+            $products->whereIn('subtaxonomy_id', $subcategories);
+        }
+
 
         if ($request->filled('brands')) {
             $brands = is_array($request->brands)
@@ -101,12 +111,17 @@ class HomeController extends Controller
             $query->where('stock', '>', 0);
         })->get();
 
+         $subcategories = Subtaxonomy::whereHas('products', function ($query) {
+            $query->where('stock', '>', 0);
+        })->get();
+
+
         $brands = Brand::whereHas('products', function ($query) {
             $query->where('stock', '>', 0);
         })->get();
 
        
-        return view('tienda.store',compact('categories','brands','products','business'));
+        return view('tienda.store',compact('categories', 'subcategories','brands','products','business'));
     }
 
     public function ofertas(Request $request)

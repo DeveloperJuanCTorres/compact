@@ -140,8 +140,33 @@
 <!-- Carousel End -->
 
 
+<div class="container-fluid py-5">
+    <div class="text-center py-5">
+        <h3>¿Qué tipo de implemento de Seguridad estás buscando?</h3>
+        <span>Encuentra el quipo de protección que necesitas para tu seguridad laboral</span>
+    </div>
+    <div class="row px-xl-5">        
+        <div class="carousel-container">
+            <div class="carousel1">
+                @foreach($subcategories as $key => $subcategory)
+                <div class="carousel-item1">
+                    <img src="storage/{{$subcategory->image}}" alt="{{$subcategory->name}}">
+                    <h3>{{$subcategory->name}}</h3>
+                    <!-- <p>Ceci est une description courte pour la carte 1.</p> -->
+                    <a class="btn btn-primary mt-2" href="{{ route('store', ['subcategories' => $subcategory->id]) }}" title="productos">Ver productos</a>
+                </div>
+                @endforeach
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Categories Start -->
-    @include('general.categorias')  
+    <!-- include('general.categorias')   -->
 <!-- Categories End -->
 
 <!-- Vendor Start -->
@@ -344,6 +369,80 @@
 <script>
     const baseUrl = "{{ url('/product.detail') }}"; // Esto será "/producto"
 </script>
+<script>    
+
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        const carousel = document.querySelector('.carousel1');
+        const items = document.querySelectorAll('.carousel-item1');
+        const totalItems = items.length;
+
+        if (window.innerWidth > 768) {
+            if (index >= totalItems - 5) {
+                currentIndex = totalItems - 5;
+            } else if (index < 0) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+        } else if (window.innerWidth > 480) {
+            if (index >= totalItems - 2) {
+                currentIndex = totalItems - 2;
+            } else if (index < 0) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+        } else {
+            if (index >= totalItems - 1) {
+                currentIndex = totalItems - 1;
+            } else if (index < 0) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+        }
+
+        const itemWidth = items[0].clientWidth + 15; // Adjust the offset to move horizontally
+        const offset = -currentIndex * itemWidth;
+        carousel.style.transform = `translateX(${offset}px)`;
+
+        updateControls();
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function updateControls() {
+        const prevButton = document.querySelector('.carousel-control.prev');
+        const nextButton = document.querySelector('.carousel-control.next');
+
+        if (window.innerWidth > 768) {
+            prevButton.classList.toggle('active', currentIndex > 0);
+            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 3);
+        } else if (window.innerWidth > 480) {
+            prevButton.classList.toggle('active', currentIndex > 0);
+            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 2);
+        } else {
+            prevButton.classList.toggle('active', currentIndex > 0);
+            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 1);
+        }
+    }
+
+    // Initial display
+    showSlide(currentIndex);
+
+    window.addEventListener('resize', () => {
+        showSlide(currentIndex); // Recalculate the offset on window resize
+    });
+</script>
+
 @endpush
 
 @endsection
