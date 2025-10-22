@@ -145,7 +145,7 @@
                             </div>
                         @empty
                             <div class="carousel-item active">
-                                <img class="w-100 h-100" src="{{asset('img/defectomaster.jpeg')}}" alt="Image">
+                                <img class="w-100 h-100" src="{{asset('img/defectocompact.jpg')}}" alt="Image">
                             </div>
                         @endforelse
 
@@ -165,7 +165,7 @@
                     @else
                         {{-- fallback --}}
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" src="{{asset('img/defectomaster.jpeg')}}" alt="Image">
+                            <img class="w-100 h-100" src="{{asset('img/defectocompact.jpg')}}" alt="Image">
                         </div>
                     @endif
                 </div>
@@ -424,7 +424,7 @@
                             <img class="img-fluid w-100" src="{{asset('storage/' . $imagenes[0])}}" alt=""
                                 style="width:100%; height:100%; object-fit:cover;">
                             @else
-                            <img class="img-fluid w-100" src="img/defectomaster.jpeg" alt=""
+                            <img class="img-fluid w-100" src="{{asset ('img/defectocompact.jpg')}}" alt=""
                                 style="width:100%; height:100%; object-fit:cover;">
                             @endif
                             <div class="product-action">

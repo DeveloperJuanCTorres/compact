@@ -15,7 +15,7 @@
             <img class="img-fluid w-100" src="storage/{{$imagenes[0]}}" alt=""
                 style="width:100%; height:100%; object-fit:cover;">
             @else
-            <img class="img-fluid w-100" src="img/defectomaster.jpeg" alt=""
+            <img class="img-fluid w-100" src="img/defectocompact.jpg" alt=""
                 style="width:100%; height:100%; object-fit:cover;">
             @endif
             <div class="product-action">
