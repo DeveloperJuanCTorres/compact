@@ -4,6 +4,9 @@
 
 @include('general.topbar')
 
+
+
+
 <!-- Navbar Start -->
     <div class="container-fluid bg-mobil">
         <div class="row px-xl-5">
@@ -150,10 +153,16 @@
             <div class="carousel1">
                 @foreach($subcategories as $key => $subcategory)
                 <div class="carousel-item1">
+                    @if($subcategory->image)
                     <img src="storage/{{$subcategory->image}}" alt="{{$subcategory->name}}">
-                    <h3>{{$subcategory->name}}</h3>
+                    @else
+                    <img src="img/iconodefecto1.png" alt="{{$subcategory->name}}">
+                    @endif
+                    <div class="d-flex align-items-center justify-content-center m-auto" style="height: 100px;">
+                        <h4>{{$subcategory->name}}</h4>
+                    </div>
                     <!-- <p>Ceci est une description courte pour la carte 1.</p> -->
-                    <a class="btn btn-primary mt-2" href="{{ route('store', ['subcategories' => $subcategory->id]) }}" title="productos">Ver productos</a>
+                    <a class="btn btn-primary mt-2" style="border-radius: 10px;" href="{{ route('store', ['subcategories' => $subcategory->id]) }}" title="productos">Ver productos</a>
                 </div>
                 @endforeach
             </div>
@@ -369,42 +378,33 @@
 <script>
     const baseUrl = "{{ url('/product.detail') }}"; // Esto será "/producto"
 </script>
-<script>    
 
+<script>
     let currentIndex = 0;
+    let autoSlideInterval;
 
     function showSlide(index) {
         const carousel = document.querySelector('.carousel1');
         const items = document.querySelectorAll('.carousel-item1');
         const totalItems = items.length;
 
-        if (window.innerWidth > 768) {
-            if (index >= totalItems - 5) {
-                currentIndex = totalItems - 5;
-            } else if (index < 0) {
-                currentIndex = 0;
-            } else {
-                currentIndex = index;
-            }
-        } else if (window.innerWidth > 480) {
-            if (index >= totalItems - 2) {
-                currentIndex = totalItems - 2;
-            } else if (index < 0) {
-                currentIndex = 0;
-            } else {
-                currentIndex = index;
-            }
+        let visibleItems;
+
+        // Determinar cuántos items se muestran según ancho
+        if (window.innerWidth > 768) visibleItems = 5;
+        else if (window.innerWidth > 480) visibleItems = 2;
+        else visibleItems = 1;
+
+        // 🔁 Ajuste para efecto infinito
+        if (index >= totalItems) {
+            currentIndex = 0; // vuelve al inicio
+        } else if (index < 0) {
+            currentIndex = totalItems - visibleItems; // vuelve al final
         } else {
-            if (index >= totalItems - 1) {
-                currentIndex = totalItems - 1;
-            } else if (index < 0) {
-                currentIndex = 0;
-            } else {
-                currentIndex = index;
-            }
+            currentIndex = index;
         }
 
-        const itemWidth = items[0].clientWidth + 15; // Adjust the offset to move horizontally
+        const itemWidth = items[0].clientWidth + 15;
         const offset = -currentIndex * itemWidth;
         carousel.style.transform = `translateX(${offset}px)`;
 
@@ -422,25 +422,37 @@
     function updateControls() {
         const prevButton = document.querySelector('.carousel-control.prev');
         const nextButton = document.querySelector('.carousel-control.next');
+        if (!prevButton || !nextButton) return;
 
-        if (window.innerWidth > 768) {
-            prevButton.classList.toggle('active', currentIndex > 0);
-            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 3);
-        } else if (window.innerWidth > 480) {
-            prevButton.classList.toggle('active', currentIndex > 0);
-            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 2);
-        } else {
-            prevButton.classList.toggle('active', currentIndex > 0);
-            nextButton.classList.toggle('active', currentIndex < document.querySelectorAll('.carousel-item').length - 1);
-        }
+        // Si quieres desactivar los botones en los extremos, puedes mantener esta lógica.
+        // Pero como ahora es infinito, los dejamos siempre activos.
+        prevButton.classList.add('active');
+        nextButton.classList.add('active');
     }
 
-    // Initial display
+    // Inicializar carrusel
     showSlide(currentIndex);
 
-    window.addEventListener('resize', () => {
-        showSlide(currentIndex); // Recalculate the offset on window resize
-    });
+    window.addEventListener('resize', () => showSlide(currentIndex));
+
+    // 🔁 Autoplay infinito cada 3 segundos
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(() => nextSlide(), 3000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    startAutoSlide();
+
+    // 🖱️ Pausar autoplay al pasar el mouse
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+        carouselContainer.addEventListener('mouseleave', startAutoSlide);
+    }
 </script>
 
 @endpush
