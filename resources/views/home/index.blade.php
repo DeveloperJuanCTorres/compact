@@ -380,79 +380,95 @@
 </script>
 
 <script>
-    let currentIndex = 0;
+document.addEventListener("DOMContentLoaded", function() {
+    const carousel = document.querySelector('.carousel1');
+    const container = document.querySelector('.carousel-container');
+    let items = document.querySelectorAll('.carousel-item1');
+    const totalItems = items.length;
+
+    // 🔁 Duplicar ítems para lograr efecto infinito fluido
+    carousel.innerHTML += carousel.innerHTML;
+    items = document.querySelectorAll('.carousel-item1');
+
+    let itemWidth = items[0].clientWidth + 15;
+    let scrollPosition = 0;
+    let isDragging = false;
+    let startX, scrollStart;
     let autoSlideInterval;
 
-    function showSlide(index) {
-        const carousel = document.querySelector('.carousel1');
-        const items = document.querySelectorAll('.carousel-item1');
-        const totalItems = items.length;
-
-        let visibleItems;
-
-        // Determinar cuántos items se muestran según ancho
-        if (window.innerWidth > 768) visibleItems = 5;
-        else if (window.innerWidth > 480) visibleItems = 2;
-        else visibleItems = 1;
-
-        // 🔁 Ajuste para efecto infinito
-        if (index >= totalItems) {
-            currentIndex = 0; // vuelve al inicio
-        } else if (index < 0) {
-            currentIndex = totalItems - visibleItems; // vuelve al final
-        } else {
-            currentIndex = index;
-        }
-
-        const itemWidth = items[0].clientWidth + 15;
-        const offset = -currentIndex * itemWidth;
-        carousel.style.transform = `translateX(${offset}px)`;
-
-        updateControls();
+    // 🧭 Funciones base
+    function updateItemWidth() {
+        itemWidth = items[0].clientWidth + 15;
     }
 
-    function nextSlide() {
-        showSlide(currentIndex + 1);
-    }
-
-    function prevSlide() {
-        showSlide(currentIndex - 1);
-    }
-
-    function updateControls() {
-        const prevButton = document.querySelector('.carousel-control.prev');
-        const nextButton = document.querySelector('.carousel-control.next');
-        if (!prevButton || !nextButton) return;
-
-        // Si quieres desactivar los botones en los extremos, puedes mantener esta lógica.
-        // Pero como ahora es infinito, los dejamos siempre activos.
-        prevButton.classList.add('active');
-        nextButton.classList.add('active');
-    }
-
-    // Inicializar carrusel
-    showSlide(currentIndex);
-
-    window.addEventListener('resize', () => showSlide(currentIndex));
-
-    // 🔁 Autoplay infinito cada 3 segundos
     function startAutoSlide() {
         stopAutoSlide();
-        autoSlideInterval = setInterval(() => nextSlide(), 3000);
+        autoSlideInterval = setInterval(() => {
+            scrollPosition += itemWidth;
+            carousel.style.transition = "transform 0.6s linear";
+            carousel.style.transform = `translateX(-${scrollPosition}px)`;
+
+            if (scrollPosition >= itemWidth * totalItems) {
+                setTimeout(() => {
+                    carousel.style.transition = "none";
+                    scrollPosition = 0;
+                    carousel.style.transform = `translateX(0px)`;
+                }, 600);
+            }
+        }, 3000);
     }
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
     }
 
-    startAutoSlide();
+    // 🎯 Arrastre con mouse
+    container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX;
+        scrollStart = scrollPosition;
+        stopAutoSlide(); // pausa mientras se arrastra
+        carousel.style.transition = "none";
+    });
 
-    // 🖱️ Pausar autoplay al pasar el mouse
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        carouselContainer.addEventListener('mouseenter', stopAutoSlide);
-        carouselContainer.addEventListener('mouseleave', startAutoSlide);
-    }
+    container.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            startAutoSlide();
+        }
+    });
+
+    container.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            startAutoSlide();
+        }
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.pageX - startX;
+        scrollPosition = scrollStart - deltaX;
+        carousel.style.transform = `translateX(-${scrollPosition}px)`;
+
+        // Reinicio visual infinito
+        if (scrollPosition < 0) {
+            scrollPosition = itemWidth * totalItems + scrollPosition;
+        } else if (scrollPosition >= itemWidth * totalItems) {
+            scrollPosition = scrollPosition - itemWidth * totalItems;
+        }
+    });
+
+    // 🖱️ Pausar autoplay al pasar el mouse (sin arrastrar)
+    container.addEventListener('mouseenter', stopAutoSlide);
+    container.addEventListener('mouseleave', startAutoSlide);
+
+    // 🧩 Ajustar cuando cambia el tamaño de pantalla
+    window.addEventListener('resize', updateItemWidth);
+
+    // 🚀 Iniciar autoplay
+    startAutoSlide();
+});
 </script>
 
 @endpush
