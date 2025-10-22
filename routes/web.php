@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Exports\ProductsExport;
 use App\Http\Controllers\IzipayController;
+use App\Http\Controllers\ProductImportController;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -50,6 +51,12 @@ Route::get('/products/{product}/color/{color}/images', [App\Http\Controllers\Hom
 
 Route::post('/contact/send', [App\Http\Controllers\HomeController::class, 'correoContact'])->name('contact.send');
 Route::post('/reclamo',[App\Http\Controllers\HomeController::class,'correoReclamo']);
+
+
+
+
+Route::get('products/import', [ProductImportController::class, 'importView'])->name('products.import.view');
+Route::post('products/import', [ProductImportController::class, 'import'])->name('products.import');
 
 
 Route::group(['prefix' => 'admin'], function () {
