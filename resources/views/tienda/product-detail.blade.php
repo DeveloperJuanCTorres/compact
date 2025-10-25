@@ -217,7 +217,8 @@
                     <strong class="text-dark me-3" style="width: 90px;">Categoría:</strong>
                     <label class="">{{$product->taxonomy->name}}</label>
                 </div>
-                <div class="d-flex align-items-center">
+                @if($product->brand)
+                <div class="d-flex align-items-center">                    
                     <strong class="text-dark mr-3" style="width: 70px;">Marca:</strong>
                     @if($product->brand->image)
                     <img src="{{asset('storage/' . $product->brand->image)}}" alt="" width="100">
@@ -225,6 +226,7 @@
                     <label class="">{{$product->brand->name}}</label>
                     @endif
                 </div>
+                @endif
 
                 @if($product->colors->count() > 0)
                     <div class="d-block mb-3 align-items-center">
