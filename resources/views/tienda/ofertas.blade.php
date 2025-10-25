@@ -93,7 +93,7 @@
 
 <!-- Carousel Start -->
 <div class="banner">
-    <img src="img/banner-oferta.png" alt="Banner" class="banner-img">
+    <img src="img/banner-oferta-1.png" alt="Banner" class="banner-img">
 </div>
 
 <style>
