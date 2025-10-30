@@ -10225,4 +10225,10 @@ a.text-dark:hover, a.text-dark:focus {
     border-radius: 8px;
 }
 
+@media (max-width: 768px) {
+    #zoom-result {
+        display: none !important;
+    }
+}
+
 

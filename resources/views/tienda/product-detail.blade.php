@@ -599,7 +599,8 @@
             initZoom();
         });
     </script>
-    
+
+     
     
 @endpush
 
