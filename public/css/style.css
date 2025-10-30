@@ -10207,5 +10207,22 @@ a.text-dark:hover, a.text-dark:focus {
         .carousel-item1 {
             flex: 0 0 calc(100% - 15px); /* 1 item per row on mobile */
         }
+    }
+
+#zoom-result {
+    position: absolute;
+    top: 0; /* SIEMPRE en la parte superior del contenedor */
+    left: 100%;
+    width: 350px;
+    height: 350px;
+    border: 1px solid #ddd;
+    background-repeat: no-repeat;
+    display: none;
+    pointer-events: none;
+    z-index: 9999;
+    margin-left: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+}
 
 

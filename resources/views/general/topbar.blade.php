@@ -40,7 +40,7 @@
                 <!-- <h5 class="m-0">{{$business->phone}}</h5> -->
                 <div class="navbar-nav ml-auto py-0 d-lg-block">
                     <!-- <a href=""> -->
-                        <i class="fas fa-user text-white mr-2"></i>
+                        <i class="fas fa-user mr-2" style="color: rgb(239, 119, 24);"></i>
                         @auth
                         <!-- <span class="text-white">{{auth::user()->name}}</span> -->
                         <div class="dropdown" style="display: contents;">
@@ -64,8 +64,8 @@
                         
                     <!-- </a> -->
                     <a href="/cart" class="btn px-0 ml-3">
-                        <i class="fas fa-shopping-cart text-white"></i>
-                        <span id="cartCount1" class="badge text-white border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                        <i class="fas fa-shopping-cart" style="color: rgb(239, 119, 24);font-size: 18px;"></i>
+                        <span id="cartCount1" class="badge border border-secondary rounded-circle" style="padding-bottom: 2px;color: rgb(239, 119, 24);background-color: white;">
                             {{\Cart::count()}}
                         </span>
                     </a>

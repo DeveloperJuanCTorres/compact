@@ -27,8 +27,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-5 p-0">
-                    <h5 class="text-secondary text-uppercase mb-4">Hoja informativa</h5>
-                    <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
+                    <h5 class="text-secondary text-uppercase mb-4">Redes Sociales</h5>
+                    <p>Para que conozcas más de nosotros, de los productos y servicios que ofrecemos.</p>
                     
                     <h6 class="text-secondary text-uppercase mt-4 mb-3">Síguenos</h6>
                     <div class="d-flex">                        

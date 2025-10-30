@@ -110,73 +110,77 @@
 
 
 <!-- Shop Detail Start -->
-<div class="container-fluid pb-5">
+<div class="container-fluid pb-5" style="position: relative;">
     <div class="row px-xl-5">        
 
         <div class="col-lg-5">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner bg-light" id="carousel-images">
-                    @php
-                        $colorImages = $product->colorImages;
-                        $imagenesColor = collect();
-                    @endphp
-
-                    {{-- Caso 2: si el producto tiene registros en product_color_images --}}
-                    @if($colorImages->count() > 0)
+            <div id="product-carousel-wrapper" style="position: relative;">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light" id="carousel-images">
                         @php
-                            if ($selectedColorId) {
-                                // Mostrar imágenes del color seleccionado
-                                $imagenesColor = $colorImages->where('color_id', $selectedColorId);
-                            } else {
-                                // Si no hay selección, tomar el primer color asociado al producto
-                                $firstColor = $product->colors->first();
-                                $imagenesColor = $firstColor
-                                    ? $colorImages->where('color_id', $firstColor->id)
-                                    : collect([]);
-                            }
+                            $colorImages = $product->colorImages;
+                            $imagenesColor = collect();
                         @endphp
 
-                        @forelse($imagenesColor as $key => $item)
-                            <div class="carousel-item @if($key==0) active @endif">
-                                <div class="d-flex">
-                                    <img class="m-auto" style="max-width: 500px;max-height: 500px;"
-                                        src="{{ asset('storage/'.$item->image) }}" alt="Image">
+                        {{-- Caso 2: si el producto tiene registros en product_color_images --}}
+                        @if($colorImages->count() > 0)
+                            @php
+                                if ($selectedColorId) {
+                                    // Mostrar imágenes del color seleccionado
+                                    $imagenesColor = $colorImages->where('color_id', $selectedColorId);
+                                } else {
+                                    // Si no hay selección, tomar el primer color asociado al producto
+                                    $firstColor = $product->colors->first();
+                                    $imagenesColor = $firstColor
+                                        ? $colorImages->where('color_id', $firstColor->id)
+                                        : collect([]);
+                                }
+                            @endphp
+
+                            @forelse($imagenesColor as $key => $item)
+                                <div class="carousel-item @if($key==0) active @endif">
+                                    <div class="d-flex">
+                                        <img class="m-auto zoom-image" style="max-width: 500px;max-height: 500px;"
+                                            src="{{ asset('storage/'.$item->image) }}" alt="Image">
+                                    </div>
                                 </div>
-                            </div>
-                        @empty
+                            @empty
+                                <div class="carousel-item active">
+                                    <img class="w-100 h-100" src="{{asset('img/defectocompact.jpg')}}" alt="Image">
+                                </div>
+                            @endforelse
+
+                        {{-- Caso 1: producto con imágenes iniciales en JSON --}}
+                        @elseif($product->images)
+                            @php
+                                $imagenes = json_decode($product->images);
+                            @endphp
+                            @foreach($imagenes as $key => $item)
+                                <div class="carousel-item @if($key==0) active @endif">
+                                    <div class="d-flex">
+                                        <img class="m-auto zoom-image" style="max-width: 500px;max-height: 500px;"
+                                            src="{{ asset('storage/'.$item) }}" alt="Image">
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            {{-- fallback --}}
                             <div class="carousel-item active">
                                 <img class="w-100 h-100" src="{{asset('img/defectocompact.jpg')}}" alt="Image">
                             </div>
-                        @endforelse
-
-                    {{-- Caso 1: producto con imágenes iniciales en JSON --}}
-                    @elseif($product->images)
-                        @php
-                            $imagenes = json_decode($product->images);
-                        @endphp
-                        @foreach($imagenes as $key => $item)
-                            <div class="carousel-item @if($key==0) active @endif">
-                                <div class="d-flex">
-                                    <img class="m-auto" style="max-width: 500px;max-height: 500px;"
-                                        src="{{ asset('storage/'.$item) }}" alt="Image">
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        {{-- fallback --}}
-                        <div class="carousel-item active">
-                            <img class="w-100 h-100" src="{{asset('img/defectocompact.jpg')}}" alt="Image">
-                        </div>
-                    @endif
+                        @endif
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>                    
                 </div>
-
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                    <i class="fa fa-2x fa-angle-left text-dark"></i>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                    <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
+                
+                
             </div>
+            <div id="zoom-result"></div>
         </div>
 
         <div class="col-lg-7 h-auto mb-5">
@@ -517,7 +521,7 @@
                 img.src = '/storage/' + src;
                 img.style.maxWidth = '500px';
                 img.style.maxHeight = '500px';
-                img.className = 'm-auto';
+                img.className = 'm-auto zoom-image';
 
                 itemDiv.appendChild(img);
                 carouselInner.appendChild(itemDiv);
@@ -551,6 +555,49 @@
             });
         });
     });
+    </script>
+
+    <script>
+        function initZoom() {
+            const zoomDiv = document.getElementById("zoom-result");
+            const zoomableImages = document.querySelectorAll(".zoom-image");
+
+            zoomableImages.forEach(img => {
+                img.addEventListener("mouseenter", function () {
+                    zoomDiv.style.backgroundImage = `url(${this.src})`;
+                    zoomDiv.style.display = "block";
+                });
+
+                img.addEventListener("mousemove", function (e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const xPercent = (x / this.width) * 100;
+                    const yPercent = (y / this.height) * 100;
+                    zoomDiv.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+                });
+
+                img.addEventListener("mouseleave", function () {
+                    zoomDiv.style.display = "none";
+                });
+            });
+        }
+
+        // ✅ Cuando la página carga
+        document.addEventListener("DOMContentLoaded", initZoom);
+
+        // ✅ Cuando cambies el color → recargar zoom
+        $(document).on("click", "input[name='color_id']", function () {
+            setTimeout(() => {
+                initZoom();
+            }, 300);
+        });
+
+        // ✅ Cuando cambias con flechas del carrusel
+        $('#product-carousel').on('slid.bs.carousel', function () {
+            initZoom();
+        });
     </script>
     
     
