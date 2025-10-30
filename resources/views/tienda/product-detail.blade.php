@@ -558,45 +558,52 @@
     </script>
 
     <script>
-        function initZoom() {
+        function applyZoom() {
             const zoomDiv = document.getElementById("zoom-result");
-            const zoomableImages = document.querySelectorAll(".zoom-image");
+            const img = document.querySelector(".carousel-item.active img");
 
-            zoomableImages.forEach(img => {
-                img.addEventListener("mouseenter", function () {
-                    zoomDiv.style.backgroundImage = `url(${this.src})`;
+            if (!img) return;
+
+            zoomDiv.style.display = "none";
+
+            zoomDiv.style.backgroundImage = `url(${img.src})`;
+
+            img.addEventListener("mouseenter", () => {
+                if (window.innerWidth > 768) {
                     zoomDiv.style.display = "block";
-                });
-
-                img.addEventListener("mousemove", function (e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const xPercent = (x / this.width) * 100;
-                    const yPercent = (y / this.height) * 100;
-                    zoomDiv.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
-                });
-
-                img.addEventListener("mouseleave", function () {
-                    zoomDiv.style.display = "none";
-                });
+                    zoomDiv.style.opacity = 1;
+                }
             });
+
+            img.addEventListener("mousemove", (e) => {
+                const rect = img.getBoundingClientRect();
+                const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+                const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+
+                zoomDiv.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+                zoomDiv.style.backgroundSize = (rect.width * 2) + "px " + (rect.height * 2) + "px";
+            });
+
+            img.addEventListener("mouseleave", () => hideZoom());
         }
 
-        // ✅ Cuando la página carga
-        document.addEventListener("DOMContentLoaded", initZoom);
+        function hideZoom() {
+            const zoomDiv = document.getElementById("zoom-result");
+            zoomDiv.style.display = "none";
+            zoomDiv.style.opacity = 0;
+        }
 
-        // ✅ Cuando cambies el color → recargar zoom
+        // ✅ Ejecutar cuando la página cargue
+        document.addEventListener("DOMContentLoaded", applyZoom);
+
+        // ✅ Ejecutar cuando cambie el color / imagen
         $(document).on("click", "input[name='color_id']", function () {
-            setTimeout(() => {
-                initZoom();
-            }, 300);
+            setTimeout(applyZoom, 500);
         });
 
-        // ✅ Cuando cambias con flechas del carrusel
+        // ✅ Ejecutar cada vez que cambie el slide del carrusel
         $('#product-carousel').on('slid.bs.carousel', function () {
-            initZoom();
+            applyZoom();
         });
     </script>
 

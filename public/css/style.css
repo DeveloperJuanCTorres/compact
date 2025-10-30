@@ -10211,20 +10211,23 @@ a.text-dark:hover, a.text-dark:focus {
 
 #zoom-result {
     position: absolute;
-    top: 0; /* SIEMPRE en la parte superior del contenedor */
+    top: 0;
     left: 100%;
     width: 350px;
     height: 350px;
+    margin-left: 15px;
     border: 1px solid #ddd;
     background-repeat: no-repeat;
-    display: none;
     pointer-events: none;
+    display: none;
     z-index: 9999;
-    margin-left: 15px;
     background-color: #fff;
     border-radius: 8px;
+    transition: opacity .15s ease-in-out;
+    opacity: 0;
 }
 
+/* Móvil: ocultamos zoom flotante */
 @media (max-width: 768px) {
     #zoom-result {
         display: none !important;
