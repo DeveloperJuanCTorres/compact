@@ -107,13 +107,33 @@ class HomeController extends Controller
         }
 
 
+        // $categories = Taxonomy::whereHas('products', function ($query) {
+        //     $query->where('stock', '>', 0);
+        // })->get();
+
+        //  $subcategories = Subtaxonomy::whereHas('products', function ($query) {
+        //     $query->where('stock', '>', 0);
+        // })->get();
+
         $categories = Taxonomy::whereHas('products', function ($query) {
             $query->where('stock', '>', 0);
         })->get();
 
-         $subcategories = Subtaxonomy::whereHas('products', function ($query) {
-            $query->where('stock', '>', 0);
-        })->get();
+        // Si se seleccionó una categoría, filtra las subcategorías de esa categoría
+        if ($request->filled('categories')) {
+            $categoryId = is_array($request->categories) ? $request->categories[0] : $request->categories;
+            
+            $subcategories = Subtaxonomy::where('taxonomy_id', $categoryId)
+                ->whereHas('products', function ($query) {
+                    $query->where('stock', '>', 0);
+                })
+                ->get();
+        } else {
+            // Si no hay categoría seleccionada, mostrar todas las subcategorías disponibles
+            $subcategories = Subtaxonomy::whereHas('products', function ($query) {
+                $query->where('stock', '>', 0);
+            })->get();
+        }
 
 
         $brands = Brand::whereHas('products', function ($query) {
@@ -122,6 +142,32 @@ class HomeController extends Controller
 
        
         return view('tienda.store',compact('categories', 'subcategories','brands','products','business'));
+    }
+
+    public function getSubcategories($categoryId)
+    {
+        if ($categoryId === 'all') {
+            // 🔹 Traer TODAS las subcategorías con productos en stock
+            $subcategories = Subtaxonomy::whereHas('products', function ($query) {
+                    $query->where('stock', '>', 0);
+                })
+                ->withCount(['products as products_in_stock_count' => function ($query) {
+                    $query->where('stock', '>', 0);
+                }])
+                ->get(['id', 'name']);
+        } else {
+            // 🔹 Traer solo las subcategorías de la categoría seleccionada
+            $subcategories = Subtaxonomy::where('taxonomy_id', $categoryId)
+                ->whereHas('products', function ($query) {
+                    $query->where('stock', '>', 0);
+                })
+                ->withCount(['products as products_in_stock_count' => function ($query) {
+                    $query->where('stock', '>', 0);
+                }])
+                ->get(['id', 'name']);
+        }
+
+        return response()->json($subcategories);
     }
 
     public function ofertas(Request $request)

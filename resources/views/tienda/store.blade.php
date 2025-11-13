@@ -121,11 +121,78 @@
                     </div>
                 </div>
 
+                <div class="filtro-mobil pb-4">
+                    <h4>Filtros</h4>
+                    <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategoria" aria-controls="offcanvasCategoria">
+                        <span class="badge bg-primary text-white p-2" style="border-radius: 5px;">Categorías</span>                            
+                    </a>
+                    <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSubcategoria" aria-controls="offcanvasSubcategoria">
+                        <span class="badge bg-primary text-white p-2" style="border-radius: 5px;">Sub-categorías</span>                            
+                    </a>
+                    <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMarca" aria-controls="offcanvasMarca">
+                        <span class="badge bg-primary text-white p-2" style="border-radius: 5px;">Marcas</span>
+                    </a>
+                </div>
+
+                <div class="offcanvas offcanvas-end offcanvas-70" tabindex="-1" id="offcanvasCategoria" aria-labelledby="offcanvasCategoriaLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasCategoriaLabel">Categorías</h5>
+                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="offcanvas" aria-label="Close">X</button>
+                    </div>
+                    <div class="offcanvas-body">
+                        @foreach($categories as $key => $category)                        
+                        <div class="additional-product-item d-flex align-items-center justify-content-between py-2">
+                            <div class="d-flex align-items-center flex-grow-1 me-2">
+                                <input type="radio" class="me-2" id="categorym-{{$key}}" name="categories[]" value="{{ $category->id }}" {{ request('categories') == $category->id ? 'checked' : '' }}>
+                                <label for="categorym-{{$key}}" class="text-dark mb-0 px-2" style="font-size: 14px; word-break: break-word;">{{$category->name}}</label>
+                            </div>
+                            <span class="badge border font-weight-normal bg-primary text-white">{{$category->productsInStock->count()}}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="offcanvas offcanvas-end offcanvas-70" tabindex="-1" id="offcanvasSubcategoria" aria-labelledby="offcanvasSubcategoriaLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasSubcategoriaLabel">Subcategorías</h5>
+                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="offcanvas" aria-label="Close">X</button>
+                    </div>
+                    <div class="offcanvas-body" id="subcategories-mobile-container">
+                        @foreach($subcategories as $key => $subcategory)                        
+                        <div class="additional-product-item d-flex align-items-center justify-content-between py-2">
+                            <div class="d-flex align-items-center flex-grow-1 me-2">
+                                <input type="radio" class="me-2" id="subcategorym-{{$key}}" name="subcategories[]" value="{{ $subcategory->id }}" {{ request('subcategories') == $subcategory->id ? 'checked' : '' }}>
+                                <label for="subcategorym-{{$key}}" class="text-dark mb-0 px-2" style="font-size: 14px; word-break: break-word;">{{$subcategory->name}}</label>
+                            </div>
+                            <span class="badge border font-weight-normal bg-primary text-white">{{$subcategory->productsInStock->count()}}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="offcanvas offcanvas-end offcanvas-70" tabindex="-1" id="offcanvasMarca" aria-labelledby="offcanvasMarcaLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasMarcaLabel">Marcas</h5>
+                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="offcanvas" aria-label="Close">X</button>
+                    </div>
+                    <div class="offcanvas-body">
+                        @foreach($brands as $key => $brand)
+                        <div class="additional-product-item d-flex align-items-center justify-content-between py-2">
+                            <div class="d-flex align-items-center flex-grow-1 me-2">
+                                <input type="radio" class="me-2" id="brandm-{{$key}}" name="brands[]" value="{{ $brand->id }}">
+                                <label for="brandm-{{$key}}" class="text-dark mb-0 px-2" style="font-size: 13px; word-break: break-word;">{{$brand->name}}</label>
+                            </div>
+                            <span class="badge border font-weight-normal bg-primary text-white">{{$brand->productsInStock->count()}}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="mb-4 text-end">
                     <button type="button" id="resetFilters" class="btn btn-sm btn-danger">Limpiar filtros</button>
                 </div>
                 
-                <div class="accordion" id="accordionExample">
+                <div class="accordion filtro-destock" id="accordionExample">
                        
                     <div class="accordion-item">                                
                         <h2 class="accordion-header" id="headingOne">
@@ -134,7 +201,7 @@
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body accordion-scroll">
                                 <div class="bg-light mb-30">
                                     @foreach($categories as $category)
                                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -156,8 +223,8 @@
                             </button>
                         </h2>
                         <div id="collapseTree" class="accordion-collapse collapse" aria-labelledby="headingTree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="bg-light mb-30">
+                            <div class="accordion-body accordion-scroll">
+                                <div id="subcategories-container" class="bg-light mb-30">
                                     @foreach($subcategories as $subcategory)
                                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                         <input type="radio" class="custom-control-input" name="subcategories[]" value="{{ $subcategory->id }}"
@@ -178,7 +245,7 @@
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body accordion-scroll">
                                 <div class="bg-light mb-30">
                                     @foreach($brands as $brand)
                                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -228,6 +295,9 @@
         const clearSearch = document.getElementById('clearSearch');
         const resetFilters = document.getElementById('resetFilters');
 
+        const subcategoryContainerMobile = document.querySelector('#offcanvasSubcategoria .offcanvas-body');
+        const subcategoryContainerDesktop = document.getElementById('subcategories-container');
+
         let debounceTimeout;
 
         // 🟦 Buscar mientras escribe (con debounce)
@@ -241,23 +311,31 @@
         // 🟨 Limpiar búsqueda (botón "X")
         clearSearch.addEventListener('click', function () {
             searchInput.value = '';
-            $('#buscar').val('');            
+            $('#buscar').val('');
             updateURLWithoutParams();
-            fetchProducts(); // recarga todos los productos
+            fetchProducts();
         });
 
         // 🟥 Limpiar todos los filtros
         resetFilters.addEventListener('click', function () {
-            form.reset(); // limpia todos los inputs del formulario
-            searchInput.value = '';  
+            form.reset();
+            searchInput.value = '';
             $('#buscar').val('');
             form.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
             updateURLWithoutParams();
-            fetchProducts(); // recarga todos los productos
+
+            // 🔄 Restaurar TODAS las subcategorías (móvil + desktop)
+            loadSubcategories('all');
+
+            fetchProducts();
         });
 
-        // 🟩 Detectar cambio de categoría o marca
-        form.addEventListener('change', function () {
+        // 🟩 Detectar cambio de filtros
+        form.addEventListener('change', function (e) {
+            if (e.target.name === 'categories[]') {
+                const categoryId = e.target.value;
+                loadSubcategories(categoryId);
+            }
             fetchProducts();
         });
 
@@ -266,7 +344,7 @@
             const formData = new FormData(form);
             const params = new URLSearchParams(formData);
 
-            loadingSpinner.classList.remove('hidden'); // Mostrar spinner
+            loadingSpinner.classList.remove('hidden');
 
             fetch(`{{ route('store') }}?${params.toString()}&page=${page}`, {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -277,7 +355,7 @@
                 updateURLParams(params);
             })
             .finally(() => {
-                loadingSpinner.classList.add('hidden'); // Ocultar spinner
+                loadingSpinner.classList.add('hidden');
             });
         }
 
@@ -302,6 +380,136 @@
             const cleanUrl = window.location.origin + window.location.pathname;
             window.history.replaceState({}, '', cleanUrl);
         }
+
+        // 🧠 Cargar subcategorías dinámicamente (para móvil y desktop)
+        function loadSubcategories(categoryId) {
+            const id = categoryId && categoryId !== '' ? categoryId : 'all';
+
+            fetch(`/get-subcategories/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    subcategoryContainerMobile.innerHTML = '';
+                    subcategoryContainerDesktop.innerHTML = '';
+
+                    if (data.length === 0) {
+                        const emptyMsg = `<p class="text-muted text-center my-3">No hay subcategorías disponibles</p>`;
+                        subcategoryContainerMobile.innerHTML = emptyMsg;
+                        subcategoryContainerDesktop.innerHTML = emptyMsg;
+                        return;
+                    }
+
+                    // 🟦 Versión móvil
+                    data.forEach((sub, index) => {
+                        subcategoryContainerMobile.innerHTML += `
+                            <div class="additional-product-item d-flex align-items-center justify-content-between py-2">
+                                <div class="d-flex align-items-center flex-grow-1 me-2">
+                                    <input type="radio" class="me-2" id="subcategorym-${index}" name="subcategories[]" value="${sub.id}">
+                                    <label for="subcategorym-${index}" class="text-dark mb-0 px-2" style="font-size: 14px; word-break: break-word;">
+                                        ${sub.name}
+                                    </label>
+                                </div>
+                                <span class="badge border font-weight-normal bg-primary text-white">
+                                    ${sub.products_in_stock_count}
+                                </span>
+                            </div>`;
+                    });
+
+                    // 💻 Versión desktop (acordeón)
+                    data.forEach((sub, index) => {
+                        subcategoryContainerDesktop.innerHTML += `
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="radio" class="custom-control-input" id="subcategoryd-${index}" name="subcategories[]" value="${sub.id}">
+                                <label class="custom-control-label" for="subcategoryd-${index}">
+                                    ${sub.name}
+                                </label>
+                                <span class="badge border font-weight-normal bg-primary text-white">
+                                    ${sub.products_in_stock_count}
+                                </span>
+                            </div>`;
+                    });
+                })
+                .catch(error => console.error('Error cargando subcategorías:', error));
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryRadios = document.querySelectorAll('input[name="categories[]"]');
+        const subcategoriesContainer = document.getElementById('subcategories-container');
+
+        categoryRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const categoryId = this.value;
+                subcategoriesContainer.innerHTML = '<p class="text-muted">Cargando subcategorías...</p>';
+
+                fetch(`/get-subcategories/${categoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            let html = '';
+                            data.forEach(sub => {
+                                html += `
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="radio" class="custom-control-input" name="subcategories[]" value="${sub.id}">
+                                        <label class="custom-control-label">${sub.name}</label>
+                                        <span class="badge border font-weight-normal bg-primary text-white">${sub.products_in_stock_count}</span>
+                                    </div>
+                                `;
+                            });
+                            subcategoriesContainer.innerHTML = html;
+                        } else {
+                            subcategoriesContainer.innerHTML = '<p class="text-muted">No hay subcategorías disponibles.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener subcategorías:', error);
+                        subcategoriesContainer.innerHTML = '<p class="text-danger">Error al cargar subcategorías.</p>';
+                    });
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryRadiosMobile = document.querySelectorAll('#offcanvasCategoria input[name="categories[]"]');
+        const subcategoriesContainerMobile = document.getElementById('subcategories-mobile-container');
+
+        categoryRadiosMobile.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const categoryId = this.value;
+
+                // Mostrar mensaje de carga
+                subcategoriesContainerMobile.innerHTML = '<p class="text-muted">Cargando subcategorías...</p>';
+
+                fetch(`/get-subcategories/${categoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            let html = '';
+                            data.forEach((sub, index) => {
+                                html += `
+                                    <div class="additional-product-item d-flex align-items-center justify-content-between py-2">
+                                        <div class="d-flex align-items-center flex-grow-1 me-2">
+                                            <input type="radio" class="me-2" id="subcategorym-${index}" name="subcategories[]" value="${sub.id}">
+                                            <label for="subcategorym-${index}" class="text-dark mb-0 px-2" style="font-size: 14px; word-break: break-word;">${sub.name}</label>
+                                        </div>
+                                        <span class="badge border font-weight-normal bg-primary text-white">${sub.products_in_stock_count}</span>
+                                    </div>
+                                `;
+                            });
+                            subcategoriesContainerMobile.innerHTML = html;
+                        } else {
+                            subcategoriesContainerMobile.innerHTML = '<p class="text-muted">No hay subcategorías disponibles.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar subcategorías:', error);
+                        subcategoriesContainerMobile.innerHTML = '<p class="text-danger">Error al cargar subcategorías.</p>';
+                    });
+            });
+        });
     });
 </script>
 <!-- <script>

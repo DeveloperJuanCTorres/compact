@@ -45,6 +45,8 @@ Route::get('/export/products', function () {
         return Excel::download(new ProductsExport, 'products.xlsx');
     });
 
+Route::get('/get-subcategories/{categoryId}', [App\Http\Controllers\HomeController::class, 'getSubcategories'])->name('subcategories.byCategory');
+
 Route::get('/products/{product}/color/{color}/images', [App\Http\Controllers\HomeController::class, 'getColorImages']);
 // Route::get('/products/{product}/color/{color}/images', [App\Http\Controllers\HomeController::class, 'colorImages']);
 
