@@ -167,7 +167,8 @@
                 @endforeach
             </div>
             <div class="carousel-controls">
-               
+                <!-- <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control next" onclick="nextSlide()">&#10095;</button> -->
             </div>
         </div>
     </div>
@@ -379,95 +380,124 @@
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const carousel = document.querySelector('.carousel1');
-    const container = document.querySelector('.carousel-container');
-    let items = document.querySelectorAll('.carousel-item1');
-    const totalItems = items.length;
+    document.addEventListener("DOMContentLoaded", function() {
+        const carousel = document.querySelector('.carousel1');
+        const container = document.querySelector('.carousel-container');
+        let items = document.querySelectorAll('.carousel-item1');
+        const totalItems = items.length;
 
-    // 🔁 Duplicar ítems para lograr efecto infinito fluido
-    carousel.innerHTML += carousel.innerHTML;
-    items = document.querySelectorAll('.carousel-item1');
+        // 🔁 Duplicar ítems para lograr efecto infinito fluido
+        carousel.innerHTML += carousel.innerHTML;
+        items = document.querySelectorAll('.carousel-item1');
 
-    let itemWidth = items[0].clientWidth + 15;
-    let scrollPosition = 0;
-    let isDragging = false;
-    let startX, scrollStart;
-    let autoSlideInterval;
+        let itemWidth = items[0].clientWidth + 15;
+        let scrollPosition = 0;
+        let isDragging = false;
+        let startX, scrollStart;
+        let autoSlideInterval;
 
-    // 🧭 Funciones base
-    function updateItemWidth() {
-        itemWidth = items[0].clientWidth + 15;
-    }
+        // 🧭 Funciones base
+        function updateItemWidth() {
+            itemWidth = items[0].clientWidth + 15;
+        }
 
-    function startAutoSlide() {
-        stopAutoSlide();
-        autoSlideInterval = setInterval(() => {
-            scrollPosition += itemWidth;
-            carousel.style.transition = "transform 0.6s linear";
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(() => {
+                scrollPosition += itemWidth;
+                carousel.style.transition = "transform 0.6s linear";
+                carousel.style.transform = `translateX(-${scrollPosition}px)`;
+
+                if (scrollPosition >= itemWidth * totalItems) {
+                    setTimeout(() => {
+                        carousel.style.transition = "none";
+                        scrollPosition = 0;
+                        carousel.style.transform = `translateX(0px)`;
+                    }, 600);
+                }
+            }, 3000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        // 🎯 Arrastre con mouse
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+            scrollStart = scrollPosition;
+            stopAutoSlide(); // pausa mientras se arrastra
+            carousel.style.transition = "none";
+        });
+
+        container.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                startAutoSlide();
+            }
+        });
+
+        container.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                startAutoSlide();
+            }
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.pageX - startX;
+            scrollPosition = scrollStart - deltaX;
             carousel.style.transform = `translateX(-${scrollPosition}px)`;
 
-            if (scrollPosition >= itemWidth * totalItems) {
-                setTimeout(() => {
-                    carousel.style.transition = "none";
-                    scrollPosition = 0;
-                    carousel.style.transform = `translateX(0px)`;
-                }, 600);
+            // Reinicio visual infinito
+            if (scrollPosition < 0) {
+                scrollPosition = itemWidth * totalItems + scrollPosition;
+            } else if (scrollPosition >= itemWidth * totalItems) {
+                scrollPosition = scrollPosition - itemWidth * totalItems;
             }
-        }, 3000);
-    }
+        });
 
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
+        // 🌐 Arrastre táctil
+        container.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            scrollStart = scrollPosition;
+            stopAutoSlide();
+            carousel.style.transition = "none";
+        });
 
-    // 🎯 Arrastre con mouse
-    container.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.pageX;
-        scrollStart = scrollPosition;
-        stopAutoSlide(); // pausa mientras se arrastra
-        carousel.style.transition = "none";
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.touches[0].clientX - startX;
+            scrollPosition = scrollStart - deltaX;
+            carousel.style.transform = `translateX(-${scrollPosition}px)`;
+
+            if (scrollPosition < 0) {
+                scrollPosition = itemWidth * totalItems + scrollPosition;
+            } else if (scrollPosition >= itemWidth * totalItems) {
+                scrollPosition = scrollPosition - itemWidth * totalItems;
+            }
+        });
+
+        container.addEventListener('touchend', () => {
+            if (isDragging) {
+                isDragging = false;
+                startAutoSlide();
+            }
+        });
+
+        // 🖱️ Pausar autoplay al pasar el mouse (sin arrastrar)
+        container.addEventListener('mouseenter', stopAutoSlide);
+        container.addEventListener('mouseleave', startAutoSlide);
+
+        // 🧩 Ajustar cuando cambia el tamaño de pantalla
+        window.addEventListener('resize', updateItemWidth);
+
+        // 🚀 Iniciar autoplay
+        startAutoSlide();
     });
-
-    container.addEventListener('mouseleave', () => {
-        if (isDragging) {
-            isDragging = false;
-            startAutoSlide();
-        }
-    });
-
-    container.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            startAutoSlide();
-        }
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.pageX - startX;
-        scrollPosition = scrollStart - deltaX;
-        carousel.style.transform = `translateX(-${scrollPosition}px)`;
-
-        // Reinicio visual infinito
-        if (scrollPosition < 0) {
-            scrollPosition = itemWidth * totalItems + scrollPosition;
-        } else if (scrollPosition >= itemWidth * totalItems) {
-            scrollPosition = scrollPosition - itemWidth * totalItems;
-        }
-    });
-
-    // 🖱️ Pausar autoplay al pasar el mouse (sin arrastrar)
-    container.addEventListener('mouseenter', stopAutoSlide);
-    container.addEventListener('mouseleave', startAutoSlide);
-
-    // 🧩 Ajustar cuando cambia el tamaño de pantalla
-    window.addEventListener('resize', updateItemWidth);
-
-    // 🚀 Iniciar autoplay
-    startAutoSlide();
-});
 </script>
 
 @endpush
