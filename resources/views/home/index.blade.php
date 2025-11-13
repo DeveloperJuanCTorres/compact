@@ -167,8 +167,7 @@
                 @endforeach
             </div>
             <div class="carousel-controls">
-                <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
-                <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+               
             </div>
         </div>
     </div>
