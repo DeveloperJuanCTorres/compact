@@ -71,6 +71,11 @@
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
                         </div>
+
+                        <a href="" class="btn btn-primary">
+                            Descargar Catálogo
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </nav>
             </div>
