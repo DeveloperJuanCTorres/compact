@@ -266,7 +266,7 @@
 
                 <!-- Botón o link para abrir modal -->
                 <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#medidasModal">
-                   Ver medidas referenciales
+                   Ficha técnica
                 </a>
 
                 <!-- Modal -->

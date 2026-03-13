@@ -55,6 +55,7 @@
      
     <link href="{{asset('css/style.css')}}?v=<?php echo $version ?>" rel="stylesheet">
     <link href="{{asset('css/phone.css')}}?v=<?php echo $version ?>" rel="stylesheet">
+    <link href="{{asset('css/redes.css')}}?v=<?php echo $version ?>" rel="stylesheet">
 
     
     

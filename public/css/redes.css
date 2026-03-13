@@ -1,0 +1,30 @@
+.social-videos{
+    background:#f8f9fa;
+}
+
+.video-card{
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.video-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.video-wrapper{
+    position:relative;
+    width:100%;
+    padding-top:177%; /* formato vertical tipo reels */
+}
+
+.video-wrapper iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}

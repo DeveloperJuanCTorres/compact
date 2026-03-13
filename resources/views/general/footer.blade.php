@@ -18,10 +18,10 @@
                 <div class="col-md-4 mb-5 p-0">
                     <h5 class="text-secondary text-uppercase mb-4">Enlaces</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                        <a class="text-secondary mb-2" href="/store"><i class="fa fa-angle-right mr-2"></i>Tienda</a>
-                        <a class="text-secondary mb-2" href="/about"><i class="fa fa-angle-right mr-2"></i>Nosotros</a>
-                        <a class="text-secondary mb-2" href="/contact"><i class="fa fa-angle-right mr-2"></i>Contáctanos</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Acceso Multiplataforma</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Siempre Actualizado</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Fichas Técnicas</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Descargar Catálogo</a>
                         <a class="text-secondary mb-2" href="/politicas"><i class="fa fa-angle-right mr-2"></i>Políticas de privacidad</a>
                         <a class="text-secondary" href="/terminos"><i class="fa fa-angle-right mr-2"></i>Términos y condiciones</a>
                     </div>

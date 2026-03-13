@@ -77,7 +77,13 @@
                             <a href="/store" class="nav-item nav-link">Tienda</a>
                             <a href="/about" class="nav-item nav-link">Nosotros</a>
                             <a href="/contact" class="nav-item nav-link">Contáctanos</a>
+                            
                         </div>
+
+                        <a href="" class="btn btn-primary">
+                            Descargar Catálogo
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </nav>
                 
@@ -229,7 +235,7 @@
 <!-- Featured End -->
 
 <!-- brochure Start -->
-<div class="container-fluid bg-mobil text-secondary ">
+<!-- <div class="container-fluid bg-mobil text-secondary ">
     <div class="row px-xl-5 pt-5">
         <div class="col-lg-2"></div>
         <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5 my-auto">
@@ -277,7 +283,7 @@
         </div>
         <div class="col-lg-2"></div>
     </div>
-</div>
+</div> -->
 <!-- brochure End -->
 
 <!-- Products Start -->
@@ -339,6 +345,57 @@
 <!-- include('general.reseñas') -->
 
 <!-- Seccion de videos -->
+ <section class="social-videos py-5">
+    <div class="container">
+
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Síguenos en Redes</h2>
+            <p class="text-muted">Mira nuestros últimos videos</p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Facebook -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                        src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F759818153445432%2F&show_text=false&width=267&t=0"
+                        width="100%" height="100%" 
+                        style="border:none;overflow:hidden"
+                        scrolling="no" frameborder="0"
+                        allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="video-card">
+                    <blockquote 
+                        class="instagram-media"
+                        data-instgrm-permalink="https://www.instagram.com/reel/DRPePW-jssI/"
+                        data-instgrm-version="14">
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- TikTok -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="video-card">
+                    <blockquote class="tiktok-embed"
+                        cite="https://www.tiktok.com/@compact.epp/video/7572997634160397576"
+                        data-video-id="7572997634160397576">
+                        <section></section>
+                    </blockquote>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <div class="container-fluid pt-5">
     <div class="text-center pb-4 d-block m-auto" style="max-width: 500px;">
         <h3 class="">Videos Educativos</h3>
@@ -373,6 +430,8 @@
 @include('general.footer')
 
 @push('scripts')
+<script async src="https://www.tiktok.com/embed.js"></script>
+<script async src="//www.instagram.com/embed.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="js/addcart.js"></script> -->
 <script>
