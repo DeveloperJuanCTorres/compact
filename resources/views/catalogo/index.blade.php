@@ -55,7 +55,7 @@
 
         .card img {
             width: 100%;
-            height: 180px;
+            height: 100px;
             object-fit: contain;
         }
 
@@ -124,14 +124,13 @@
                 <div class="card">
 
                     @if($product->first_image)
-                        <img src="{{ asset('storage/'.$product->first_image) }}">
+                        <img src="{{ asset('storage/'.$product->first_image) }}"
+                        style="width:100%; object-fit:contain;"
+                        loading="lazy">
                     @endif
 
                     <div class="title">{{ $product->name }}</div>
                     <div class="price">S/ {{ number_format($product->price, 2) }}</div>
-                    <div class="desc">
-                        {{ \Illuminate\Support\Str::limit($product->description, 60) }}
-                    </div>
 
                 </div>
             @endforeach
