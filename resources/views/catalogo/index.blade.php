@@ -33,13 +33,14 @@
 
         /* GRID */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 20px;
         }
 
         /* CARD */
         .card {
+            width: calc(25% - 20px);
             background: white;
             border-radius: 12px;
             padding: 15px;

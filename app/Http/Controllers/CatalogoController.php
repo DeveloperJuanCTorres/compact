@@ -14,6 +14,10 @@ class CatalogoController extends Controller
 
         $products->map(function ($product) {
             $images = json_decode($product->images, true);
+            if (is_string($images)) {
+                $images = json_decode($images, true);
+            }
+
             $product->first_image = $images[0] ?? null;
             return $product;
         });
