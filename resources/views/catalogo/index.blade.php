@@ -25,11 +25,10 @@
         }
 
         /* 🔥 BANNER */
-        /* .banner {
+        .banner {
             width: 100%;
-            height: 250px;
-            background: url('{{ asset("img/compact.png") }}') center/cover no-repeat;
-        } */
+            height: 200px;
+        }
 
         /* CONTENEDOR */
         .container {
@@ -55,7 +54,7 @@
 
         .card img {
             width: 100%;
-            height: 100px;
+            height: 150px;
             object-fit: contain;
         }
 
@@ -116,7 +115,7 @@
 
     <!-- 🔥 BANNER -->
     <div>
-        <img src="{{asset('storage/' . $company->image)}}" alt="">
+        <img class="banner" src="{{asset('storage/' . $company->image)}}" alt="">
     </div>
 
     <!-- 🧩 PRODUCTOS -->
