@@ -14,6 +14,7 @@ class CatalogoController extends Controller
 
         $products->map(function ($product) {
             $images = json_decode($product->images, true);
+
             if (is_string($images)) {
                 $images = json_decode($images, true);
             }
@@ -22,7 +23,6 @@ class CatalogoController extends Controller
             return $product;
         });
 
-        $pdf = Pdf::loadView('catalogo.index', compact('products'));
-        return $pdf->download('catalogo.pdf');
+        return view('catalogo.index', compact('products'));
     }
 }

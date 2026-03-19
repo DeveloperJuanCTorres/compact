@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Catálogo de Productos</title>
+    <title>Catálogo</title>
     <meta charset="utf-8">
 
     <style>
@@ -11,18 +11,24 @@
             background: #f5f5f5;
         }
 
+        /* 🔥 BOTÓN IMPRIMIR */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: black;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
         /* 🔥 BANNER */
         .banner {
             width: 100%;
-            height: 300px;
+            height: 250px;
             background: url('{{ asset("images/banner-catalogo.jpg") }}') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            letter-spacing: 2px;
         }
 
         /* CONTENEDOR */
@@ -33,71 +39,83 @@
 
         /* GRID */
         .grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
         /* CARD */
         .card {
-            width: calc(25% - 20px);
             background: white;
             border-radius: 12px;
             padding: 15px;
-            transition: 0.3s;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
+            break-inside: avoid;
         }
 
         .card img {
             width: 100%;
             height: 180px;
             object-fit: contain;
-            margin-bottom: 10px;
         }
 
         .title {
-            font-size: 15px;
-            font-weight: 600;
-            min-height: 40px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         .price {
-            color: #e60023;
-            font-size: 18px;
+            color: red;
             font-weight: bold;
-            margin-top: 5px;
         }
 
         .desc {
             font-size: 12px;
-            color: #777;
-            margin-top: 5px;
+            color: #666;
         }
 
-        /* RESPONSIVE (por si lo ves en pantalla) */
-        @media(max-width: 1024px){
-            .grid {
-                grid-template-columns: repeat(3, 1fr);
+        /* 🖨️ MODO IMPRESIÓN */
+        @media print {
+
+            .print-btn {
+                display: none;
             }
-        }
 
-        @media(max-width: 768px){
+            body {
+                background: white;
+            }
+
+            .container {
+                width: 100%;
+                margin: 0;
+            }
+
             .grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .banner {
+                height: 150px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- 🔘 BOTÓN -->
+    <button class="print-btn" onclick="window.print()">
+        Guardar / Imprimir PDF
+    </button>
+
     <!-- 🔥 BANNER -->
-    <div class="banner">
-        CATÁLOGO DE PRODUCTOS
-    </div>
+    <div class="banner"></div>
 
     <!-- 🧩 PRODUCTOS -->
     <div class="container">
@@ -109,14 +127,8 @@
                         <img src="{{ asset('storage/'.$product->first_image) }}">
                     @endif
 
-                    <div class="title">
-                        {{ $product->name }}
-                    </div>
-
-                    <div class="price">
-                        S/ {{ number_format($product->price, 2) }}
-                    </div>
-
+                    <div class="title">{{ $product->name }}</div>
+                    <div class="price">S/ {{ number_format($product->price, 2) }}</div>
                     <div class="desc">
                         {{ \Illuminate\Support\Str::limit($product->description, 60) }}
                     </div>
