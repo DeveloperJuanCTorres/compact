@@ -110,7 +110,7 @@
 <body>
 
     <!-- 🔘 BOTÓN -->
-    <button class="print-btn" onclick="window.print()">
+    <button class="print-btn" onclick="imprimirCatalogo()">
         Guardar / Imprimir PDF
     </button>
 
@@ -125,8 +125,7 @@
 
                     @if($product->first_image)
                         <img src="{{ asset('storage/'.$product->first_image) }}"
-                        style="width:100%; object-fit:contain;"
-                        loading="lazy">
+                        style="width:100%; object-fit:contain;">
                     @endif
 
                     <div class="title">{{ $product->name }}</div>
@@ -139,3 +138,41 @@
 
 </body>
 </html>
+
+<script>
+function imprimirCatalogo() {
+    const images = document.images;
+    let loaded = 0;
+    let total = images.length;
+
+    if (total === 0) {
+        window.print();
+        return;
+    }
+
+    for (let i = 0; i < total; i++) {
+        if (images[i].complete) {
+            loaded++;
+        } else {
+            images[i].addEventListener('load', () => {
+                loaded++;
+                if (loaded === total) {
+                    window.print();
+                }
+            });
+
+            images[i].addEventListener('error', () => {
+                loaded++;
+                if (loaded === total) {
+                    window.print();
+                }
+            });
+        }
+    }
+
+    // Por si ya estaban cargadas
+    if (loaded === total) {
+        window.print();
+    }
+}
+</script>
