@@ -80,7 +80,7 @@
                             
                         </div>
 
-                        <a href="" class="btn btn-primary">
+                        <a href="{{ route('catalogo.index') }}" target="_blank" class="btn btn-primary">
                             Descargar Catálogo
                             <i class="fa fa-download" aria-hidden="true"></i>
                         </a>

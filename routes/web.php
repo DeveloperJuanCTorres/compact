@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Exports\ProductsExport;
+use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\IzipayController;
 use App\Http\Controllers\ProductImportController;
 use Maatwebsite\Excel\Facades\Excel;
@@ -59,6 +60,9 @@ Route::post('/reclamo',[App\Http\Controllers\HomeController::class,'correoReclam
 
 Route::get('products/import', [ProductImportController::class, 'importView'])->name('products.import.view');
 Route::post('products/import', [ProductImportController::class, 'import'])->name('products.import');
+
+
+Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
 
 
 Route::group(['prefix' => 'admin'], function () {
