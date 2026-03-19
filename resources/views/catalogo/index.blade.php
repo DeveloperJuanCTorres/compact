@@ -2,44 +2,128 @@
 <html>
 <head>
     <title>Catálogo de Productos</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta charset="utf-8">
+
     <style>
-        body { font-family: Arial; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        /* 🔥 BANNER */
+        .banner {
+            width: 100%;
+            height: 300px;
+            background: url('{{ asset("images/banner-catalogo.jpg") }}') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* CONTENEDOR */
+        .container {
+            width: 95%;
+            margin: 30px auto;
+        }
+
+        /* GRID */
         .grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
+
+        /* CARD */
         .card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        img {
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
             width: 100%;
-            height: 150px;
+            height: 180px;
             object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 15px;
+            font-weight: 600;
+            min-height: 40px;
+        }
+
+        .price {
+            color: #e60023;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .desc {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVE (por si lo ves en pantalla) */
+        @media(max-width: 1024px){
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width: 768px){
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
 
-<h2 style="text-align:center;">CATÁLOGO DE PRODUCTOS</h2>
+    <!-- 🔥 BANNER -->
+    <div class="banner">
+        CATÁLOGO DE PRODUCTOS
+    </div>
 
-<div class="grid">
-    @foreach($products as $product)
-        <div class="card">
-            @if($product->first_image)
-                <img src="{{ asset('storage/'.$product->first_image) }}">
-            @endif
+    <!-- 🧩 PRODUCTOS -->
+    <div class="container">
+        <div class="grid">
+            @foreach($products as $product)
+                <div class="card">
 
-            <h4>{{ $product->name }}</h4>
-            <p>S/ {{ number_format($product->price, 2) }}</p>
-            <small>{{ Str::limit($product->description, 80) }}</small>
+                    @if($product->first_image)
+                        <img src="{{ asset('storage/'.$product->first_image) }}">
+                    @endif
+
+                    <div class="title">
+                        {{ $product->name }}
+                    </div>
+
+                    <div class="price">
+                        S/ {{ number_format($product->price, 2) }}
+                    </div>
+
+                    <div class="desc">
+                        {{ \Illuminate\Support\Str::limit($product->description, 60) }}
+                    </div>
+
+                </div>
+            @endforeach
         </div>
-    @endforeach
-</div>
+    </div>
 
 </body>
 </html>
