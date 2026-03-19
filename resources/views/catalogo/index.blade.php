@@ -28,7 +28,7 @@
         .banner {
             width: 100%;
             height: 250px;
-            background: url('{{ asset("images/banner-catalogo.jpg") }}') center/cover no-repeat;
+            background: url('{{ asset("images/compact.png") }}') center/cover no-repeat;
         }
 
         /* CONTENEDOR */
