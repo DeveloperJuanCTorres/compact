@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -11,6 +12,7 @@ class CatalogoController extends Controller
     public function index()
     {
         $products = Product::where('stock', '>', 0)->get();
+        $company = Company::first();
 
         $products->map(function ($product) {
             $images = json_decode($product->images, true);
@@ -23,6 +25,6 @@ class CatalogoController extends Controller
             return $product;
         });
 
-        return view('catalogo.index', compact('products'));
+        return view('catalogo.index', compact('products', 'company'));
     }
 }

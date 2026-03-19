@@ -25,11 +25,11 @@
         }
 
         /* 🔥 BANNER */
-        .banner {
+        /* .banner {
             width: 100%;
             height: 250px;
             background: url('{{ asset("img/compact.png") }}') center/cover no-repeat;
-        }
+        } */
 
         /* CONTENEDOR */
         .container {
@@ -115,7 +115,9 @@
     </button>
 
     <!-- 🔥 BANNER -->
-    <div class="banner"></div>
+    <div>
+        <img src="{{asset('storage/' . $company->image)}}" alt="">
+    </div>
 
     <!-- 🧩 PRODUCTOS -->
     <div class="container">
