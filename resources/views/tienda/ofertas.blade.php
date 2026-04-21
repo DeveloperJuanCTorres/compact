@@ -98,7 +98,7 @@
 
 <!-- Carousel Start -->
 <div class="banner">
-    <img src="img/ofertas-banner-2.png" alt="Banner" class="banner-img">
+    <img src="{{ asset('storage/' . $banner->image) }}" alt="Banner" class="banner-img">
 </div>
 
 <style>

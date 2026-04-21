@@ -187,8 +187,10 @@ class HomeController extends Controller
             $query->where('stock', '>', 0);
         })->get();
 
+        $banner = Banner::where('oferta', 1)->first();
+
        
-        return view('tienda.ofertas',compact('categories','brands','products','business'));
+        return view('tienda.ofertas',compact('categories','brands','products','business','banner'));
     }
 
     public function buscar(Request $request)
