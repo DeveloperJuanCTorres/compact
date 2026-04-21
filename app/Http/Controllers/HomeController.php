@@ -45,7 +45,7 @@ class HomeController extends Controller
         $video = Field::value('video_educativo');
 
 
-        $banners = Banner::all();
+        $banners = Banner::where('oferta', 0)->get();
         $products = Product::where('stock', '>', 0)->take(8)->get();
 
         return view('home.index', compact('business','categories','banners','products','brands','video','subcategories'));
